@@ -77,6 +77,7 @@ function M.setup()
 			load_plugin(plugin, opts)
 		else
 			git_clone(plugin, to_git_url(author, plugin), opt, function(name) load_plugin(name, opts) end)
+			print("Installed " .. plugin)
 		end
 	end
 
@@ -111,7 +112,7 @@ function M.pack_update()
 		else
 			-- Clone into directory and activate it
 			git_clone(plugin, to_git_url(author, plugin), temp_dir, function(name) load_plugin(name, opts) end)
-			print("Cloning " .. plugin .. " into " .. temp_dir)
+			print("Installing " .. plugin .. " into " .. temp_dir)
 		end
 	end
 
