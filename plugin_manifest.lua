@@ -8,13 +8,13 @@ use { -- Colorscheme
 
 use { 'nvim-lua/plenary.nvim' } -- Library for plugins
 
-use { 'famiu/bufdelete.nvim' } -- Provides way to delete buffer without messing up window layout
+use { 'famiu/bufdelete.nvim' }  -- Provides way to delete buffer without messing up window layout
 
-use { -- Show window with all matching keys
+use {                           -- Show window with all matching keys
 	'folke/which-key.nvim',
 	post_update = function(dir)
 		require("which-key").setup {
-      		disable = { filetypes = { "TelescopePrompt" } },
+			disable = { filetypes = { "TelescopePrompt" } },
 		}
 	end
 }
@@ -27,12 +27,12 @@ use { -- Synthax detector
 	'nvim-treesitter/nvim-treesitter',
 	post_update = function(dir)
 		require('nvim-treesitter.configs').setup {
-            autotag = {
-                enable = true,
-            },
-            highlight = {
-                enable = true,
-            }
+			autotag = {
+				enable = true,
+			},
+			highlight = {
+				enable = true,
+			}
 		}
 	end
 }
@@ -68,8 +68,8 @@ use { -- Automatically place pairs
 	'windwp/nvim-autopairs',
 	post_update = function(dir)
 		require("nvim-autopairs").setup {
-      		check_ts = true,
-      		ts_config = { java = false },
+			check_ts = true,
+			ts_config = { java = false },
 		}
 	end
 }
@@ -127,44 +127,44 @@ use { -- Provides completion
 	post_update = function(dir)
 		local cmp = require('cmp')
 		cmp.setup {
-            snippet = {
-                expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
-                end,
-            },
-            window = {
-                -- completion = cmp.config.window.bordered(),
-                -- documentation = cmp.config.window.bordered(),
-            },
-            mapping = cmp.mapping.preset.insert({
-                ['<C-k>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-j>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<CR>'] = cmp.mapping.confirm {
-                    select = true,
-                },
-                ['<Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-                ['<S-Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-            }),
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'nvim_lsp_signature_help' },
-                { name = 'luasnip' },
-                { name = 'path' },
-                { name = 'buffer' },
-            }, { name = 'buffer' }),
+			snippet = {
+				expand = function(args)
+					require('luasnip').lsp_expand(args.body)
+				end,
+			},
+			window = {
+				-- completion = cmp.config.window.bordered(),
+				-- documentation = cmp.config.window.bordered(),
+			},
+			mapping = cmp.mapping.preset.insert({
+				['<C-k>'] = cmp.mapping.scroll_docs(-4),
+				['<C-j>'] = cmp.mapping.scroll_docs(4),
+				['<C-Space>'] = cmp.mapping.complete(),
+				['<CR>'] = cmp.mapping.confirm {
+					select = true,
+				},
+				['<Tab>'] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end, { 'i', 's' }),
+				['<S-Tab>'] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end, { 'i', 's' }),
+			}),
+			sources = cmp.config.sources({
+				{ name = 'nvim_lsp' },
+				{ name = 'nvim_lsp_signature_help' },
+				{ name = 'luasnip' },
+				{ name = 'path' },
+				{ name = 'buffer' },
+			}, { name = 'buffer' }),
 		}
 	end
 }
@@ -222,13 +222,17 @@ use { -- Bufferline
 use { -- Statusline
 	'nvim-lualine/lualine.nvim',
 	post_update = function(dir)
-		require('lualine').setup{
-            options = {
-                icons_enabled = false,
-                theme = 'ayu',
-                component_separators = '|',
-                section_separators = '',
-            },
-        }
+		require('lualine').setup {
+			options = {
+				icons_enabled = false,
+				theme = 'ayu',
+				component_separators = '|',
+				section_separators = '',
+			},
+		}
 	end
+}
+
+use {
+	'mfussenegger/nvim-jdtls',
 }

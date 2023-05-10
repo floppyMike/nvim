@@ -99,6 +99,32 @@ maps.v["<Tab>"] = { ">gv", desc = "indent line" }
 -- Wrapping
 maps.n["<leader>uw"] = { function() vim.wo.wrap = not vim.wo.wrap end, desc = "Toggle wrap" }
 
+-- Stop search on ESC
+maps.n["<esc>"] = { "<cmd>noh<CR>", desc = "Stop search with ESC" }
+
+-- Spelling
+maps.n["<leader>z"] = {
+	function()
+		vim.opt_local.spell = not (vim.opt_local.spell:get())
+		print("spell: " .. tostring(vim.opt_local.spell:get()))
+	end,
+	desc = "Enable spell checking"
+}
+maps.n["ze"] = {
+	function()
+	vim.opt.spelllang = { 'en' }
+	print("lang: english")
+	end,
+	desc = "Set spellcheck to english"
+}
+maps.n["zd"] = {
+	function()
+	vim.opt.spelllang = { 'de' }
+	print("lang: german")
+	end,
+	desc = "Set spellcheck to german"
+}
+
 -- utils.set_mappings(maps)
 for mode, body in pairs(maps) do
 	-- iterate over each keybinding set in the current mode
