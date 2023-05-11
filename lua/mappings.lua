@@ -61,12 +61,13 @@ if vim.fn.executable "gdu" == 1 then
 	maps.n["<leader>u"] = { "<cmd>terminal gdu<cr>", desc = "Terminal gdu" }
 end
 if vim.fn.executable "btm" == 1 then
-	maps.n["<leader>t"] = { "<cmd>terminal btm<cr>", desc = "Terminal btm" }
+	maps.n["<leader>b"] = { "<cmd>terminal btm<cr>", desc = "Terminal btm" }
 end
 local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
 if vim.fn.executable "python" == 1 then
 	maps.n["<leader>p"] = { "<cmd>terminal python<cr>", desc = "Terminal python" }
 end
+maps.n["<leader>t"] = { "<cmd>terminal<cr>", desc = "Open a terminal" }
 
 -- modified function keys found with `showkey -a` in the terminal to get key code
 -- run `nvim -V3log +quit` and search through the "Terminal info" in the `log` file for the correct keyname
