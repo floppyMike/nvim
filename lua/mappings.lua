@@ -10,7 +10,7 @@ maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
 -- Manage Buffers
 maps.n["<a-h>"] = { "<cmd>bp<cr>", desc = "Move to left buffer or loop" }
 maps.n["<a-l>"] = { "<cmd>bn<cr>", desc = "Move to right buffer or loop" }
-maps.n["F3"] = { "<cmd>bd!<cr>", desc = "Close open buffer" }
+maps.n["F3"] = { "<cmd>Bdelete<cr>", desc = "Close open buffer" }
 maps.n["<leader>v"] = { "<cmd>e $MYVIMRC<cr>", desc = "Open init.lua" }
 
 -- Navigate tabs
