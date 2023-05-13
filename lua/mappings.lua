@@ -10,7 +10,7 @@ maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
 -- Manage Buffers
 maps.n["<a-h>"] = { "<cmd>bp<cr>", desc = "Move to left buffer or loop" }
 maps.n["<a-l>"] = { "<cmd>bn<cr>", desc = "Move to right buffer or loop" }
-maps.n["F3"] = { "<cmd>Bdelete<cr>", desc = "Close open buffer" }
+maps.n["<F3>"] = { "<cmd>Bdelete<cr>", desc = "Close open buffer" }
 maps.n["<leader>v"] = { "<cmd>e $MYVIMRC<cr>", desc = "Open init.lua" }
 
 -- Navigate tabs
@@ -29,6 +29,9 @@ maps.n["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split righ
 
 -- SymbolsOutline
 maps.n["<leader>l"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
+
+-- Copying
+maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 
 -- Telescope (Searching)
 maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" }
