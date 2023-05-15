@@ -117,4 +117,12 @@ return function()
         capabilities = capabilities,
 	}
 
+	-- Typescript
+	require'lspconfig'.tsserver.setup {
+        on_attach = function(_, b)
+            On_attach(_, b)
+        end,
+        capabilities = capabilities,
+	}
+
 end
