@@ -176,7 +176,12 @@ use { -- JSON completion schemes (for configs)
 use { -- LSP injector
 	'jose-elias-alvarez/null-ls.nvim',
 	post_update = function(dir)
-		require('null-ls').setup()
+		local null_ls = require('null-ls')
+		null_ls.setup {
+			sources = {
+				null_ls.builtins.formatting.yapf
+			}
+		}
 	end
 }
 
@@ -194,14 +199,14 @@ use { -- Provides lspconfig integration with mason
 	end
 }
 
-use { -- Provides Null-ls integration with mason
-	'jay-babu/mason-null-ls.nvim',
-	post_update = function(dir)
-		require('mason-null-ls').setup {
-			automatic_setup = true,
-		}
-	end
-}
+-- use { -- Provides Null-ls integration with mason
+-- 	'jay-babu/mason-null-ls.nvim',
+-- 	post_update = function(dir)
+-- 		require('mason-null-ls').setup {
+-- 			automatic_setup = true,
+-- 		}
+-- 	end
+-- }
 
 use { -- Provides LSP capabilities
 	'hrsh7th/cmp-nvim-lsp',
