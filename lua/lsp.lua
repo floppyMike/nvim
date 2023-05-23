@@ -27,7 +27,7 @@ return function()
 			On_attach(_, b)
 			vim.keymap.set('n', '<F6>',
 				'<cmd>!cmake -DBENCHMARK=ON -DCMAKE_BUILD_TYPE=Release -S . -B build/ && cmake --build build/ && ./build/benchmark/test2<CR>')
-			vim.keymap.set('n', '<F7>', '<cmd>!cmake -S . -B build/ && cmake --build build/<CR>')
+			vim.keymap.set('n', '<F7>', '<cmd>!cmake -S . -B build/ -D CMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build/<CR>')
 			vim.keymap.set('n', '<F9>',
 				'<cmd>!cmake -DCMAKE_BUILD_TYPE=Release -S . -B release/ && cmake --build release/<CR>')
 			vim.keymap.set('n', '<F10>',
