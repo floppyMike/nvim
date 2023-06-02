@@ -100,11 +100,12 @@ return function()
 
 	-- Zig
 	require 'lspconfig'.zls.setup {
+		cmd = { vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zls" },
 		root_pattern = { "zls.json", ".git", "build.zig" },
 		on_attach = function(_, b)
 			On_attach(_, b)
-			vim.keymap.set('n', '<F7>', '<cmd>!zig build<CR>')
-			vim.keymap.set('n', '<F8>', '<cmd>!zig build run<CR>')
+			vim.keymap.set('n', '<F7>', "<cmd>!" .. vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zig build<CR>")
+			vim.keymap.set('n', '<F8>', "<cmd>!" .. vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zig build run<CR>")
 		end,
 		capabilities = capabilities,
 	}
