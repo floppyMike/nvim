@@ -243,6 +243,10 @@ use { -- Statusline
 	end
 }
 
-use {
+use { -- Java LSP
 	'mfussenegger/nvim-jdtls',
+}
+
+use { -- Scala LSP
+	'scalameta/nvim-metals',
 }
