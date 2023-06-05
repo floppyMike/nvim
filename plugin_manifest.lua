@@ -11,6 +11,10 @@ use { -- Colorscheme
 	end
 }
 
+use { -- Colorscheme
+	'EdenEast/nightfox.nvim',
+}
+
 use { 'nvim-lua/plenary.nvim' } -- Library for plugins
 
 use { 'famiu/bufdelete.nvim' }  -- Provides way to delete buffer without messing up window layout
