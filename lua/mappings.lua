@@ -27,9 +27,6 @@ maps.n["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" }
 maps.n["<C-Left>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split left" }
 maps.n["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split right" }
 
--- SymbolsOutline
-maps.n["<leader>l"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
-
 -- Copying
 maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 
@@ -52,6 +49,7 @@ maps.n["<leader>fb"] = {
 	function() require("telescope").extensions.file_browser.file_browser() end,
 	desc = "Telescope file browser"
 }
+maps.n["<leader>l"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
 
 -- Terminal
 if vim.fn.executable "lazygit" == 1 then

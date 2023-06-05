@@ -85,13 +85,6 @@ use { -- Telescope file browser
 	'nvim-telescope/telescope-file-browser.nvim'
 }
 
-use { -- Provides a nice symbol overview
-	'stevearc/aerial.nvim',
-	post_update = function(dir)
-		require('aerial').setup()
-	end
-}
-
 use { -- Telescope
 	'nvim-telescope/telescope.nvim',
 	post_update = function(dir)
@@ -104,7 +97,6 @@ use { -- Telescope
 		}
 
 		require('telescope').load_extension('file_browser')
-		require('telescope').load_extension('aerial')
 	end
 }
 
