@@ -64,7 +64,6 @@ end
 if vim.fn.executable "btm" == 1 then
 	maps.n["<leader>b"] = { "<cmd>terminal btm<cr>", desc = "Terminal btm" }
 end
-local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
 if vim.fn.executable "python" == 1 then
 	maps.n["<leader>p"] = { "<cmd>terminal python<cr>", desc = "Terminal python" }
 end
