@@ -1,7 +1,12 @@
 use { -- Colorscheme
 	'Shatur/neovim-ayu',
 	post_update = function(dir)
-		require('ayu').setup {}
+		require('ayu').setup {
+			overrides = {
+				LineNrAbove = { fg = '#51B3EC' },
+				LineNrBelow = { fg = '#FB508F' },
+			},
+		}
 		vim.cmd [[colorscheme ayu]]
 	end
 }
