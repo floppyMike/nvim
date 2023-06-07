@@ -102,6 +102,7 @@ return function()
 	require 'lspconfig'.marksman.setup {
 		on_attach = function(_, b)
 			On_attach(_, b)
+			vim.keymap.set('n', '<F7>', '<cmd>!code --disable-extensions --profile "MarkdownPreview" \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
 		end,
 		capabilities = capabilities,
 	}
