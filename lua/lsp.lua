@@ -53,6 +53,14 @@ return function()
 		capabilities = capabilities,
 	}
 
+	-- Spelling for Latex & Markdown
+	require('lspconfig').ltex.setup {
+		on_attach = function(_, b)
+			On_attach(_, b)
+		end,
+		capabilities = capabilities,
+	}
+
 	-- Latex
 	require('lspconfig').texlab.setup {
 		on_attach = function(_, b)
@@ -83,8 +91,6 @@ return function()
 	require 'lspconfig'.marksman.setup {
 		on_attach = function(_, b)
 			On_attach(_, b)
-			vim.keymap.set('n', '<F7>',
-				'<cmd>!marp --theme-set ~/OneDrive/Uni/marp --pdf \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
 		end,
 		capabilities = capabilities,
 	}
