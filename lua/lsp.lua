@@ -27,7 +27,8 @@ return function()
 			On_attach(_, b)
 			vim.keymap.set('n', '<F6>',
 				'<cmd>!cmake -DBENCHMARK=ON -DCMAKE_BUILD_TYPE=Release -S . -B build/ && cmake --build build/ && ./build/benchmark/test2<CR>')
-			vim.keymap.set('n', '<F7>', '<cmd>!cmake -S . -B build/ -D CMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build/<CR>')
+			vim.keymap.set('n', '<F7>',
+			'<cmd>!cmake -S . -B build/ -D CMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build/<CR>')
 			vim.keymap.set('n', '<F9>',
 				'<cmd>!cmake -DCMAKE_BUILD_TYPE=Release -S . -B release/ && cmake --build release/<CR>')
 			vim.keymap.set('n', '<F10>',
@@ -65,7 +66,17 @@ return function()
 	require('lspconfig').texlab.setup {
 		on_attach = function(_, b)
 			On_attach(_, b)
-			vim.keymap.set('n', '<F7>', '<cmd>!pdflatex \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
+			vim.keymap.set('n', '<F7>', function()
+				vim.loop.spawn('zathura', {
+					args = { (vim.api.nvim_buf_get_name(0):gsub("%.tex$", ".pdf")) },
+				}, vim.schedule_wrap(function(code)
+					if code == 0 then
+						vim.api.nvim_out_write("OK: Closed PDF viewer\n")
+					else
+						vim.api.nvim_err_writeln("ERROR: Couldnt open PDF viewer")
+					end
+				end))
+			end)
 		end,
 		capabilities = capabilities,
 	}
@@ -111,7 +122,8 @@ return function()
 		on_attach = function(_, b)
 			On_attach(_, b)
 			vim.keymap.set('n', '<F7>', "<cmd>!" .. vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zig build<CR>")
-			vim.keymap.set('n', '<F8>', "<cmd>!" .. vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zig build run<CR>")
+			vim.keymap.set('n', '<F8>',
+			"<cmd>!" .. vim.env.HOME .. "/.local/zig-linux-x86_64-0.11.0-dev/zig build run<CR>")
 		end,
 		capabilities = capabilities,
 	}
