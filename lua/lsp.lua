@@ -19,6 +19,8 @@ return function()
 		vim.keymap.set('i', '<c-p>', function()
 			require('luasnip').jump(-1)
 		end, { buffer = bufnr })
+
+		vim.keymap.set('n', '<leader>d', require('neogen').generate, { buffer = bufnr })
 	end
 
 	-- C++

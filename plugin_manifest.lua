@@ -286,3 +286,12 @@ use { -- Java LSP
 use { -- Scala LSP
 	'scalameta/nvim-metals',
 }
+
+use { -- Documentation Tools
+	'danymat/neogen',
+	post_update = function (dir)
+		require('neogen').setup {
+			snippet_engine = "luasnip"
+		}
+	end
+}
