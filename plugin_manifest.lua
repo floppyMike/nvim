@@ -58,20 +58,20 @@ use {
 						["gp"] = { query = "@conditional.outer", desc = "Next conditional start" },
 					},
 					goto_next_end = {
-						["Gz"] = { query = "@function.outer", desc = "Next function end"},
-						["Go"] = { query = "@class.outer", desc = "Next class end"},
+						["Gz"] = { query = "@function.outer", desc = "Next function end" },
+						["Go"] = { query = "@class.outer", desc = "Next class end" },
 						["Gl"] = { query = "@loop.outer", desc = "Next loop end" },
 						["Gp"] = { query = "@conditional.outer", desc = "Next conditional end" },
 					},
 					goto_previous_start = {
-						["gZ"] = { query = "@function.outer", desc = "Previous function start"},
-						["gO"] = { query = "@class.outer", desc = "Previous class start"},
+						["gZ"] = { query = "@function.outer", desc = "Previous function start" },
+						["gO"] = { query = "@class.outer", desc = "Previous class start" },
 						["gL"] = { query = "@loop.outer", desc = "Previous loop start" },
 						["gP"] = { query = "@conditional.outer", desc = "Previous conditional start" },
 					},
 					goto_previous_end = {
-						["GZ"] = { query = "@function.outer", desc = "Previous function end"},
-						["GO"] = { query = "@class.outer", desc = "Previous class end"},
+						["GZ"] = { query = "@function.outer", desc = "Previous function end" },
+						["GO"] = { query = "@class.outer", desc = "Previous class end" },
 						["GL"] = { query = "@loop.outer", desc = "Previous loop end" },
 						["GP"] = { query = "@conditional.outer", desc = "Previous conditional end" },
 					},
@@ -82,21 +82,17 @@ use {
 }
 
 use { -- Telescope file browser
-	'nvim-telescope/telescope-file-browser.nvim'
+	'luukvbaal/nnn.nvim',
+	post_update = function(dir)
+		require('nnn').setup {}
+	end
 }
 
 use { -- Telescope
 	'nvim-telescope/telescope.nvim',
 	post_update = function(dir)
 		require('telescope').setup {
-			extensions = {
-				file_browser = {
-					hijack_netrw = true,
-				}
-			}
 		}
-
-		require('telescope').load_extension('file_browser')
 	end
 }
 
@@ -289,7 +285,7 @@ use { -- Scala LSP
 
 use { -- Documentation Tools
 	'danymat/neogen',
-	post_update = function (dir)
+	post_update = function(dir)
 		require('neogen').setup {
 			snippet_engine = "luasnip"
 		}

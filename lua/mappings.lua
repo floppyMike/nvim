@@ -46,8 +46,8 @@ maps.n["<leader>fW"] = {
 	desc = "Find words in all files",
 }
 maps.n["<leader>fb"] = {
-	function() require("telescope").extensions.file_browser.file_browser() end,
-	desc = "Telescope file browser"
+	function() require("nnn").toggle("picker") end,
+	desc = "nnn file browser"
 }
 maps.n["<leader>l"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
 
@@ -113,15 +113,15 @@ maps.n["<leader>z"] = {
 }
 maps.n["ze"] = {
 	function()
-	vim.opt.spelllang = { 'en' }
-	print("lang: english")
+		vim.opt.spelllang = { 'en' }
+		print("lang: english")
 	end,
 	desc = "Set spellcheck to english"
 }
 maps.n["zd"] = {
 	function()
-	vim.opt.spelllang = { 'de' }
-	print("lang: german")
+		vim.opt.spelllang = { 'de' }
+		print("lang: german")
 	end,
 	desc = "Set spellcheck to german"
 }
