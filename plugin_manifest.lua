@@ -1,3 +1,7 @@
+--
+-- Looks
+--
+
 use { -- Colorscheme
 	'Shatur/neovim-ayu',
 	post_update = function(dir)
@@ -15,18 +19,55 @@ use { -- Colorscheme
 	'EdenEast/nightfox.nvim',
 }
 
-use { 'nvim-lua/plenary.nvim' } -- Library for plugins
-
-use { 'famiu/bufdelete.nvim' }  -- Provides way to delete buffer without messing up window layout
-
-use {                           -- Show window with all matching keys
-	'folke/which-key.nvim',
+use { -- Nice Icons
+	'nvim-tree/nvim-web-devicons',
 	post_update = function(dir)
-		require("which-key").setup {
-			disable = { filetypes = { "TelescopePrompt" } },
+		require('nvim-web-devicons').setup()
+	end
+}
+
+use { -- Enables color hightlights for hex colorcodes
+	'NvChad/nvim-colorizer.lua',
+	post_update = function(dir)
+		require('colorizer').setup()
+	end
+}
+
+use { -- Bufferline
+	'akinsho/bufferline.nvim',
+	post_update = function(dir)
+		require('bufferline').setup {
+			options = {
+				show_buffer_close_icons = false,
+				show_close_icon = false,
+			}
 		}
 	end
 }
+
+use { -- Statusline
+	'nvim-lualine/lualine.nvim',
+	post_update = function(dir)
+		require('lualine').setup {
+			options = {
+				icons_enabled = false,
+				theme = 'ayu',
+				component_separators = '|',
+				section_separators = '',
+			},
+		}
+	end
+}
+
+--
+-- Libraries
+--
+
+use { 'nvim-lua/plenary.nvim' } -- Library for plugins
+
+--
+-- Treesitter
+--
 
 use { -- Close tag for html automatically (treesitter)
 	'windwp/nvim-ts-autotag',
@@ -37,6 +78,7 @@ use { -- Synthax detector & objects
 	post_update = function(dir)
 	end
 }
+
 use {
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	post_update = function(dir)
@@ -81,17 +123,17 @@ use {
 	end
 }
 
-use { -- Telescope file browser
-	'luukvbaal/nnn.nvim',
-	post_update = function(dir)
-		require('nnn').setup {}
-	end
-}
+--
+-- Quality of life
+--
 
-use { -- Telescope
-	'nvim-telescope/telescope.nvim',
+use { 'famiu/bufdelete.nvim' } -- Provides way to delete buffer without messing up window layout
+
+use {                          -- Show window with all matching keys
+	'folke/which-key.nvim',
 	post_update = function(dir)
-		require('telescope').setup {
+		require("which-key").setup {
+			disable = { filetypes = { "TelescopePrompt" } },
 		}
 	end
 }
@@ -113,10 +155,36 @@ use { -- Commenter
 	end
 }
 
-use { -- Nice Icons
-	'nvim-tree/nvim-web-devicons',
+use { -- Fuck me
+	'm4xshen/hardtime.nvim',
 	post_update = function(dir)
-		require('nvim-web-devicons').setup()
+		require('hardtime').setup {}
+	end
+}
+
+use { -- Quick Navigation
+	'ggandor/leap.nvim',
+	post_update = function(dir)
+		require('leap').add_default_mappings()
+	end
+}
+
+--
+-- Searching
+--
+
+use { -- Telescope file browser
+	'luukvbaal/nnn.nvim',
+	post_update = function(dir)
+		require('nnn').setup {}
+	end
+}
+
+use { -- Telescope
+	'nvim-telescope/telescope.nvim',
+	post_update = function(dir)
+		require('telescope').setup {
+		}
 	end
 }
 
@@ -134,12 +202,9 @@ use { -- Overwrite select prompt to use telescope
 	end
 }
 
-use { -- Enables color hightlights for hex colorcodes
-	'NvChad/nvim-colorizer.lua',
-	post_update = function(dir)
-		require('colorizer').setup()
-	end
-}
+--
+-- Developing
+--
 
 use { -- Provides some snippets for LuaSnip
 	'rafamadriz/friendly-snippets',
@@ -231,15 +296,6 @@ use { -- Provides lspconfig integration with mason
 	end
 }
 
--- use { -- Provides Null-ls integration with mason
--- 	'jay-babu/mason-null-ls.nvim',
--- 	post_update = function(dir)
--- 		require('mason-null-ls').setup {
--- 			automatic_setup = true,
--- 		}
--- 	end
--- }
-
 use { -- Provides LSP capabilities
 	'hrsh7th/cmp-nvim-lsp',
 }
@@ -247,32 +303,6 @@ use { -- Provides LSP capabilities
 use { -- LSP
 	'neovim/nvim-lspconfig',
 	post_update = require 'lsp'
-}
-
-use { -- Bufferline
-	'akinsho/bufferline.nvim',
-	post_update = function(dir)
-		require('bufferline').setup {
-			options = {
-				show_buffer_close_icons = false,
-				show_close_icon = false,
-			}
-		}
-	end
-}
-
-use { -- Statusline
-	'nvim-lualine/lualine.nvim',
-	post_update = function(dir)
-		require('lualine').setup {
-			options = {
-				icons_enabled = false,
-				theme = 'ayu',
-				component_separators = '|',
-				section_separators = '',
-			},
-		}
-	end
 }
 
 use { -- Java LSP
