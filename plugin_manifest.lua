@@ -155,13 +155,6 @@ use { -- Commenter
 	end
 }
 
-use { -- Fuck me
-	'm4xshen/hardtime.nvim',
-	post_update = function(dir)
-		require('hardtime').setup {}
-	end
-}
-
 use { -- Quick Navigation
 	'ggandor/leap.nvim',
 	post_update = function(dir)
