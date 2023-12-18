@@ -1,24 +1,24 @@
--- Plugin Dir
-local opt = vim.fn.stdpath('data') .. '/site/pack/plugin_manager/opt'
--- Plugin Tracker
-local manifest = vim.fn.stdpath('config') .. '/plugin_manifest.lua'
+-------------------------------------
+-- Git helpers
+-------------------------------------
 
+--- Convert author name plugin name to github url
 local function to_git_url(author, plugin)
 	return string.format('https://github.com/%s/%s.git', author, plugin)
 end
 
-local function git_pull(name, on_success)
-	local dir = opt .. name
-	local branch = vim.fn.system("git -C " .. dir .. " branch --show-current | tr -d '\n'")
+--- Pull a existing git project in opt
+-- @param name Name of the git project
+-- @param path Path of project
+-- @param on_success Function with name of project input
+local function git_pull(name, path, on_success)
+	local branch = vim.fn.system("git -C " .. path .. " branch --show-current | tr -d '\n'")
 
-	-- Async
 	vim.loop.spawn('git', {
 		-- pull from origin at branch with only one commit (shallow) and update only if not changes
 		-- made. Print progress. Merge into current branch
 		args = { 'pull', 'origin', branch, '--update-shallow', '--ff-only', '--progress', '--rebase=false' },
-		-- Current working directory
-		cwd = dir,
-		-- Do on finished
+		cwd = path,
 	}, vim.schedule_wrap(function(code)
 		if code == 0 then
 			on_success(name)
@@ -28,13 +28,16 @@ local function git_pull(name, on_success)
 	end))
 end
 
-local function git_clone(name, git_url, cwd, on_success)
-	-- Async
+--- Clone a project into opt
+-- @param name Name of the git project
+-- @param path Path where the project will be cloned
+-- @param git_url HTTP URL to the project
+-- @param on_success Function with name of project input
+local function git_clone(name, path, git_url, on_success)
 	vim.loop.spawn('git', {
 		-- Clone only 1 commit deep
 		args = { 'clone', '--depth=1', git_url },
-		-- Current working directory
-		cwd = cwd,
+		cwd = path,
 	}, vim.schedule_wrap(function(code)
 		if code == 0 then
 			on_success(name)
@@ -44,11 +47,21 @@ local function git_clone(name, git_url, cwd, on_success)
 	end))
 end
 
+-------------------------------------
+-- Plugin Directiory Management
+-------------------------------------
+
+-- Where plugins will be installed
+local opt = vim.fn.stdpath('data') .. '/site/pack/plugin_manager/opt'
+-- Plugin Configuration
+local manifest = vim.fn.stdpath('config') .. '/plugin_manifest.lua'
+
+--- Load the plugin to neovim and call post
+-- @param plugin Plugin name
+-- @param opts Options from the plugin_manifest.lua file
 local load_plugin = function(plugin, opts)
-	-- Load the plugin
 	vim.cmd('packadd! ' .. plugin)
 
-	-- Run post update
 	if opts.post_update then
 		local dir = opt .. '/' .. plugin
 		opts.post_update(dir)
@@ -56,81 +69,62 @@ local load_plugin = function(plugin, opts)
 end
 
 local M = {}
-
+--- Load plugins from opt created in manifest
 function M.setup()
-	vim.fn.mkdir(opt, 'p') -- create opt if not exist
+	vim.fn.mkdir(opt, 'p')
+
+	-- Manifest structure (lua file):
+	-- use {
+	-- 	"author/plugin",
+	-- 	post_update = function(dir)
+	-- 		<setup plugin>
+	-- 	end
+	-- }
 
 	M.plugins = {}
 
-	-- Define keyword use for manifest
 	_G.use = function(opts)
-		-- Parse manifest entry
 		local _, _, author, plugin = string.find(opts[1], '^([^ /]+)/([^ /]+)$')
 
-		-- Store into table for PackUpdate
-		table.insert(M.plugins, {
-			plugin = plugin,
-		})
+		M.plugins[plugin] = true
 
-		-- Source the plugin
 		if vim.fn.isdirectory(opt .. '/' .. plugin) ~= 0 then
 			load_plugin(plugin, opts)
 		else
-			git_clone(plugin, to_git_url(author, plugin), opt, function(name) load_plugin(name, opts) end)
+			local url = to_git_url(author, plugin)
+			git_clone(plugin, url, opt, function(name) load_plugin(name, opts) end)
 			print("Installed " .. plugin)
 		end
 	end
 
-	-- Run manifest
 	if vim.fn.filereadable(manifest) ~= 0 then
 		dofile(manifest)
 	end
 
-	-- Undeclare
 	_G.use = nil
 
-	-- Update plugins from remote
 	vim.cmd [[ command! PluginUpdate lua require('pluginmanager').pack_update() ]]
+	vim.cmd [[ command! PluginClear lua require('pluginmanager').clear_unused() ]]
 end
 
-function M.pack_update()
-	-- Temporary directory
-	local temp_dir = vim.fn.fnamemodify(vim.fn.tempname(), ":h")
+--- Clear plugins that arent in the manifest
+function M.clear_unused()
+	for _, dir in ipairs(vim.fn.readdir(opt)) do
+		local absolute = opt .. '/' .. dir
 
-	-- Go through stored list and delete not mentioned plugins
-	_G.use = function(opts)
-		-- Parse manifest entry
-		local _, _, author, plugin = string.find(opts[1], '^([^ /]+)/([^ /]+)$')
-
-		local dir = opt .. '/' .. plugin
-
-		-- Source the plugin
-		if vim.fn.isdirectory(dir) ~= 0 then
-			local temp_plug = temp_dir .. '/' .. plugin
-			vim.loop.fs_rename(dir, temp_plug) -- Move directory
-			print("Move " .. dir .. " to " .. temp_plug)
-		else
-			-- Clone into directory and activate it
-			git_clone(plugin, to_git_url(author, plugin), temp_dir, function(name) load_plugin(name, opts) end)
-			print("Installing " .. plugin .. " into " .. temp_dir)
+		if not M.plugins[dir] then
+			vim.fn.delete(absolute, 'rf')
+			print("Deleted " .. absolute)
 		end
 	end
+end
 
-	-- Run manifest
-	if vim.fn.filereadable(manifest) ~= 0 then
-		dofile(manifest)
+--- Pull changes for each plugin
+function M.pack_update()
+	for plugin, _ in pairs(M.plugins) do
+		local absolute = opt .. '/' .. plugin
+		git_pull(plugin, absolute, function(name) print("Updated " .. name) end)
 	end
-
-	-- Undeclare
-	_G.use = nil
-
-	-- Delete remainer
-	vim.fn.delete(opt)
-	print("Deleting " .. opt)
-
-	-- Move everything back
-	vim.loop.fs_rename(temp_dir, opt)
-	print("Moving " .. temp_dir .. " to " .. opt)
 end
 
 M.setup()
