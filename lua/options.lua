@@ -1,61 +1,78 @@
-vim.opt.viewoptions:remove "curdir" -- disable saving current directory with views
-vim.opt.shortmess:append { s = true, I = true } -- disable startup message
-vim.opt.backspace:append { "nostop" } -- Don't stop backspace at insert
-if vim.fn.has "nvim-0.9" == 1 then
-  vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
-end
+-- Diff mode
+vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
+
 local options = {
   opt = {
-    breakindent = true, -- Wrap indent to match  line start
-    cmdheight = 0, -- hide command line unless needed
-    completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
-    cursorline = true, -- Highlight the text line of the cursor
-    expandtab = false, -- Enable the use of space in tab
-    fileencoding = "utf-8", -- File content encoding for the buffer
-    history = 100, -- Number of commands to remember in a history table
-    ignorecase = true, -- Case insensitive searching
-    infercase = true, -- Infer cases in keyword completion
-    laststatus = 3, -- globalstatus
+	-- Editor
+    breakindent = true, -- Wrap indent and have the same indent
     linebreak = true, -- Wrap lines at 'breakat'
-    mouse = "", -- Enable mouse support
-    number = true, -- Show numberline
     preserveindent = true, -- Preserve indent structure as much as possible
-    pumheight = 10, -- Height of the pop up menu
-    relativenumber = true, -- Show relative numberline
-    scrolloff = 8, -- Number of lines to keep above and below the cursor
+    expandtab = false, -- Enable the use of space in tab
     shiftwidth = 4, -- Number of space inserted for indentation
-    showmode = false, -- Disable showing modes in command line
-    showtabline = 2, -- always display tabline
-    sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
-    signcolumn = "yes", -- Always show the sign column
-    smartcase = true, -- Case sensitivie searching
-    smartindent = true, -- Smarter autoindentation
-    splitbelow = true, -- Splitting a new window below the current one
-    splitkeep = vim.fn.has "nvim-0.9" == 1 and "screen" or nil, -- Maintain code view when splitting
-    splitright = true, -- Splitting a new window at the right of the current one
     tabstop = 4, -- Number of space in a tab
-    termguicolors = true, -- Enable 24-bit RGB color in the TUI
-    timeoutlen = 500, -- Shorten key timeout length a little bit for which-key
-    undofile = true, -- Enable persistent undo
-    wrap = true, -- Disable wrapping of lines longer than the width of window
-    writebackup = false, -- Disable making a backup before overwriting a file
-    list = true, -- Enable seeing tabs and spaces
-    spelllang = { 'en' }, -- Use english dictionary
+    infercase = true, -- Infer cases in keyword completion
+    smartindent = true, -- Smarter autoindentation
     nrformats = 'alpha,octal,hex,bin', -- Enable ctrl+a/x incrementing and decrementing
+
+	-- Visual
+    -- cmdheight = 0, -- hide command line, it broke :(
+    cursorline = true, -- Highlight the text line of the cursor
+    number = true, -- Show numberline
+    relativenumber = true, -- Show relative numberline
+    showtabline = 2, -- always display tabline
+    signcolumn = "yes", -- Always show the sign column
+    termguicolors = true, -- Enable 24-bit RGB color in the TUI
+    wrap = true, -- Disable wrapping of lines longer than the width of window
+    list = true, -- Enable seeing tabs and spaces
+
+	-- Completion
+    completeopt = { "menuone", "noselect", "preview", "noinsert" }, -- Options for insert mode completion
+    pumheight = 10, -- Height of the pop up menu
+
+	-- Interaction
+    mouse = "", -- Enable mouse support
+    ignorecase = true, -- Case insensitive searching
+    smartcase = true, -- But use sensitive if upper letter is typed
+    splitbelow = true, -- Splitting a new window below the current one
+    splitright = true, -- Splitting a new window at the right of the current one
+    history = 100, -- Number of commands to remember in a history table
+    undofile = true, -- Enable persistent undo
+    writebackup = false, -- Disable making a backup before overwriting a file
+    spelllang = { 'en' }, -- Use english dictionary
+
+	-- Misc
+    fileencoding = "utf-8", -- File content encoding for the buffer
+    
+	-- Statusline
+	statusline = (function()
+		local mode = "%-3{%v:lua.string.upper(v:lua.vim.fn.mode())%}"
+		local file_name = "%f"
+		local modified = "%m"
+		local align_right = "%="
+		local fileencoding = " %{&fileencoding?&fileencoding:&encoding}"
+		local fileformat = " [%{&fileformat}]"
+		local filetype = "%y"
+		local percentage = " %p%%"
+		local linecol = " %l:%c"
+ 
+		return string.format(
+			"%s%s%s%s%s%s%s%s%s",
+			mode,
+			file_name,
+			modified,
+			align_right,
+			filetype,
+			fileencoding,
+			fileformat,
+			percentage,
+			linecol)
+	end)()
+
+
   },
   g = {
-    highlighturl_enabled = true, -- highlight URLs by default
     mapleader = " ", -- set leader key
-    autoformat_enabled = false, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-    codelens_enabled = true, -- enable or disable automatic codelens refreshing for lsp that support it
-    lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signatureHelp)
-    cmp_enabled = true, -- enable completion at start
-    autopairs_enabled = true, -- enable autopairs at start
-    diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-    icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
-    ui_notifications_enabled = true, -- disable notifications when toggling UI elements
   },
-  t = { bufs = vim.api.nvim_list_bufs() }, -- initialize buffers for the current tab
 }
 
 for scope, table in pairs(options) do
