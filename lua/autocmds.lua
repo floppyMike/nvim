@@ -1,15 +1,15 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
--- Terminal Autoclose on exit. (no weird "Process exit with 0" message)
-vim.api.nvim_create_autocmd('TermClose',
-	{
-		command = 'bdelete! ' .. vim.fn.expand('<abuf>')
-	})
-vim.api.nvim_create_autocmd('TermOpen',
-	{
-		command = 'startinsert'
-	})
+autocmd('TermClose', {
+	desc = "Close terminal on exit without message.",
+	command = 'bdelete! ' .. vim.fn.expand('<abuf>')
+})
+
+autocmd('TermOpen',	{
+	desc = "If terminal focused immediately start typing.",
+	command = 'startinsert'
+})
 
 autocmd("TextYankPost", {
 	desc = "Highlight yanked text",
@@ -23,4 +23,16 @@ autocmd("FileType", {
 	group = augroup("unlist_quickfist", { clear = true }),
 	pattern = "qf",
 	callback = function() vim.opt_local.buflisted = false end,
+})
+
+
+-- Better netrw
+
+local netrw_id = vim.api.nvim_create_augroup("netrw_map", { clear = true })
+
+autocmd("FileType", {
+	desc = "Netrw controls",
+	pattern = "netrw",
+	group = netrw_id,
+	command = "nmap <buffer> h -^ | nmap <buffer> l <cr> | nmap <buffer> . gh | nmap <buffer> L <cr>:Lexplore<cr>"
 })

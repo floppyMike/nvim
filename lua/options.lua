@@ -1,6 +1,3 @@
--- Diff mode
-vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
-
 local options = {
   opt = {
 	-- Editor
@@ -19,7 +16,7 @@ local options = {
     cursorline = true, -- Highlight the text line of the cursor
     number = true, -- Show numberline
     relativenumber = true, -- Show relative numberline
-    showtabline = 2, -- always display tabline
+    showtabline = 0, -- always display tabline
     signcolumn = "yes", -- Always show the sign column
     termguicolors = true, -- Enable 24-bit RGB color in the TUI
     wrap = true, -- Disable wrapping of lines longer than the width of window
@@ -45,7 +42,6 @@ local options = {
     
 	-- Statusline
 	statusline = (function()
-		local mode = "%-3{%v:lua.string.upper(v:lua.vim.fn.mode())%}"
 		local file_name = "%f"
 		local modified = "%m"
 		local align_right = "%="
@@ -56,8 +52,7 @@ local options = {
 		local linecol = " %l:%c"
  
 		return string.format(
-			"%s%s%s%s%s%s%s%s%s",
-			mode,
+			"%s%s%s%s%s%s%s%s",
 			file_name,
 			modified,
 			align_right,
@@ -67,11 +62,15 @@ local options = {
 			percentage,
 			linecol)
 	end)()
-
-
   },
   g = {
     mapleader = " ", -- set leader key
+
+	-- Netrw
+	netrw_keepdir = 0,
+	netrw_winsize = 30,
+	netrw_banner = 0,
+  	netrw_localcopydircmd = 'cp -r',
   },
 }
 
