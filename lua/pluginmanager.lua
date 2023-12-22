@@ -88,12 +88,11 @@ function M.setup()
 
 		M.plugins[plugin] = true
 
-		if vim.fn.isdirectory(opt .. '/' .. plugin) ~= 0 then
+		if vim.fn.isdirectory(string.format("%s/%s", opt, plugin)) ~= 0 then
 			load_plugin(plugin, opts)
 		else
 			local url = to_git_url(author, plugin)
-			git_clone(plugin, url, opt, function(name) load_plugin(name, opts) end)
-			print("Installed " .. plugin)
+			git_clone(plugin, opt, url, function(name) load_plugin(name, opts) end)
 		end
 	end
 
