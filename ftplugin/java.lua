@@ -1,7 +1,7 @@
 local on_attach = function(client, bufnr)
 	require('jdtls.setup').add_commands()
 
-	On_attach(client, bufnr)
+	on_attach(client, bufnr)
 
 	vim.keymap.set('n', '<F7>', ':!mvn exec:java -Dexec.mainClass=""', { buffer = bufnr })
 	vim.keymap.set('n', '<F8>', '<cmd>!mvn clean test<CR>', { buffer = bufnr })
@@ -9,8 +9,7 @@ end
 
 local config = {
 	cmd = {
-		vim.fn.stdpath 'data' .. '/mason/bin/jdtls',
-		'-data', '/tmp/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+		'jdt-language-server', '-data', '/tmp/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 	},
 
 	root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml' }),
