@@ -168,15 +168,21 @@ use { -- Java LSP (uses ftplugin)
 -- Treesitter
 --
 
+use { -- Synthax detector & objects
+	'nvim-treesitter/nvim-treesitter',
+	post_update = function(dir)
+		require('nvim-treesitter.configs').setup {
+			highlight = {
+				enable = true
+			},
+		}
+	end
+}
+
 -- use { -- Close tag for html automatically (treesitter)
 -- 	'windwp/nvim-ts-autotag',
 -- }
 -- 
--- use { -- Synthax detector & objects
--- 	'nvim-treesitter/nvim-treesitter',
--- 	post_update = function(dir)
--- 	end
--- }
 -- 
 -- use {
 -- 	'nvim-treesitter/nvim-treesitter-textobjects',
