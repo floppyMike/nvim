@@ -179,6 +179,19 @@ use { -- Synthax detector & objects
 	end
 }
 
+--
+-- Git
+--
+
+use { -- Git gutter
+	"lewis6991/gitsigns.nvim",
+	post_update = function(dir)
+		require'gitsigns'.setup {
+			_signs_staged_enable = true
+		}
+	end
+}
+
 -- use { -- Close tag for html automatically (treesitter)
 -- 	'windwp/nvim-ts-autotag',
 -- }

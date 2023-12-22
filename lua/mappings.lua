@@ -50,6 +50,18 @@ maps.v["<Tab>"] = { ">gv", desc = "indent line" }
 -- Stop search on ESC
 maps.n["<esc>"] = { "<cmd>noh<CR>", desc = "Stop search with ESC" }
 
+-- Git
+maps.n["<leader>hs"] = { require"gitsigns".stage_hunk, desc = "Stage hunk normal" }
+maps.n["<leader>hS"] = { require"gitsigns".stage_buffer, desc = "Stage buffer" }
+maps.v["<leader>hs"] = { function() require"gitsigns".stage_hunk{ vim.fn.line("."), vim.fn.line("v") } end, desc = "Stage hunk" }
+maps.n["<leader>hp"] = { require"gitsigns".preview_hunk, desc = "Preview hunk" }
+maps.n["<leader>hc"] = {
+	function()
+		local msg = vim.fn.input("Commit message: ")
+		if msg == '' then return end
+		vim.cmd(string.format("!git commit -m '%s'", msg))
+	end, desc = "Git commit" }
+
 -- Spelling
 maps.n["<leader>z"] = {
 	function()
