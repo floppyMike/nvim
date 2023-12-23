@@ -191,6 +191,27 @@ use { -- Synthax detector & objects
 }
 
 --
+-- Statusline
+--
+
+use { -- Statusline
+	'nvim-lualine/lualine.nvim',
+	post_update = function(dir)
+		require'lualine'.setup {
+			options = {
+				icons_enabled = false,
+				theme = 'ayu',
+				component_separators = '|',
+				section_separators = '',
+			},
+			sections = {
+				lualine_a = { "buffers" },
+			},
+		}
+	end
+}
+
+--
 -- Git
 --
 

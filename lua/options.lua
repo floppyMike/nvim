@@ -41,27 +41,27 @@ local options = {
     fileencoding = "utf-8", -- File content encoding for the buffer
     
 	-- Statusline
-	statusline = (function()
-		local file_name = "%f"
-		local modified = "%m"
-		local align_right = "%="
-		local fileencoding = " %{&fileencoding?&fileencoding:&encoding}"
-		local fileformat = " [%{&fileformat}]"
-		local filetype = "%y"
-		local percentage = " %p%%"
-		local linecol = " %l:%c"
- 
-		return string.format(
-			"%s%s%s%s%s%s%s%s",
-			file_name,
-			modified,
-			align_right,
-			filetype,
-			fileencoding,
-			fileformat,
-			percentage,
-			linecol)
-	end)()
+-- 	statusline = (function()
+-- 		local file_name = "%f"
+-- 		local modified = "%m"
+-- 		local align_right = "%="
+-- 		local fileencoding = " %{&fileencoding?&fileencoding:&encoding}"
+-- 		local fileformat = " [%{&fileformat}]"
+-- 		local filetype = "%y"
+-- 		local percentage = " %p%%"
+-- 		local linecol = " %l:%c"
+--  
+-- 		return string.format(
+-- 			"%s%s%s%s%s%s%s%s",
+-- 			file_name,
+-- 			modified,
+-- 			align_right,
+-- 			filetype,
+-- 			fileencoding,
+-- 			fileformat,
+-- 			percentage,
+-- 			linecol)
+-- 	end)()
   },
   g = {
     mapleader = " ", -- set leader key
