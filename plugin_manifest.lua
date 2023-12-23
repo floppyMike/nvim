@@ -1,4 +1,12 @@
 --
+-- Libraries
+--
+
+use {
+	'nvim-lua/plenary.nvim',
+}
+
+--
 -- Looks
 --
 
@@ -104,6 +112,7 @@ use { -- LSP
 		vim.keymap.set('n', 'g]', vim.diagnostic.goto_next, opts)
 
 		on_attach = function(_, bufnr)
+			opts = { noremap = true, silent = true, buffer = bufnr }
 
 			opts.desc = "Show hover code information"
 			vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
@@ -124,10 +133,13 @@ use { -- LSP
 			vim.keymap.set('n', 'gR', vim.lsp.buf.references, opts)
 
 			opts.desc = "Format document"
-			vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { buffer = bufnr })
+			vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 
 			opts.desc = "Show signature help"
-			vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, { buffer = bufnr })
+			vim.keymap.set('i', '<c-k>', vim.lsp.buf.signature_help, opts)
+
+			opts.desc = "Search symbols"
+			vim.keymap.set("n", "<leader>l", require"telescope.builtin".lsp_document_symbols, opts)
 		end
 
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -221,6 +233,17 @@ use { -- Git gutter
 		require'gitsigns'.setup {
 			_signs_staged_enable = true
 		}
+	end
+}
+
+--
+-- Searching
+--
+
+use { -- Telescope
+	'nvim-telescope/telescope.nvim',
+	post_update = function(dir)
+		require'telescope'.setup {}
 	end
 }
 

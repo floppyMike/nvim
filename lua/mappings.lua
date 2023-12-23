@@ -18,26 +18,8 @@ maps.n["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split righ
 maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 
 -- Searching
-maps.n["<leader>f"] = { "<cmd>enew | r !fd -t f<cr><cmd>setlocal buftype=nowrite | setlocal bufhidden=delete<cr>", desc = "Find files" }
+maps.n["<leader>f"] = { require'telescope.builtin'.find_files, desc = "Find files" }
 maps.n["<leader>n"] = { "<cmd>Lexplore<cr>", desc = "Netrw file browser" }
-maps.n["<leader>b"] = {
-	function()
-		local results = {}
-
-		for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
-			if vim.api.nvim_buf_is_loaded(buffer) then
-				table.insert(results, vim.api.nvim_buf_get_name(buffer))
-			end
-		end
-
-		vim.ui.select(results, { prompt = "Find buffer:" }, function(selected)
-			if selected then
-				vim.api.nvim_command("b " .. selected)
-			end
-		end)
-	end, desc = "Search buffers" }
-
-maps.n["<leader>l"] = { function() require("telescope.builtin").lsp_document_symbols() end, desc = "Search symbols" }
 
 -- Terminal
 maps.n["<leader>g"] = { "<cmd>terminal lazygit<cr>", desc = "Terminal lazygit" }
@@ -63,7 +45,8 @@ maps.n["<leader>hc"] = {
 	end, desc = "Git commit" }
 
 -- Spelling
-maps.n["<leader>z"] = {
+maps.n["<leader>z"] = { require"telescope.builtin".spell_suggest, desc = "Enable spell checking" }
+maps.n["<leader>Z"] = {
 	function()
 		vim.opt_local.spell = not (vim.opt_local.spell:get())
 		print("spell: " .. tostring(vim.opt_local.spell:get()))
