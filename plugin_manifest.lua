@@ -165,6 +165,17 @@ use { -- Java LSP (uses ftplugin)
 }
 
 --
+-- Indentation
+--
+
+use { -- Auto indentation
+	'Darazaki/indent-o-matic',
+	post_update = function(dir)
+		require'indent-o-matic'.setup {}
+	end
+}
+
+--
 -- Treesitter
 --
 
