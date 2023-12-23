@@ -13,7 +13,7 @@ use {
 use { -- Colorscheme
 	'Shatur/neovim-ayu',
 	post_update = function(dir)
-		require('ayu').setup {
+		require'ayu'.setup {
 			overrides = {
 				LineNrAbove = { fg = '#51B3EC' },
 				LineNrBelow = { fg = '#FB508F' },
@@ -30,7 +30,7 @@ use { -- Colorscheme
 use { -- Provides leap navigation
 	'ggandor/leap.nvim',
 	post_update = function(dir)
-		require('leap').add_default_mappings()
+		require'leap'.add_default_mappings()
 	end
 }
 
@@ -47,7 +47,7 @@ use { -- Provides luasnip <-> cmp integration
 use { -- Provides a snippet functionality
 	'L3MON4D3/LuaSnip',
 	post_update = function(dir)
-		require('luasnip.loaders.from_vscode').lazy_load()
+		require'luasnip.loaders.from_vscode'.lazy_load()
 	end
 }
 
@@ -66,14 +66,14 @@ use { -- Provides signature completion
 use { -- Provides completion
 	'hrsh7th/nvim-cmp',
 	post_update = function(dir)
-		local cmp = require('cmp')
+		local cmp = require'cmp'
 		cmp.setup {
 			completion = {
 				completeopt = "menuone,noselect,preview,noinsert",
 			},
 			snippet = {
 				expand = function(args)
-					require('luasnip').lsp_expand(args.body)
+					require'luasnip'.lsp_expand(args.body)
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
@@ -142,8 +142,8 @@ use { -- LSP
 			vim.keymap.set("n", "<leader>l", require"telescope.builtin".lsp_document_symbols, opts)
 		end
 
-		local capabilities = require('cmp_nvim_lsp').default_capabilities()
-		local lsp = require("lspconfig")
+		local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+		local lsp = require"lspconfig"
 
 		lsp.rust_analyzer.setup {
 			on_attach = function(_, b)
@@ -194,7 +194,7 @@ use { -- Auto indentation
 use { -- Synthax detector & objects
 	'nvim-treesitter/nvim-treesitter',
 	post_update = function(dir)
-		require('nvim-treesitter.configs').setup {
+		require'nvim-treesitter.configs'.setup {
 			highlight = {
 				enable = true
 			},
@@ -255,7 +255,7 @@ use { -- Telescope
 -- use {
 -- 	'nvim-treesitter/nvim-treesitter-textobjects',
 -- 	post_update = function(dir)
--- 		require('nvim-treesitter.configs').setup {
+-- 		require'nvim-treesitter.configs'.setup {
 -- 			autotag = {
 -- 				enable = true,
 -- 			},
