@@ -153,19 +153,19 @@ use { -- LSP
 				vim.keymap.set('n', '<F5>', '<cmd>!RUST_BACKTRACE=1 cargo test -- nocapture<CR>', opts)
 
 				opts.desc = "Run project"
-				vim.keymap.set('n', '<F6>', '<cmd>!cargo run<CR>')
+				vim.keymap.set('n', '<F6>', '<cmd>!cargo run<CR>', opts)
 
 				opts.desc = "Build project"
-				vim.keymap.set('n', '<F7>', '<cmd>!cargo build<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!cargo build<CR>', opts)
 
 				opts.desc = "Trace run project"
-				vim.keymap.set('n', '<F8>', '<cmd>!RUST_LOG=trace cargo run<CR>')
+				vim.keymap.set('n', '<F8>', '<cmd>!RUST_LOG=trace cargo run<CR>', opts)
 
 				opts.desc = "Build release"
-				vim.keymap.set('n', '<F9>', '<cmd>!cargo build --release<CR>')
+				vim.keymap.set('n', '<F9>', '<cmd>!cargo build --release<CR>', opts)
 
 				opts.desc = "Reload cargo"
-				vim.keymap.set('n', '<leader>r', '<cmd>CargoReload<CR>')
+				vim.keymap.set('n', '<leader>r', '<cmd>CargoReload<CR>', opts)
 			end,
 			capabilities = capabilities,
 		}
