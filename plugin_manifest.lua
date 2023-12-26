@@ -169,6 +169,22 @@ use { -- LSP
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.zls.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+
+				opts.desc = "Test project"
+				vim.keymap.set('n', '<F5>', '<cmd>!zig build test<CR>', opts)
+
+				opts.desc = "Build project"
+				vim.keymap.set('n', '<F6>', '<cmd>!zig build run<CR>', opts)
+
+				opts.desc = "Build project"
+				vim.keymap.set('n', '<F7>', '<cmd>!zig build<CR>', opts)
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
