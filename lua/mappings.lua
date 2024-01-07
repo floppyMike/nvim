@@ -17,7 +17,7 @@ maps.n["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split righ
 -- Buffers
 maps.n["<a-h>"] = { "<cmd>bp<cr>", desc = "Move to left buffer or loop" }
 maps.n["<a-l>"] = { "<cmd>bn<cr>", desc = "Move to right buffer or loop" }
-maps.n["<a-d>"] = { "<cmd>bdelete<cr>", desc = "Close open buffer" }
+maps.n["<a-d>"] = { "<cmd>bdelete!<cr>", desc = "Close open buffer" }
 
 -- Copying
 maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
