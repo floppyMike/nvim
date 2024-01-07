@@ -185,6 +185,15 @@ use { -- LSP
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.pylsp.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+				vim.keymap.set('n', '<F7>', '<cmd>!python \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
+			end,
+			capabilities = capabilities,
+		}
+
 	end
 }
 
