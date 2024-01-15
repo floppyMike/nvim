@@ -194,6 +194,14 @@ use { -- LSP
 			capabilities = capabilities,
 		}
 
+		lsp.texlab.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+				vim.keymap.set('n', '<F7>', '<cmd>!latexmk -pdf \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
+				vim.keymap.set('n', '<F8>', '<cmd>!zathura \'' .. (vim.api.nvim_buf_get_name(0):gsub("%.tex$", ".pdf")) .. '\' &<CR>')
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
