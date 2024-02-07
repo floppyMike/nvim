@@ -202,6 +202,14 @@ use { -- LSP
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.marksman.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+				vim.keymap.set('n', '<F8>', '<cmd>!inlyne \'' .. (vim.api.nvim_buf_get_name(0):gsub("%.tex$", ".pdf")) .. '\' &<CR>')
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
