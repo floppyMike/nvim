@@ -210,6 +210,18 @@ use { -- LSP
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.clangd.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+				vim.keymap.set('n', '<F6>', '<cmd>!cmake -DBENCHMARK=ON -DCMAKE_BUILD_TYPE=Release -S . -B build/ && cmake --build build/ && ./build/benchmark/test2<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!cmake -S . -B build/ -D CMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build/<CR>')
+				vim.keymap.set('n', '<F9>', '<cmd>!cmake -DCMAKE_BUILD_TYPE=Release -S . -B release/ && cmake --build release/<CR>')
+				vim.keymap.set('n', '<F10>', '<cmd>!cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -S . -B release/ && cmake --build release/<CR>')
+				vim.keymap.set('n', '<F8>', '<cmd>!cmake -S . -B build/ && cmake --build build/ && ./build/' ..	vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '') .. '<CR>')
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
