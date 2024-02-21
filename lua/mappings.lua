@@ -28,6 +28,7 @@ maps.n["<leader>n"] = { "<cmd>Lexplore<cr>", desc = "Netrw file browser" }
 
 -- Terminal
 maps.n["<leader>g"] = { "<cmd>terminal lazygit<cr>", desc = "Terminal lazygit" }
+maps.n["<leader>c"] = { "<cmd>terminal visidata %<cr>", desc = "Terminal visidata" }
 maps.n["<leader>t"] = { "<cmd>terminal<cr>", desc = "Open a terminal" }
 
 -- Stay in indent mode
