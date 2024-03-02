@@ -1,9 +1,12 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local command = vim.api.nvim_create_user_command
+
+command('Bd', 'bp | sp | bn | bd!', {})
 
 autocmd('TermClose', {
 	desc = "Close terminal on exit without message.",
-	command = 'bdelete! ' .. vim.fn.expand('<abuf>')
+	command = 'Bd ' .. vim.fn.expand('<abuf>')
 })
 
 autocmd('TermOpen',	{
