@@ -24,6 +24,7 @@ maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 
 -- Searching
 maps.n["<leader>f"] = { require'telescope.builtin'.find_files, desc = "Find files" }
+maps.n["<leader>b"] = { require'telescope.builtin'.buffers, desc = "Find buffers" }
 maps.n["<leader>n"] = { "<cmd>Lexplore<cr>", desc = "Netrw file browser" }
 
 -- Terminal
