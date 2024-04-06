@@ -300,3 +300,14 @@ use { -- Telescope
 		require'telescope'.setup {}
 	end
 }
+
+--
+-- File System
+--
+
+use {
+	'stevearc/oil.nvim',
+	post_update = function(dir)
+		require"oil".setup {}
+	end
+}
