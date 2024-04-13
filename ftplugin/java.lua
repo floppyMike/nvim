@@ -9,7 +9,7 @@ end
 
 local config = {
 	cmd = {
-		'jdt-language-server', '-data', '/tmp/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+		'jdtls', '-data', '/tmp/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 	},
 
 	root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml' }),
