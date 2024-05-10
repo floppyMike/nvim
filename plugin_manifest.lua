@@ -272,6 +272,7 @@ use { -- Statusline
 			sections = {
 				lualine_a = { "buffers" },
 				lualine_c = {},
+				lualine_z = { "tabs" },
 			},
 		}
 	end

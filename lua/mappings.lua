@@ -19,6 +19,18 @@ maps.n["<a-h>"] = { "<cmd>bp<cr>", desc = "Move to left buffer or loop" }
 maps.n["<a-l>"] = { "<cmd>bn<cr>", desc = "Move to right buffer or loop" }
 maps.n["<a-d>"] = { "<cmd>Bd<cr>", desc = "Close open buffer" }
 
+-- Tabs
+maps.n["<a-1>"] = { "<cmd>tabn 1<cr>", desc = "Goto tab 1" }
+maps.n["<a-2>"] = { "<cmd>tabn 2<cr>", desc = "Goto tab 2" }
+maps.n["<a-3>"] = { "<cmd>tabn 3<cr>", desc = "Goto tab 3" }
+maps.n["<a-4>"] = { "<cmd>tabn 4<cr>", desc = "Goto tab 4" }
+maps.n["<a-5>"] = { "<cmd>tabn 5<cr>", desc = "Goto tab 5" }
+maps.n["<a-6>"] = { "<cmd>tabn 6<cr>", desc = "Goto tab 6" }
+maps.n["<a-7>"] = { "<cmd>tabn 7<cr>", desc = "Goto tab 7" }
+maps.n["<a-8>"] = { "<cmd>tabn 8<cr>", desc = "Goto tab 8" }
+maps.n["<a-9>"] = { "<cmd>tabn 9<cr>", desc = "Goto tab 9" }
+maps.n["<leader>n"] = { "<cmd>tabnew %<cr>", desc = "Spawn new tab" }
+
 -- Copying
 maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 
