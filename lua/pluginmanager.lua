@@ -56,18 +56,6 @@ local opt = vim.fn.stdpath('data') .. '/site/pack/plugin_manager/opt'
 -- Plugin Configuration
 local manifest = vim.fn.stdpath('config') .. '/plugin_manifest.lua'
 
---- Load the plugin to neovim and call post
--- @param plugin Plugin name
--- @param opts Options from the plugin_manifest.lua file
-local load_plugin = function(plugin, opts)
-	vim.cmd('packadd! ' .. plugin)
-
-	if opts.post_update then
-		local dir = opt .. '/' .. plugin
-		opts.post_update(dir)
-	end
-end
-
 local M = {}
 --- Load plugins from opt created in manifest
 function M.setup()
@@ -84,16 +72,36 @@ function M.setup()
 	M.plugins = {}
 
 	_G.use = function(opts)
-		local _, _, author, plugin = string.find(opts[1], '^([^ /]+)/([^ /]+)$')
+		local num_plugs = #opts
 
-		M.plugins[plugin] = true
+		for key, value in pairs(opts) do
+			if key ~= "post_update" then
+				local _, _, author, plugin = string.find(value, '^([^ /]+)/([^ /]+)$')
 
-		if vim.fn.isdirectory(string.format("%s/%s", opt, plugin)) ~= 0 then
-			load_plugin(plugin, opts)
-		else
-			local url = to_git_url(author, plugin)
-			git_clone(plugin, opt, url, function(name) load_plugin(name, opts) end)
+				M.plugins[plugin] = true
+
+				--- Load the plugin to neovim and call post
+				-- @param plugin Plugin name
+				-- @param opts Options from the plugin_manifest.lua file
+				local load_plugin = function()
+					vim.cmd('packadd! ' .. plugin)
+					num_plugs = num_plugs - 1
+
+					if num_plugs == 0 and opts.post_update then
+						local dir = opt .. '/' .. plugin
+						opts.post_update(dir)
+					end
+				end
+
+				if vim.fn.isdirectory(string.format("%s/%s", opt, plugin)) ~= 0 then
+					load_plugin()
+				else
+					local url = to_git_url(author, plugin)
+					git_clone(plugin, opt, url, function(name) load_plugin(name, opts) end)
+				end
+			end
 		end
+
 	end
 
 	if vim.fn.filereadable(manifest) ~= 0 then

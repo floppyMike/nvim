@@ -38,33 +38,21 @@ use { -- Provides leap navigation
 -- Completion
 --
 
-use { -- Provides some snippets for LuaSnip
-	'rafamadriz/friendly-snippets',
-}
-use { -- Provides luasnip <-> cmp integration
-	'saadparwaiz1/cmp_luasnip',
-}
-use { -- Provides a snippet functionality
-	'L3MON4D3/LuaSnip',
+use {
+	'rafamadriz/friendly-snippets', -- Provides some snippets for LuaSnip
+	'saadparwaiz1/cmp_luasnip', -- Provides luasnip <-> cmp integration
+	'L3MON4D3/LuaSnip', -- Provides a snippet functionality
 	post_update = function(dir)
 		require'luasnip.loaders.from_vscode'.lazy_load()
 	end
 }
 
-use { -- Provides buffer completion
-	'hrsh7th/cmp-buffer'
-}
-use { -- Provides path completion
-	'hrsh7th/cmp-path'
-}
-use { -- Provides lsp <-> cmp integration
-	'hrsh7th/cmp-nvim-lsp'
-}
-use { -- Provides signature completion
-	'hrsh7th/cmp-nvim-lsp-signature-help'
-}
-use { -- Provides completion
-	'hrsh7th/nvim-cmp',
+use {
+	'hrsh7th/cmp-buffer', -- Provides buffer completion
+	'hrsh7th/cmp-path', -- Provides path completion
+	'hrsh7th/cmp-nvim-lsp', -- Provides lsp <-> cmp integration
+	'hrsh7th/cmp-nvim-lsp-signature-help', -- Provides signature completion
+	'hrsh7th/nvim-cmp', -- Provides completion
 	post_update = function(dir)
 		local cmp = require'cmp'
 		cmp.setup {
@@ -265,7 +253,6 @@ use { -- Statusline
 		require'lualine'.setup {
 			options = {
 				icons_enabled = false,
-				theme = 'ayu',
 				component_separators = '|',
 				section_separators = '',
 			},
