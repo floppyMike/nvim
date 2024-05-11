@@ -12,6 +12,8 @@ use {
 
 use { -- Colorscheme
 	'Shatur/neovim-ayu',
+	'EdenEast/nightfox.nvim',
+	'ellisonleao/gruvbox.nvim',
 	post_update = function(dir)
 		require'ayu'.setup {
 			overrides = {
@@ -19,6 +21,7 @@ use { -- Colorscheme
 				LineNrBelow = { fg = '#FB508F' },
 			},
 		}
+
 		vim.cmd [[colorscheme ayu]]
 	end
 }
