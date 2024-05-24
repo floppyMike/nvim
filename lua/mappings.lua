@@ -97,8 +97,7 @@ for mode, body in pairs(maps) do
 	-- iterate over each keybinding set in the current mode
 	for keymap, options in pairs(body) do
 		local cmd = options[1]
-		local keymap_opts = vim.tbl_deep_extend("force", {}, options)
-		keymap_opts[1] = nil
-		vim.keymap.set(mode, keymap, cmd, keymap_opts)
+		options[1] = nil
+		vim.keymap.set(mode, keymap, cmd, options)
 	end
 end
