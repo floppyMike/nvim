@@ -18,6 +18,7 @@ maps.n["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split righ
 maps.n["<a-h>"] = { "<cmd>bp<cr>", desc = "Move to left buffer or loop" }
 maps.n["<a-l>"] = { "<cmd>bn<cr>", desc = "Move to right buffer or loop" }
 maps.n["<a-d>"] = { "<cmd>Bd<cr>", desc = "Close open buffer" }
+maps.n["<bs>"] = { "<c-^>", desc = "Goto alternate buffer" }
 
 -- Tabs
 maps.n["<a-1>"] = { "<cmd>tabn 1<cr>", desc = "Goto tab 1" }
