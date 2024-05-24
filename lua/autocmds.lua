@@ -4,16 +4,6 @@ local command = vim.api.nvim_create_user_command
 
 command('Bd', 'bp | sp | bn | bd!', {})
 
-autocmd('TermClose', {
-	desc = "Close terminal on exit without message.",
-	command = 'Bd ' .. vim.fn.expand('<abuf>')
-})
-
-autocmd('TermOpen',	{
-	desc = "If terminal focused immediately start typing.",
-	command = 'startinsert'
-})
-
 autocmd("TextYankPost", {
 	desc = "Highlight yanked text",
 	group = augroup("highlightyank", { clear = true }),

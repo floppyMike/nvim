@@ -43,9 +43,9 @@ maps.n["<leader>b"] = { require'telescope.builtin'.buffers, desc = "Find buffers
 maps.n["-"] = { "<cmd>Oil<cr>", desc = "Open parent directory with oil" }
 
 -- Terminal
-maps.n["<leader>g"] = { "<cmd>terminal lazygit<cr>", desc = "Terminal lazygit" }
-maps.n["<leader>c"] = { "<cmd>terminal visidata %<cr>", desc = "Terminal visidata" }
-maps.n["<leader>t"] = { "<cmd>terminal<cr>", desc = "Open a terminal" }
+maps.n["<leader>g"] = { "<cmd>!tmux neww -n lazygit 'lazygit'<cr><cr>", desc = "Terminal lazygit" }
+maps.n["<leader>c"] = { "<cmd>!tmux neww -n visidata 'visidata %'<cr><cr>", desc = "Terminal visidata" }
+maps.n["<leader>t"] = { "<cmd>!tmux neww<cr><cr>", desc = "Open a terminal" }
 
 -- Stay in indent mode
 maps.v["<S-Tab>"] = { "<gv", desc = "unindent line" }
