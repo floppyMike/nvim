@@ -218,6 +218,15 @@ use { -- LSP
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.nixd.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+				vim.keymap.set('n', '<F7>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; update-sys"<CR><CR>')
+				vim.keymap.set('n', '<F8>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; update-sys-hard"<CR><CR>')
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
