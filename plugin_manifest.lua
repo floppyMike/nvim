@@ -302,7 +302,9 @@ use { -- Git gutter
 use { -- Telescope
 	'nvim-telescope/telescope.nvim',
 	post_update = function(dir)
-		require'telescope'.setup {}
+		require'telescope'.setup {
+			defaults = require'telescope.themes'.get_ivy()
+		}
 	end
 }
 
