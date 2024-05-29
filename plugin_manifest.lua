@@ -301,10 +301,12 @@ use { -- Git gutter
 
 use { -- Telescope
 	'nvim-telescope/telescope.nvim',
+	'nvim-telescope/telescope-fzf-native.nvim',
 	post_update = function(dir)
 		require'telescope'.setup {
 			defaults = require'telescope.themes'.get_ivy()
 		}
+		require'telescope'.load_extension("fzf")
 	end
 }
 
