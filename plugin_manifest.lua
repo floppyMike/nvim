@@ -99,8 +99,10 @@ use {
 -- Language Servers
 --
 
-use { -- LSP
-	'neovim/nvim-lspconfig',
+use {
+	'mfussenegger/nvim-dap', -- Debugger
+	'neovim/nvim-lspconfig', -- LSP
+	'mfussenegger/nvim-jdtls', -- Java LSP
 	post_update = function(dir)
 		local opts = { noremap = true, silent = true }
 
@@ -112,6 +114,41 @@ use { -- LSP
 
 		on_attach = function(_, bufnr)
 			opts = { noremap = true, silent = true, buffer = bufnr }
+
+			-- Debugging
+			dap = require"dap"
+			dapwidgets = require"dap.ui.widgets"
+			scope = dapwidgets.sidebar(dapwidgets.scopes)
+			frame = dapwidgets.sidebar(dapwidgets.frames)
+
+			opts.desc = "DAP continue/start"
+			vim.keymap.set('n', '<F9>', dap.continue, opts)
+
+			opts.desc = "DAP step over"
+			vim.keymap.set('n', '<F10>', dap.step_over, opts)
+
+			opts.desc = "DAP step into"
+			vim.keymap.set('n', '<F11>', dap.step_into, opts)
+
+			opts.desc = "DAP step out"
+			vim.keymap.set('n', '<F12>', dap.step_out, opts)
+
+			opts.desc = "DAP toggle breakpoint"
+			vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, opts)
+
+			opts.desc = "DAP hover info"
+			vim.keymap.set('n', '<Leader>dh', dapwidgets.hover, opts)
+
+			opts.desc = "DAP hover info"
+			vim.keymap.set('n', '<Leader>dp', dapwidgets.preview, opts)
+
+			opts.desc = "DAP hover info"
+			vim.keymap.set('n', '<Leader>df', frame.toggle, opts)
+
+			opts.desc = "DAP hover info"
+			vim.keymap.set('n', '<Leader>ds', scope.toggle, opts)
+
+			-- LSP
 
 			opts.desc = "Show hover code information"
 			vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
@@ -228,10 +265,6 @@ use { -- LSP
 			capabilities = capabilities,
 		}
 	end
-}
-
-use { -- Java LSP (uses ftplugin)
-	'mfussenegger/nvim-jdtls',
 }
 
 --
