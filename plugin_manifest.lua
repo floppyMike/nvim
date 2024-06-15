@@ -294,6 +294,19 @@ use { -- Synthax detector & objects
 }
 
 --
+-- Git
+--
+
+use { -- Git gutter
+	"lewis6991/gitsigns.nvim",
+	post_update = function(dir)
+		require'gitsigns'.setup {
+			_signs_staged_enable = true
+		}
+	end
+}
+
+--
 -- Statusline
 --
 
@@ -311,19 +324,6 @@ use { -- Statusline
 				lualine_c = {},
 				lualine_z = { "tabs" },
 			},
-		}
-	end
-}
-
---
--- Git
---
-
-use { -- Git gutter
-	"lewis6991/gitsigns.nvim",
-	post_update = function(dir)
-		require'gitsigns'.setup {
-			_signs_staged_enable = true
 		}
 	end
 }
