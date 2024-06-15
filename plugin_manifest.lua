@@ -225,7 +225,7 @@ use {
 		lsp.pylsp.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!python \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; python \'' .. vim.api.nvim_buf_get_name(0) .. '\'"<CR><CR>')
 			end,
 			capabilities = capabilities,
 		}
