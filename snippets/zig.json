@@ -1,0 +1,13 @@
+{
+	"docs": {
+		"prefix": "docs",
+		"body": [
+			"/// $1",
+			"/// Args:",
+			"/// - $2",
+			"/// Returns:",
+			"/// $3"
+		],
+		"description": "Generate a docs template for zig."
+	}
+}

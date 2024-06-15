@@ -3,10 +3,12 @@
 	"contributes": {
 		"snippets": [
 			{
-				"language": [
-					"nix"
-				],
+				"language": [ "nix" ],
 				"path": "./nix.json"
+			},
+			{
+				"language": [ "zig" ],
+				"path": "./zig.json"
 			}
 		]
 	}
