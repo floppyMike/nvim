@@ -263,6 +263,13 @@ use {
 			end,
 			capabilities = capabilities,
 		}
+
+		lsp.tsserver.setup {
+			on_attach = function(_, b)
+				on_attach(_, b)
+			end,
+			capabilities = capabilities,
+		}
 	end
 }
 
