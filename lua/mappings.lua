@@ -32,7 +32,12 @@ maps.n["-"] = { "<cmd>Oil<cr>", desc = "Open parent directory with oil" }
 
 -- Terminal
 maps.n["<leader>g"] = { "<cmd>!tmux neww -n lazygit 'lazygit'<cr><cr>", desc = "Terminal lazygit" }
-maps.n["<leader>c"] = { "<cmd>!tmux neww -n visidata 'visidata %'<cr><cr>", desc = "Terminal visidata" }
+maps.n["<leader>c"] = {
+	function()
+		local delim = vim.fn.input("Delimiter: ")
+		if delim == '' then return end
+		vim.cmd(string.format("!tmux neww -n sc-im 'sc-im --txtdelim='%s' %%'<cr><cr>"))
+	end, desc = "Terminal sc-im" }
 maps.n["<leader>t"] = { "<cmd>!tmux neww<cr><cr>", desc = "Open a terminal" }
 
 -- Stay in indent mode
