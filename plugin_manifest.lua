@@ -210,6 +210,8 @@ use {
 			on_attach = function(_, b)
 				on_attach(_, b)
 
+				vim.g.zig_fmt_parse_errors = 0
+
 				opts.desc = "Test project"
 				vim.keymap.set('n', '<F5>', '<cmd>!zig build test<CR>', opts)
 
