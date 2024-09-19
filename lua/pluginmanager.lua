@@ -47,6 +47,24 @@ local function git_clone(name, path, git_url, on_success)
 	end))
 end
 
+--- Run a command in a path
+-- @param cmd Command to run
+-- @param args Arguments list for command (argv like)
+-- @param path Path to run command on
+-- @param on_success Function which runs on success
+local function run_cmd(cmd, path, on_success)
+	vim.loop.spawn(cmd.cmd, {
+		args = cmd.args,
+		cwd = path,
+	}, vim.schedule_wrap(function(code)
+		if code == 0 then
+			on_success()
+		else
+			vim.api.nvim_err_writeln('Unsuccessfully ran command ' .. cmd.cmd .. ' in ' .. path)
+		end
+	end))
+end
+
 -------------------------------------
 -- Plugin Directiory Management
 -------------------------------------
@@ -57,13 +75,14 @@ local opt = vim.fn.stdpath('data') .. '/site/pack/plugin_manager/opt'
 local manifest = vim.fn.stdpath('config') .. '/plugin_manifest.lua'
 
 local M = {}
+
 --- Load plugins from opt created in manifest
 function M.setup()
 	vim.fn.mkdir(opt, 'p')
 
 	-- Manifest structure (lua file):
 	-- use {
-	-- 	"author/plugin",
+	-- 	{ name = "author/plugin" },
 	-- 	post_update = function(dir)
 	-- 		<setup plugin>
 	-- 	end
@@ -76,9 +95,9 @@ function M.setup()
 
 		for key, value in pairs(opts) do
 			if key ~= "post_update" then
-				local _, _, author, plugin = string.find(value, '^([^ /]+)/([^ /]+)$')
+				local _, _, author, plugin = string.find(value.name, '^([^ /]+)/([^ /]+)$')
 
-				M.plugins[plugin] = true
+				M.plugins[plugin] = value
 
 				--- Load the plugin to neovim and call post
 				-- @param plugin Plugin name
@@ -97,7 +116,13 @@ function M.setup()
 					load_plugin()
 				else
 					local url = to_git_url(author, plugin)
-					git_clone(plugin, opt, url, function(name) load_plugin(name, opts) end)
+					git_clone(plugin, opt, url, function(name)
+						if (value.cmd ~= nil) then
+							run_cmd(value.cmd, opt .. '/' .. plugin, load_plugin)
+						else
+							load_plugin()
+						end
+					end)
 				end
 			end
 		end
@@ -128,9 +153,14 @@ end
 
 --- Pull changes for each plugin
 function M.pack_update()
-	for plugin, _ in pairs(M.plugins) do
+	for plugin, value in pairs(M.plugins) do
 		local absolute = opt .. '/' .. plugin
-		git_pull(plugin, absolute, function(name) print("Updated " .. name) end)
+		git_pull(plugin, absolute, function(name)
+			if (value.cmd ~= nil) then
+				run_cmd(value.cmd, opt .. '/' .. plugin, function() end)
+			end
+			print("Updated " .. name)
+		end)
 	end
 end
 

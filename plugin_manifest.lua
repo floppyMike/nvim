@@ -3,7 +3,7 @@
 --
 
 use {
-	'nvim-lua/plenary.nvim',
+	{ name = 'nvim-lua/plenary.nvim' },
 }
 
 --
@@ -11,9 +11,9 @@ use {
 --
 
 use { -- Colorscheme
-	'Shatur/neovim-ayu',
-	'EdenEast/nightfox.nvim',
-	'ellisonleao/gruvbox.nvim',
+	{ name = 'Shatur/neovim-ayu' },
+	{ name = 'EdenEast/nightfox.nvim' },
+	{ name = 'ellisonleao/gruvbox.nvim' },
 	post_update = function(dir)
 		require'ayu'.setup {
 			overrides = {
@@ -31,7 +31,7 @@ use { -- Colorscheme
 --
 
 use { -- Provides leap navigation
-	'ggandor/leap.nvim',
+	{ name = 'ggandor/leap.nvim' },
 	post_update = function(dir)
 		require'leap'.add_default_mappings()
 	end
@@ -42,9 +42,9 @@ use { -- Provides leap navigation
 --
 
 use {
-	'rafamadriz/friendly-snippets', -- Provides some snippets for LuaSnip
-	'saadparwaiz1/cmp_luasnip', -- Provides luasnip <-> cmp integration
-	'L3MON4D3/LuaSnip', -- Provides a snippet functionality
+	{ name = 'rafamadriz/friendly-snippets' }, -- Provides some snippets for LuaSnip
+	{ name = 'saadparwaiz1/cmp_luasnip' }, -- Provides luasnip <-> cmp integration
+	{ name = 'L3MON4D3/LuaSnip' }, -- Provides a snippet functionality
 	post_update = function(dir)
 		require'luasnip.loaders.from_vscode'.lazy_load({ paths = "~/.config/nvim/snippets" })
 		local ls = require'luasnip'
@@ -59,11 +59,11 @@ use {
 }
 
 use {
-	'hrsh7th/cmp-buffer', -- Provides buffer completion
-	'hrsh7th/cmp-path', -- Provides path completion
-	'hrsh7th/cmp-nvim-lsp', -- Provides lsp <-> cmp integration
-	'hrsh7th/cmp-nvim-lsp-signature-help', -- Provides signature completion
-	'hrsh7th/nvim-cmp', -- Provides completion
+	{ name = 'hrsh7th/cmp-buffer' }, -- Provides buffer completion
+	{ name = 'hrsh7th/cmp-path' }, -- Provides path completion
+	{ name = 'hrsh7th/cmp-nvim-lsp' }, -- Provides lsp <-> cmp integration
+	{ name = 'hrsh7th/cmp-nvim-lsp-signature-help' }, -- Provides signature completion
+	{ name = 'hrsh7th/nvim-cmp' }, -- Provides completion
 	post_update = function(dir)
 		local cmp = require'cmp'
 		cmp.setup {
@@ -100,9 +100,9 @@ use {
 --
 
 use {
-	'mfussenegger/nvim-dap', -- Debugger
-	'neovim/nvim-lspconfig', -- LSP
-	'mfussenegger/nvim-jdtls', -- Java LSP
+	{ name = 'mfussenegger/nvim-dap' }, -- Debugger
+	{ name = 'neovim/nvim-lspconfig' }, -- LSP
+	{ name = 'mfussenegger/nvim-jdtls' }, -- Java LSP
 	post_update = function(dir)
 		local opts = { noremap = true, silent = true }
 
@@ -280,7 +280,7 @@ use {
 --
 
 use { -- Auto indentation
-	'Darazaki/indent-o-matic',
+	{ name = 'Darazaki/indent-o-matic' },
 	post_update = function(dir)
 		require'indent-o-matic'.setup {}
 	end
@@ -291,7 +291,7 @@ use { -- Auto indentation
 --
 
 use { -- Synthax detector & objects
-	'nvim-treesitter/nvim-treesitter',
+	{ name = 'nvim-treesitter/nvim-treesitter' },
 	post_update = function(dir)
 		require'nvim-treesitter.configs'.setup {
 			highlight = {
@@ -306,7 +306,7 @@ use { -- Synthax detector & objects
 --
 
 use { -- Statusline
-	'nvim-lualine/lualine.nvim',
+	{ name = 'nvim-lualine/lualine.nvim' },
 	post_update = function(dir)
 		require'lualine'.setup {
 			options = {
@@ -328,7 +328,7 @@ use { -- Statusline
 --
 
 use { -- Git gutter
-	"lewis6991/gitsigns.nvim",
+	{ name = "lewis6991/gitsigns.nvim" },
 	post_update = function(dir)
 		require'gitsigns'.setup {
 			_signs_staged_enable = true
@@ -341,8 +341,14 @@ use { -- Git gutter
 --
 
 use { -- Telescope
-	'nvim-telescope/telescope.nvim',
-	'nvim-telescope/telescope-fzf-native.nvim',
+	{ name = 'nvim-telescope/telescope.nvim' },
+	{
+		name = 'nvim-telescope/telescope-fzf-native.nvim',
+		cmd = {
+			cmd = "sh",
+			args = { "-c", "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" },
+		},
+	},
 	post_update = function(dir)
 		require'telescope'.setup {
 			defaults = require'telescope.themes'.get_ivy()
