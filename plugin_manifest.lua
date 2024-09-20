@@ -330,9 +330,7 @@ use { -- Statusline
 use { -- Git gutter
 	{ name = "lewis6991/gitsigns.nvim" },
 	post_update = function(dir)
-		require'gitsigns'.setup {
-			_signs_staged_enable = true
-		}
+		require'gitsigns'.setup()
 	end
 }
 
