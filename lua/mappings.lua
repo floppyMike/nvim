@@ -27,16 +27,6 @@ maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 maps.n["<leader>f"] = { require'telescope.builtin'.find_files, desc = "Find files" }
 maps.n["<leader>b"] = { require'telescope.builtin'.buffers, desc = "Find buffers" }
 
--- Terminal
-maps.n["<leader>g"] = { "<cmd>!tmux neww -n lazygit 'lazygit'<cr><cr>", desc = "Terminal lazygit" }
-maps.n["<leader>c"] = {
-	function()
-		local delim = vim.fn.input("Delimiter: ")
-		if delim == '' then return end
-		vim.cmd(string.format("!tmux neww -n sc-im 'sc-im --txtdelim='%s' %%'<cr><cr>"))
-	end, desc = "Terminal sc-im" }
-maps.n["<leader>t"] = { "<cmd>!tmux neww<cr><cr>", desc = "Open a terminal" }
-
 -- Stay in indent mode
 maps.v["<S-Tab>"] = { "<gv", desc = "unindent line" }
 maps.v["<Tab>"] = { ">gv", desc = "indent line" }
