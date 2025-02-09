@@ -227,7 +227,7 @@ use {
 		lsp.pylsp.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; python \'' .. vim.api.nvim_buf_get_name(0) .. '\'"<CR><CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!python \'' .. vim.api.nvim_buf_get_name(0) .. '\'"<CR><CR>')
 			end,
 			capabilities = capabilities,
 		}
@@ -235,8 +235,7 @@ use {
 		lsp.texlab.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!latexmk -pdf \'' .. vim.api.nvim_buf_get_name(0) .. '\'<CR>')
-				vim.keymap.set('n', '<F8>', '<cmd>!zathura \'' .. (vim.api.nvim_buf_get_name(0):gsub("%.tex$", ".pdf")) .. '\' &<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!make<CR>')
 			end,
 			capabilities = capabilities,
 		}
@@ -251,8 +250,7 @@ use {
 		lsp.clangd.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!cmake -S . -B build/ -D CMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build/<CR>')
-				vim.keymap.set('n', '<F8>', '<cmd>!cmake -S . -B build/ && cmake --build build/ && ./build/' ..	vim.fn.substitute(vim.fn.getcwd(), '^.*/', '', '') .. '<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!cmake --build build/<CR>')
 			end,
 			capabilities = capabilities,
 		}
@@ -260,8 +258,6 @@ use {
 		lsp.nixd.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; update-sys"<CR><CR>')
-				vim.keymap.set('n', '<F8>', '<cmd>!tmux neww -n rebuild -P "tmux setw remain-on-exit on; update-sys-hard"<CR><CR>')
 			end,
 			capabilities = capabilities,
 		}
