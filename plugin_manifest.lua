@@ -157,16 +157,16 @@ use {
 			vim.keymap.set('n', 'gH', vim.lsp.buf.code_action, opts)
 
 			opts.desc = "Goto definition"
-			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+			vim.keymap.set('n', 'gd', require'telescope.builtin'.lsp_definitions, opts)
 
 			opts.desc = "Goto implementation"
-			vim.keymap.set('n', 'gD', vim.lsp.buf.implementation, opts)
+			vim.keymap.set('n', 'gD', require'telescope.builtin'.lsp_implementations, opts)
 
 			opts.desc = "Rename code symbol"
 			vim.keymap.set('n', 'gr', vim.lsp.buf.rename, opts)
 
 			opts.desc = "Show code references"
-			vim.keymap.set('n', 'gR', vim.lsp.buf.references, opts)
+			vim.keymap.set('n', 'gR', require'telescope.builtin'.lsp_references, opts)
 
 			opts.desc = "Format document"
 			vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)

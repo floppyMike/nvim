@@ -27,6 +27,7 @@ maps.v["<c-c>"] = { '"+y', desc = "Copy selected to clipboard." }
 maps.n["<leader>f"] = { require'telescope.builtin'.find_files, desc = "Find files" }
 maps.n["<leader>b"] = { require'telescope.builtin'.buffers, desc = "Find buffers" }
 maps.n["<leader>s"] = { require'telescope.builtin'.live_grep, desc = "Find buffers" }
+maps.n["<leader>d"] = { require'telescope.builtin'.diagnostics, desc = "List diagnostics" }
 
 -- Stay in indent mode
 maps.v["<S-Tab>"] = { "<gv", desc = "unindent line" }
