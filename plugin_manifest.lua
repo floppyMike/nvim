@@ -250,7 +250,7 @@ use {
 		lsp.clangd.setup {
 			on_attach = function(_, b)
 				on_attach(_, b)
-				vim.keymap.set('n', '<F7>', '<cmd>!cmake --build build/<CR>')
+				vim.keymap.set('n', '<F7>', '<cmd>!cmake --build build/ --parallel<CR>')
 			end,
 			capabilities = capabilities,
 		}
