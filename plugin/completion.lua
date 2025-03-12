@@ -2,9 +2,9 @@
 -- Completion
 --
 
-require"pluginmanager".ensure("Saghen", "blink.cmp", {})
+require "pluginmanager".ensure("Saghen", "blink.cmp", {})
 
-require"blink.cmp".setup {
+require "blink.cmp".setup {
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer" }
 	},
@@ -20,15 +20,15 @@ require"blink.cmp".setup {
 -- LSP
 --
 
-require"pluginmanager".ensure("neovim", "nvim-lspconfig", {})
+require "pluginmanager".ensure("neovim", "nvim-lspconfig", {})
 
-local capabilities = require"blink.cmp".get_lsp_capabilities()
-local lsp = require"lspconfig"
+local capabilities = require "blink.cmp".get_lsp_capabilities()
+local lsp = require "lspconfig"
 
 vim.keymap.set({ "n", "x" }, "<a-d>", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 vim.keymap.set({ "n", "x" }, "<a-D>", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 
-local on_attach = function (_, bufnr)
+local on_attach = function(_, bufnr)
 	local opts = { silent = true, buffer = bufnr }
 
 	opts.desc = "Rename LSP symbol"
@@ -48,6 +48,9 @@ local on_attach = function (_, bufnr)
 
 	opts.desc = "List lsp document symbols"
 	vim.keymap.set("n", "gO", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts)
+
+	opts.desc = "Format document"
+	vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 end
 
 -- Lua for neovim
@@ -57,7 +60,7 @@ lsp.lua_ls.setup { -- Neovim complemetion
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
-			if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc')) then
+			if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc')) then
 				return
 			end
 		end
