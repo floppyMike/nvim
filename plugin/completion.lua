@@ -93,3 +93,11 @@ lsp.texlab.setup {
 	capabilities = capabilities,
 	on_attach = on_attach
 }
+
+-- C++
+lsp.clangd.setup {
+	capabilities = capabilities,
+	on_attach = function(_, b)
+		on_attach(_, b)
+	end
+}
