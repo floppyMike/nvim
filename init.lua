@@ -53,6 +53,11 @@ vim.keymap.set("n", "<c-Down>", "<cmd>resize +2<CR>", { desc = "Resize split dow
 vim.keymap.set("n", "<c-Left>", "<cmd>vertical resize -2<CR>", { desc = "Resize split left" })
 vim.keymap.set("n", "<c-Right>", "<cmd>vertical resize +2<CR>", { desc = "Resize split right" })
 
+vim.keymap.set("n", "<a-b>", "<cmd>bn<cr>", { desc = "Move to right buffer or loop" })
+vim.keymap.set("n", "<a-B>", "<cmd>bp<cr>", { desc = "Move to left buffer or loop" })
+vim.keymap.set("n", "<a-q>", "<cmd>cnext<cr>", { desc = "Move to next quickfix item" })
+vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous quickfix item" })
+
 vim.keymap.set("v", "<c-c>", '"+y', { desc = "Copy selected to clipboard." })
 
 vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "unindent line" })
