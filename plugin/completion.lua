@@ -31,6 +31,9 @@ vim.keymap.set({ "n", "x" }, "<a-D>", vim.diagnostic.goto_prev, { desc = "Previo
 local on_attach = function(_, bufnr)
 	local opts = { silent = true, buffer = bufnr }
 
+	opts.desc = "Build project"
+	vim.keymap.set('n', '<F7>', '<cmd>make<CR>', opts)
+
 	opts.desc = "Rename LSP symbol"
 	vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
 
@@ -99,6 +102,7 @@ lsp.clangd.setup {
 	capabilities = capabilities,
 	on_attach = function(_, b)
 		on_attach(_, b)
+		vim.o.makeprg = "cmake --build build/ --parallel"
 	end
 }
 
@@ -117,6 +121,7 @@ lsp.zls.setup {
 	on_attach = function(_, b)
 		on_attach(_, b)
 		vim.g.zig_fmt_parse_errors = 0
+		vim.o.makeprg = "zig build $*"
 	end
 }
 
@@ -125,5 +130,6 @@ lsp.rust_analyzer.setup {
 	capabilities = capabilities,
 	on_attach = function(_, b)
 		on_attach(_, b)
+		vim.o.makeprg = "cargo $*"
 	end
 }
