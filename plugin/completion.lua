@@ -101,3 +101,12 @@ lsp.clangd.setup {
 		on_attach(_, b)
 	end
 }
+
+-- Python
+lsp.pylsp.setup {
+	capabilities = capabilities,
+	on_attach = function(_, b)
+		on_attach(_, b)
+		vim.keymap.set('n', '<F8>', '<cmd>!python %<CR>')
+	end
+}
