@@ -119,3 +119,11 @@ lsp.zls.setup {
 		vim.g.zig_fmt_parse_errors = 0
 	end
 }
+
+-- Rust
+lsp.rust_analyzer.setup {
+	capabilities = capabilities,
+	on_attach = function(_, b)
+		on_attach(_, b)
+	end
+}
