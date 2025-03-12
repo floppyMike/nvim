@@ -110,3 +110,12 @@ lsp.pylsp.setup {
 		vim.keymap.set('n', '<F8>', '<cmd>!python %<CR>')
 	end
 }
+
+-- Zig
+lsp.zls.setup {
+	capabilities = capabilities,
+	on_attach = function(_, b)
+		on_attach(_, b)
+		vim.g.zig_fmt_parse_errors = 0
+	end
+}
