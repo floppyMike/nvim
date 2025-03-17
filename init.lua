@@ -78,6 +78,12 @@ vim.keymap.set("n", "zd", function()
 	print("lang: german")
 end, { desc = "Set spellcheck to german" })
 
+vim.keymap.set("n", "<leader>d", "<cmd>!st >/dev/null 2>&1 & disown<cr>",
+	{ desc = "Open new terminal in same directory.", silent = true })
+vim.api.nvim_create_user_command("Open",
+	function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
+	{ nargs = 1, complete = "file_in_path", desc = "Open file using xdg-open" })
+
 --
 -- Autocmds
 --
