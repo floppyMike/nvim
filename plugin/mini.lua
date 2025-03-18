@@ -36,6 +36,7 @@ require"mini.pick".setup {
 vim.keymap.set("n", "<leader>f", MiniPick.builtin.files)
 vim.keymap.set("n", "<leader>g", MiniPick.builtin.grep)
 vim.keymap.set("n", "<leader>b", MiniPick.builtin.buffers)
+vim.keymap.set("n", "<leader>z", MiniExtra.pickers.spellsuggest)
 
 --
 -- Filesystem
