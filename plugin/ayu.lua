@@ -1,6 +1,6 @@
-require"pluginmanager".ensure("Shatur", "neovim-ayu", {})
+require "pluginmanager".ensure("Shatur", "neovim-ayu", {})
 
-require'ayu'.setup {
+require 'ayu'.setup {
 	overrides = {
 		LineNrAbove = { fg = '#51B3EC' },
 		LineNrBelow = { fg = '#FB508F' },

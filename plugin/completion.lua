@@ -91,9 +91,10 @@ lsp.lua_ls.setup { -- Neovim complemetion
 -- Nix for NixOS config
 lsp.nixd.setup {
 	capabilities = capabilities,
-	on_attach = function (_, bufnr)
+	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
-		vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>", { silent = true, buffer = bufnr, desc = "Format document" })
+		vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>",
+			{ silent = true, buffer = bufnr, desc = "Format document" })
 	end
 }
 
