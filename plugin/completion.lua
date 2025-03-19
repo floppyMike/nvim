@@ -59,7 +59,10 @@ end
 -- Lua for neovim
 lsp.lua_ls.setup { -- Neovim complemetion
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+	end,
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
@@ -88,48 +91,58 @@ lsp.lua_ls.setup { -- Neovim complemetion
 -- Nix for NixOS config
 lsp.nixd.setup {
 	capabilities = capabilities,
-	on_attach = on_attach
+	on_attach = function (_, bufnr)
+		on_attach(_, bufnr)
+		vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>", { silent = true, buffer = bufnr, desc = "Format document" })
+	end
 }
 
 -- Latex
 lsp.texlab.setup {
 	capabilities = capabilities,
-	on_attach = on_attach
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+	end,
 }
 
 -- C++
 lsp.clangd.setup {
 	capabilities = capabilities,
-	on_attach = function(_, b)
-		on_attach(_, b)
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
 		vim.o.makeprg = "cmake --build build/ --parallel"
-	end
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+	end,
 }
 
 -- Python
 lsp.pylsp.setup {
 	capabilities = capabilities,
-	on_attach = function(_, b)
-		on_attach(_, b)
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
 		vim.keymap.set('n', '<F8>', '<cmd>!python %<CR>')
+		vim.keymap.set('n', '<a-i>', "<cmd>%!black -q -<cr>", { silent = true, buffer = bufnr, desc = "Format document" })
 	end
 }
 
 -- Zig
 lsp.zls.setup {
 	capabilities = capabilities,
-	on_attach = function(_, b)
-		on_attach(_, b)
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
 		vim.g.zig_fmt_parse_errors = 0
 		vim.o.makeprg = "zig build $*"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
 	end
 }
 
 -- Rust
 lsp.rust_analyzer.setup {
 	capabilities = capabilities,
-	on_attach = function(_, b)
-		on_attach(_, b)
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
 		vim.o.makeprg = "cargo $*"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
 	end
 }
