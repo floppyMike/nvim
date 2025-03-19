@@ -78,7 +78,7 @@ vim.keymap.set("n", "zd", function()
 	print("lang: german")
 end, { desc = "Set spellcheck to german" })
 
-vim.keymap.set("n", "<leader>d", "<cmd>!st >/dev/null 2>&1 & disown<cr>",
+vim.keymap.set("n", "<leader>d", function() vim.system({ "st", "-e", "bash" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
 vim.api.nvim_create_user_command("Open",
 	function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
