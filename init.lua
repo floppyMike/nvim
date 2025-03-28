@@ -58,6 +58,8 @@ vim.keymap.set("n", "<a-B>", "<cmd>bp<cr>", { desc = "Move to left buffer or loo
 vim.keymap.set("n", "<a-q>", "<cmd>cnext<cr>", { desc = "Move to next quickfix item" })
 vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous quickfix item" })
 
+vim.keymap.set("n", "<F12>", "<cmd>bp | sp | bn | bd!<cr>", { desc = "Delete current buffer without messing up split" })
+
 vim.keymap.set("v", "<c-c>", '"+y', { desc = "Copy selected to clipboard." })
 
 vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "unindent line" })
@@ -92,9 +94,6 @@ vim.api.nvim_create_user_command("Open",
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local command = vim.api.nvim_create_user_command
-
-command('Bd', 'bp | sp | bn | bd!', {})
 
 autocmd("TextYankPost", {
 	desc = "Highlight yanked text",
