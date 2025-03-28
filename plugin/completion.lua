@@ -133,7 +133,7 @@ lsp.zls.setup {
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
 		vim.g.zig_fmt_parse_errors = 0
-		vim.o.makeprg = "zig build $*"
+		vim.o.makeprg = "zig build test $*"
 		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
 	end
 }
