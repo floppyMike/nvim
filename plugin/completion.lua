@@ -103,7 +103,17 @@ lsp.texlab.setup {
 	capabilities = capabilities,
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
-		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+
+		local opts = { silent = true, buffer = bufnr }
+
+		opts.desc = "Format document"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
+
+		opts.desc = "Build project"
+		vim.keymap.set('n', '<F7>', function()
+			vim.o.makeprg = "latexmk -pdf -output-directory=build %"
+			vim.cmd { cmd = "make" }
+		end, opts)
 	end,
 }
 
@@ -112,8 +122,17 @@ lsp.clangd.setup {
 	capabilities = capabilities,
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
-		vim.o.makeprg = "cmake --build build/ --parallel"
-		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+
+		local opts = { silent = true, buffer = bufnr }
+
+		opts.desc = "Format document"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
+
+		opts.desc = "Build project"
+		vim.keymap.set('n', '<F7>', function()
+			vim.o.makeprg = "cmake --build build/ --parallel"
+			vim.cmd { cmd = "make" }
+		end, opts)
 	end,
 }
 
@@ -122,8 +141,13 @@ lsp.pylsp.setup {
 	capabilities = capabilities,
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
-		vim.keymap.set('n', '<F8>', '<cmd>!python %<CR>')
-		vim.keymap.set('n', '<a-i>', "<cmd>%!black -q -<cr>", { silent = true, buffer = bufnr, desc = "Format document" })
+
+		local opts = { silent = true, buffer = bufnr }
+
+		vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
+
+		opts.desc = "Format document"
+		vim.keymap.set('n', '<a-i>', "<cmd>%!black -q -<cr>", opts)
 	end
 }
 
@@ -132,9 +156,24 @@ lsp.zls.setup {
 	capabilities = capabilities,
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
+
+		local opts = { silent = true, buffer = bufnr }
 		vim.g.zig_fmt_parse_errors = 0
-		vim.o.makeprg = "zig build test $*"
-		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+
+		opts.desc = "Format document"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
+
+		opts.desc = "Build project"
+		vim.keymap.set('n', '<F7>', function()
+			vim.o.makeprg = "zig build $*"
+			vim.cmd { cmd = "make" }
+		end, opts)
+
+		opts.desc = "Test project"
+		vim.keymap.set('n', '<F8>', function()
+			vim.o.makeprg = "zig build test $*"
+			vim.cmd { cmd = "make" }
+		end, opts)
 	end
 }
 
@@ -143,7 +182,16 @@ lsp.rust_analyzer.setup {
 	capabilities = capabilities,
 	on_attach = function(_, bufnr)
 		on_attach(_, bufnr)
-		vim.o.makeprg = "cargo $*"
-		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+
+		local opts = { silent = true, buffer = bufnr }
+
+		opts.desc = "Build project"
+		vim.keymap.set('n', '<F7>', function()
+			vim.o.makeprg = "cargo $*"
+			vim.cmd { cmd = "make" }
+		end, opts)
+
+		opts.desc = "Format document"
+		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 	end
 }
