@@ -57,6 +57,8 @@ vim.keymap.set("n", "<a-b>", "<cmd>bn<cr>", { desc = "Move to right buffer or lo
 vim.keymap.set("n", "<a-B>", "<cmd>bp<cr>", { desc = "Move to left buffer or loop" })
 vim.keymap.set("n", "<a-q>", "<cmd>cnext<cr>", { desc = "Move to next quickfix item" })
 vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous quickfix item" })
+vim.keymap.set("n", "<a-P>", "{", { desc = "Move to previous paragraph" })
+vim.keymap.set("n", "<a-p>", "}", { desc = "Move to next paragraph" })
 
 vim.keymap.set("n", "<F12>", "<cmd>bp | sp | bn | bd!<cr>", { desc = "Delete current buffer without messing up split" })
 
