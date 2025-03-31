@@ -14,15 +14,19 @@ end
 --- Sync clone a project into start
 -- @param name Name of the git project
 -- @param git_url HTTP URL to the project
-local function git_clone(name, git_url)
+-- @param on_success Function to run on success
+local function git_clone(name, git_url, on_success)
 	-- Clone only 1 commit deep into path
-	local ret = vim.system({ "git", "clone", "--depth=1", git_url, name }, { cwd = start, stdout = false, stderr = false }):wait()
-
-	if ret.code ~= 0 then
-		return true -- Exit plugin
-	end
-
-	return false -- Continue
+	vim.system({ "git", "clone", "--depth=1", git_url, name },
+		{ cwd = start, stdout = false, stderr = false }, function(ret)
+			if ret.code == 0 then
+				on_success()
+			else
+				vim.schedule(function()
+					vim.notify("Error: Failed to clone \"" .. name .. "\"", vim.log.levels.ERROR)
+				end)
+			end
+		end)
 end
 
 --- Async pull a existing git project in start
@@ -30,51 +34,67 @@ end
 -- @param on_success Function to run on success
 local function git_pull(name, on_success)
 	-- Shallow pull
-	local ret = vim.system({ "git", "pull", "--update-shallow", "--ff-only", "--progress", "--rebase=false" }, { cwd = to_absolute(name), stdout = false, stderr = false }, function(obj)
-		if (obj.code == 0) then
-			on_success()
-		end
-	end)
+	vim.system({ "git", "pull", "--update-shallow", "--ff-only", "--progress", "--rebase=false" },
+		{ cwd = to_absolute(name), stdout = false, stderr = false }, function(obj)
+			if (obj.code == 0) then
+				on_success()
+			else
+				vim.schedule(function()
+					vim.notify("Error: Failed to pull \"" .. name .. "\"", vim.log.levels.ERROR)
+				end)
+			end
+		end)
 end
 
 --- Sync run cmd in project in start
 -- @param name Name of the git project
 -- @param cmd Command to run as a array
-local function run_cmd(name, cmd)
-	if next(cmd) ~= nil then -- If a command was given
-		-- Run the command in directory
-		local ret = vim.system(cmd, { cwd = to_absolute(name), stdout = false, stderr = false }):wait()
-		if ret.code ~= 0 then
-			return true -- Exit plugin
+-- @param on_success Function to run on success
+local function run_cmd(name, cmd, on_success)
+	-- Run the command in directory
+	vim.system(cmd, { cwd = to_absolute(name), stdout = false, stderr = false }, function(ret)
+		if ret.code == 0 then
+			on_success()
+		else
+			vim.schedule(function()
+				vim.notify("Error: Failed to run command for \"" .. name .. "\"", vim.log.levels.ERROR)
+			end)
 		end
-	end
-
-	return false -- Continue
+	end)
 end
 
 -- State
 local M = {}
 
-function M.ensure(author, plugin, cmd)
+function M.ensure(author, plugin, cmd, config)
 	-- Create Directory
 	vim.fn.mkdir(start, 'p')
 
 	-- Register plugin
 	M.plugins[plugin] = cmd
 
-	-- If plugin doesn't exist => clone and load plugin
+	-- If plugin doesn't exist => clone and load plugin, Else do nothing
 	if vim.fn.isdirectory(to_absolute(plugin)) == 0 then
-		-- Clone plugin
-		local url = to_github_url(author, plugin)
-		if (git_clone(plugin, url)) then
-			return true
-		end
+		git_clone(plugin, to_github_url(author, plugin), function()
+			vim.schedule(function()
+				vim.notify("Success: Cloned \"" .. plugin .. "\"", vim.log.levels.INFO)
+			end)
+			if next(cmd) ~= nil then -- If a command was given
+				run_cmd(plugin, cmd, function()
+					vim.schedule(function()
+						vim.notify("Success: Ran command for \"" .. plugin .. "\"", vim.log.levels.INFO)
+					end)
 
-		-- Run cmd if avail
-		run_cmd(plugin, cmd)
-
-		-- Load plugin
-		vim.cmd('packadd! ' .. plugin)
+					vim.cmd('packadd! ' .. plugin)
+					config()
+				end)
+			else
+				vim.cmd('packadd! ' .. plugin)
+				config()
+			end
+		end)
+	else
+		config()
 	end
 end
 
@@ -91,6 +111,7 @@ function M.clear_unused()
 	for _, dir in ipairs(vim.fn.readdir(start)) do
 		if not M.plugins[dir] then
 			vim.fn.delete(to_absolute(dir), 'rf')
+			vim.notify("Success: Deleted \"" .. dir .. "\"", vim.log.levels.INFO)
 		end
 	end
 end
@@ -99,11 +120,22 @@ end
 function M.pack_update()
 	for plugin, cmd in pairs(M.plugins) do
 		git_pull(plugin, function()
-			run_cmd(plugin, cmd)
+			vim.schedule(function()
+				vim.notify("Success: Pulled \"" .. plugin .. "\"", vim.log.levels.INFO)
+			end)
+			if next(cmd) ~= nil then -- If a command was given
+				run_cmd(plugin, cmd, function()
+					vim.schedule(function()
+						vim.notify("Success: Ran command for \"" .. plugin .. "\"", vim.log.levels.INFO)
+					end)
+				end)
+			end
 		end)
 	end
 
-	vim.notify("Reload neovim for updates to take affect.", vim.log.levels.WARN)
+	vim.schedule(function()
+		vim.notify("Warning: Reload neovim for updates to take affect.", vim.log.levels.WARN)
+	end)
 end
 
 return M

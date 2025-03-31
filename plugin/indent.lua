@@ -1,2 +1,3 @@
-require "pluginmanager".ensure("Darazaki", "indent-o-matic", {})
-require 'indent-o-matic'.setup {}
+require "pluginmanager".ensure("Darazaki", "indent-o-matic", {}, function()
+	require 'indent-o-matic'.setup {}
+end)

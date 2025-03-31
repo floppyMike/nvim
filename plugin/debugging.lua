@@ -40,41 +40,42 @@ end
 -- DAP configuration
 --
 
-require "pluginmanager".ensure("mfussenegger", "nvim-dap", {})
-local dap = require "dap"
-local dapwidgets = require "dap.ui.widgets"
-local scope = dapwidgets.sidebar(dapwidgets.scopes, { width = 75 })
-local frame = dapwidgets.sidebar(dapwidgets.frames, { width = 75 })
+require "pluginmanager".ensure("mfussenegger", "nvim-dap", {}, function()
+	local dap = require "dap"
+	local dapwidgets = require "dap.ui.widgets"
+	local scope = dapwidgets.sidebar(dapwidgets.scopes, { width = 75 })
+	local frame = dapwidgets.sidebar(dapwidgets.frames, { width = 75 })
 
-dap.adapters.lldb = {
-	type = "executable",
-	command = "lldb-dap",
-	name = "lldb",
-}
+	dap.adapters.lldb = {
+		type = "executable",
+		command = "lldb-dap",
+		name = "lldb",
+	}
 
-dap.configurations.zig = {
-	{
-		name = "launch",
-		type = "lldb",
-		request = "launch",
-		program = function() return M.getProgram("zig-out/bin/" .. vim.fs.basename(vim.fn.getcwd())) end,
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-		args = M.getArgs,
-	},
-}
+	dap.configurations.zig = {
+		{
+			name = "launch",
+			type = "lldb",
+			request = "launch",
+			program = function() return M.getProgram("zig-out/bin/" .. vim.fs.basename(vim.fn.getcwd())) end,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			args = M.getArgs,
+		},
+	}
 
-vim.keymap.set("n", "<F1>", dap.continue)
-vim.keymap.set("n", "<F2>", dap.step_out)
-vim.keymap.set("n", "<F3>", dap.step_over)
-vim.keymap.set("n", "<F4>", dap.step_into)
-vim.keymap.set("n", "<F5>", function() dap.repl.toggle({ height = 15 }) end)
+	vim.keymap.set("n", "<F1>", dap.continue)
+	vim.keymap.set("n", "<F2>", dap.step_out)
+	vim.keymap.set("n", "<F3>", dap.step_over)
+	vim.keymap.set("n", "<F4>", dap.step_into)
+	vim.keymap.set("n", "<F5>", function() dap.repl.toggle({ height = 15 }) end)
 
-vim.keymap.set("n", "<leader>n", dap.toggle_breakpoint)
-vim.keymap.set("n", "<leader>N", function()
-	vim.notify("Reset DAP configuration")
-	M.reset()
+	vim.keymap.set("n", "<leader>n", dap.toggle_breakpoint)
+	vim.keymap.set("n", "<leader>N", function()
+		vim.notify("Reset DAP configuration")
+		M.reset()
+	end)
+
+	vim.keymap.set("n", "<leader>m", scope.toggle)
+	vim.keymap.set("n", "<leader>M", frame.toggle)
 end)
-
-vim.keymap.set("n", "<leader>m", scope.toggle)
-vim.keymap.set("n", "<leader>M", frame.toggle)

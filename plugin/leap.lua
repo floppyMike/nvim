@@ -1,2 +1,3 @@
-require "pluginmanager".ensure("ggandor", "leap.nvim", {})
-require 'leap'.add_default_mappings()
+require "pluginmanager".ensure("ggandor", "leap.nvim", {}, function()
+	require 'leap'.add_default_mappings()
+end)
