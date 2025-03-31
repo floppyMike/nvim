@@ -195,3 +195,24 @@ lsp.rust_analyzer.setup {
 		vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 	end
 }
+
+-- Spell Checking
+lsp.ltex_plus.setup {
+	capabilities = capabilities,
+	on_attach = function(_, bufnr)
+		vim.keymap.set("n", "<leader>Z", function()
+			local clients = vim.lsp.get_clients({ buffer = bufnr })
+			for _, client in ipairs(clients) do
+				if client.name == "ltex_plus" then
+					vim.ui.input({ prompt = "Enter new language: " }, function (lang)
+						client.config.settings.ltex.language = lang
+						vim.lsp.buf_notify(bufnr, "workspace/didChangeConfiguration", { settings = client.config.settings })
+					end)
+					return
+				end
+			end
+		end, { desc = "Enable spell checking" })
+	end,
+	filetypes = { "tex", "markdown" },
+	settings = { ltex = { enabled = { "tex", "markdown" } } },
+}
