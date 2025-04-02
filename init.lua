@@ -78,6 +78,11 @@ vim.api.nvim_create_user_command("Open",
 	function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
 	{ nargs = 1, complete = "file_in_path", desc = "Open file using xdg-open" })
 
+vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1, float = true } end,
+	{ desc = "Next Diagnostic" })
+vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -1, float = true } end,
+	{ desc = "Previous Diagnostic" })
+
 --
 -- Autocmds
 --

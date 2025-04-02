@@ -39,6 +39,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	vim.keymap.set("n", "<leader>g", MiniPick.builtin.grep)
 	vim.keymap.set("n", "<leader>b", MiniPick.builtin.buffers)
 	vim.keymap.set("n", "<leader>z", MiniExtra.pickers.spellsuggest)
+	vim.keymap.set("n", "gO", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end)
 
 	--
 	-- Filesystem

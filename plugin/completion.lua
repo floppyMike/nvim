@@ -21,36 +21,10 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		local capabilities = require "blink.cmp".get_lsp_capabilities()
 		local lsp = require "lspconfig"
 
-		vim.keymap.set({ "n", "x" }, "<a-d>", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-		vim.keymap.set({ "n", "x" }, "<a-D>", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
-
-		local on_attach = function(_, bufnr)
-			local opts = { silent = true, buffer = bufnr }
-
-			opts.desc = "Rename LSP symbol"
-			vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
-
-			opts.desc = "Perform code action for LSP symbol"
-			vim.keymap.set("n", "gra", vim.lsp.buf.code_action, opts)
-
-			opts.desc = "List references for LSP symbol"
-			vim.keymap.set("n", "grr", vim.lsp.buf.references, opts)
-
-			opts.desc = "Goto implementation for LSP symbol"
-			vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts)
-
-			opts.desc = "Goto definition for LSP symbol"
-			vim.keymap.set("n", "grd", vim.lsp.buf.definition, opts)
-
-			opts.desc = "List lsp document symbols"
-			vim.keymap.set("n", "gO", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts)
-		end
-
 		-- Lua for neovim
 		lsp.lua_ls.setup { -- Neovim complemetion
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
 				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format,
 					{ silent = true, buffer = bufnr, desc = "Format document" })
 			end,
@@ -83,7 +57,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.nixd.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
 				vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>",
 					{ silent = true, buffer = bufnr, desc = "Format document" })
 			end
@@ -93,7 +66,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.texlab.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
 
 				local opts = { silent = true, buffer = bufnr }
 
@@ -112,7 +84,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.clangd.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
 
 				local opts = { silent = true, buffer = bufnr }
 
@@ -131,8 +102,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.pylsp.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
-
 				local opts = { silent = true, buffer = bufnr }
 
 				vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
@@ -146,8 +115,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.zls.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
-
 				local opts = { silent = true, buffer = bufnr }
 				vim.g.zig_fmt_parse_errors = 0
 
@@ -172,8 +139,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.rust_analyzer.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				on_attach(_, bufnr)
-
 				local opts = { silent = true, buffer = bufnr }
 
 				opts.desc = "Build project"
