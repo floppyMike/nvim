@@ -6,14 +6,5 @@ require "pluginmanager".ensure("nvim-treesitter", "nvim-treesitter", {}, functio
 		indent = {
 			enable = true
 		},
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection = false,
-				scope_incremental = false,
-				node_incremental = "<tab>",
-				node_decremental = "<s-tab>",
-			},
-		},
 	}
 end)
