@@ -27,9 +27,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		local on_attach = function(_, bufnr)
 			local opts = { silent = true, buffer = bufnr }
 
-			opts.desc = "Build project"
-			vim.keymap.set('n', '<F7>', '<cmd>make<CR>', opts)
-
 			opts.desc = "Rename LSP symbol"
 			vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
 
@@ -47,9 +44,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 
 			opts.desc = "List lsp document symbols"
 			vim.keymap.set("n", "gO", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts)
-
-			opts.desc = "Format document"
-			vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 		end
 
 		-- Lua for neovim
