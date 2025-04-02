@@ -61,6 +61,24 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 
 	require "mini.pairs".setup()
 
+	require "pluginmanager".ensure("nvim-treesitter", "nvim-treesitter-textobjects", {}, function()
+		local ai = require "mini.ai"
+		ai.setup {
+			mappings = {
+				goto_left = '<a-G>',
+				goto_right = '<a-g>',
+			},
+			custom_textobjects = {
+				o = ai.gen_spec.treesitter({
+					a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+					i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+				}, {}),
+				f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+				c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+			},
+		}
+	end)
+
 	--
 	-- Looks
 	--
