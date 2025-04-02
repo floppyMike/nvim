@@ -79,6 +79,18 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 		}
 	end)
 
+	require "mini.surround".setup {
+		mappings = {
+			add = 'ma',
+			delete = 'md',
+			find = 'mf',
+			find_left = 'mF',
+			highlight = 'mh',
+			replace = 'mr',
+			update_n_lines = 'mn',
+		},
+	}
+
 	--
 	-- Looks
 	--
