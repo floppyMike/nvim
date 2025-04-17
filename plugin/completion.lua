@@ -21,12 +21,20 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		local capabilities = require "blink.cmp".get_lsp_capabilities()
 		local lsp = require "lspconfig"
 
+		function on_attach(_, bufnr, opts)
+			opts.desc = "Goto definition"
+			vim.keymap.set('n', 'grd', vim.lsp.buf.definition, opts)
+		end
+
 		-- Lua for neovim
 		lsp.lua_ls.setup { -- Neovim complemetion
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format,
-					{ silent = true, buffer = bufnr, desc = "Format document" })
+				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
+
+				opts.desc = "Format document"
+				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 			end,
 			on_init = function(client)
 				if client.workspace_folders then
@@ -57,8 +65,11 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.nixd.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>",
-					{ silent = true, buffer = bufnr, desc = "Format document" })
+				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
+
+				opts.desc = "Format document"
+				vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>", opts)
 			end
 		}
 
@@ -66,8 +77,8 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.texlab.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-
 				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
 
 				opts.desc = "Format document"
 				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
@@ -84,8 +95,8 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		lsp.clangd.setup {
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-
 				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
 
 				opts.desc = "Format document"
 				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
@@ -103,6 +114,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
 
 				vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
 
@@ -116,6 +128,8 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
+
 				vim.g.zig_fmt_parse_errors = 0
 
 				opts.desc = "Format document"
@@ -140,6 +154,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
+				on_attach(_, bufnr, opts)
 
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
