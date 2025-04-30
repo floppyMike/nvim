@@ -86,7 +86,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "latexmk -pdf -output-directory=build %"
-					vim.cmd { cmd = "make" }
+					vim.cmd("make!")
 				end, opts)
 			end,
 		}
@@ -104,7 +104,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "cmake --build build/ --parallel"
-					vim.cmd { cmd = "make" }
+					vim.cmd("make!")
 				end, opts)
 			end,
 		}
@@ -138,13 +138,13 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "zig build $*"
-					vim.cmd { cmd = "make" }
+					vim.cmd("make!")
 				end, opts)
 
 				opts.desc = "Test project"
 				vim.keymap.set('n', '<F8>', function()
 					vim.o.makeprg = "zig build test $*"
-					vim.cmd { cmd = "make" }
+					vim.cmd("make!")
 				end, opts)
 			end
 		}
@@ -159,7 +159,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "cargo $*"
-					vim.cmd { cmd = "make" }
+					vim.cmd("make!")
 				end, opts)
 
 				opts.desc = "Format document"
