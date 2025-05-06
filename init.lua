@@ -32,7 +32,7 @@ vim.opt.splitright = true                                              -- Splitt
 vim.opt.history = 100                                                  -- Number of commands to remember in a history table
 vim.opt.undofile = true                                                -- Enable persistent undo
 vim.opt.writebackup = false                                            -- Disable making a backup before overwriting a file
-vim.opt.spelllang = { 'en', 'de' }                                     -- Use english and german dictionary
+vim.opt.spelllang = { 'en' }                                           -- Use english dictionary
 vim.opt.fileencoding = "utf-8"                                         -- File content encoding for the buffer
 
 vim.g.mapleader = " "
@@ -69,6 +69,19 @@ vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "unindent line" })
 vim.keymap.set("v", "<Tab>", ">gv", { desc = "indent line" })
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", { desc = "Stop search with ESC" })
+
+vim.keymap.set("n", "<leader>Z", function()
+	vim.opt_local.spell = not (vim.opt_local.spell:get())
+	print("spell: " .. tostring(vim.opt_local.spell:get()))
+end, { desc = "Enable spell checking" })
+vim.keymap.set("n", "ze", function()
+	vim.opt.spelllang = { 'en' }
+	print("lang: english")
+end, { desc = "Set spellcheck to english" })
+vim.keymap.set("n", "zd", function()
+	vim.opt.spelllang = { 'de' }
+	print("lang: german")
+end, { desc = "Set spellcheck to german" })
 
 vim.keymap.set("n", "<leader>d", function() vim.system({ "st", "-e", "bash" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
