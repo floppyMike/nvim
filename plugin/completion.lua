@@ -119,7 +119,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
 
 				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', "<cmd>%!black -q -<cr>", opts)
+				vim.keymap.set('n', '<a-i>', "<cmd>%!black --line-length 999 -q -<cr>", opts)
 			end
 		}
 
