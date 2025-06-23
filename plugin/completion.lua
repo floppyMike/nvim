@@ -93,6 +93,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 
 		-- C++
 		lsp.clangd.setup {
+ 			cmd = { "clangd", "--query-driver=/home/michaellu/Distrobox/develop/.local/bin/xpack-arm-none-eabi-gcc-14.2.1-1.1/bin/arm-none-eabi-gcc" },
 			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
