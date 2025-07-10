@@ -34,6 +34,7 @@ vim.opt.undofile = true                                                -- Enable
 vim.opt.writebackup = false                                            -- Disable making a backup before overwriting a file
 vim.opt.spelllang = { 'en' }                                           -- Use english dictionary
 vim.opt.fileencoding = "utf-8"                                         -- File content encoding for the buffer
+vim.opt.path:append("**")                                              -- :find will search recursivly
 
 vim.g.mapleader = " "
 
@@ -82,6 +83,7 @@ vim.keymap.set("n", "zd", function()
 	vim.opt.spelllang = { 'de' }
 	print("lang: german")
 end, { desc = "Set spellcheck to german" })
+vim.keymap.set("n", "<leader>z", "z=", { desc = "Spelling suggestions" })
 
 vim.keymap.set("n", "<leader>d", function() vim.system({ "st", "-e", "bash" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
@@ -95,6 +97,9 @@ vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1
 	{ desc = "Next Diagnostic" })
 vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -1, float = true } end,
 	{ desc = "Previous Diagnostic" })
+
+vim.keymap.set("n", "<leader>f", ":find ", { desc = "Find a file" })
+vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
 
 --
 -- Autocmds
