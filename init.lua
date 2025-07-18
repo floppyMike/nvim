@@ -98,7 +98,7 @@ vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1
 vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -1, float = true } end,
 	{ desc = "Previous Diagnostic" })
 
-vim.keymap.set("n", "<leader>f", ":find ", { desc = "Find a file" })
+vim.keymap.set("n", "<leader>f", ":Find ", { desc = "Find a file using fd" })
 vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
 
 --
@@ -107,6 +107,7 @@ vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local usercmd = vim.api.nvim_create_user_command
 
 autocmd("TextYankPost", {
 	desc = "Highlight yanked text",
@@ -120,4 +121,18 @@ autocmd("FileType", {
 	group = augroup("unlist_quickfist", { clear = true }),
 	pattern = "qf",
 	callback = function() vim.opt_local.buflisted = false end,
+})
+
+--
+-- Custom find using fd
+--
+
+usercmd("Find", function(opts)
+	vim.cmd("edit " .. opts.args)
+end, {
+	nargs = 1,
+	complete = function(arg_lead, cmd_line, cursor_pos)
+		local fd_cmd = 'fd -H -t f -E .git ' .. vim.fn.shellescape(arg_lead)
+		return vim.split(vim.fn.system(fd_cmd), '\n', { trimempty = true })
+	end
 })
