@@ -36,6 +36,9 @@ vim.opt.spelllang = { 'en' }                                           -- Use en
 vim.opt.fileencoding = "utf-8"                                         -- File content encoding for the buffer
 vim.opt.path:append("**")                                              -- :find will search recursivly
 
+vim.opt.grepprg = "rg --vimgrep"                                       -- Replace grep with ripgrep (faster)
+vim.opt.grepformat = "%f:%l:%c:%m"
+
 vim.g.mapleader = " "
 
 --
