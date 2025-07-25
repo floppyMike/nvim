@@ -64,7 +64,16 @@ vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous qu
 vim.keymap.set({ "n", "v" }, "<a-P>", "{", { desc = "Move to previous paragraph" })
 vim.keymap.set({ "n", "v" }, "<a-p>", "}", { desc = "Move to next paragraph" })
 
-vim.keymap.set("n", "<F11>", "<cmd>cw<cr>", { desc = "Close quickfix list" })
+vim.keymap.set("n", "<F11>",
+	function()
+		for _, win in ipairs(vim.fn.getwininfo()) do
+			if win.quickfix == 1 then
+				vim.cmd("cclose")
+				return
+			end
+		end
+		vim.cmd("copen")
+	end, { desc = "Close quickfix list" })
 vim.keymap.set("n", "<F12>", "<cmd>bp | sp | bn | bd!<cr>", { desc = "Delete current buffer without messing up split" })
 
 vim.keymap.set("v", "<c-c>", '"+y', { desc = "Copy selected to clipboard." })
