@@ -64,6 +64,16 @@ vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous qu
 vim.keymap.set({ "n", "v" }, "<a-P>", "{", { desc = "Move to previous paragraph" })
 vim.keymap.set({ "n", "v" }, "<a-p>", "}", { desc = "Move to next paragraph" })
 
+vim.keymap.set("n", "<F10>", 
+	function ()
+		for _, win in ipairs(vim.fn.getwininfo()) do
+			if win.loclist == 1 then
+				vim.cmd("lclose")
+				return
+			end
+		end
+		vim.cmd("lopen")
+	end, { desc = "Close location list" })
 vim.keymap.set("n", "<F11>",
 	function()
 		for _, win in ipairs(vim.fn.getwininfo()) do
