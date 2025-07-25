@@ -61,6 +61,8 @@ vim.keymap.set("n", "<a-b>", "<cmd>bn<cr>", { desc = "Move to right buffer or lo
 vim.keymap.set("n", "<a-B>", "<cmd>bp<cr>", { desc = "Move to left buffer or loop" })
 vim.keymap.set("n", "<a-q>", "<cmd>cnext<cr>", { desc = "Move to next quickfix item" })
 vim.keymap.set("n", "<a-Q>", "<cmd>cprevious<cr>", { desc = "Move to previous quickfix item" })
+vim.keymap.set("n", "<a-w>", "<cmd>lnext<cr>", { desc = "Move to next location list item" })
+vim.keymap.set("n", "<a-W>", "<cmd>lprevious<cr>", { desc = "Move to previous location list item" })
 vim.keymap.set({ "n", "v" }, "<a-P>", "{", { desc = "Move to previous paragraph" })
 vim.keymap.set({ "n", "v" }, "<a-p>", "}", { desc = "Move to next paragraph" })
 
@@ -122,6 +124,7 @@ vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -
 
 vim.keymap.set("n", "<leader>f", ":Find ", { desc = "Find a file using fd" })
 vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
+vim.keymap.set("n", "<leader>g", ":lgrep ", { desc = "Find a string" })
 
 --
 -- Autocmds
