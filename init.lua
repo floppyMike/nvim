@@ -145,6 +145,13 @@ autocmd("FileType", {
 	callback = function() vim.opt_local.buflisted = false end,
 })
 
+autocmd("QuickFixCmdPost", {
+	pattern = "lgrep",
+	callback = function()
+		vim.cmd("lopen")
+	end,
+})
+
 --
 -- Custom find using fd
 --
