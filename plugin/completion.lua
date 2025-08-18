@@ -18,24 +18,10 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 	-- LSP
 	--
 	require "pluginmanager".ensure("neovim", "nvim-lspconfig", {}, function()
-		local capabilities = require "blink.cmp".get_lsp_capabilities()
 		local lsp = require "lspconfig"
-
-		function on_attach(_, bufnr, opts)
-			opts.desc = "Goto definition"
-			vim.keymap.set('n', 'grd', vim.lsp.buf.definition, opts)
-		end
 
 		-- Lua for neovim
 		lsp.lua_ls.setup { -- Neovim complemetion
-			capabilities = capabilities,
-			on_attach = function(_, bufnr)
-				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
-			end,
 			on_init = function(client)
 				if client.workspace_folders then
 					local path = client.workspace_folders[1].name
@@ -62,26 +48,12 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		}
 
 		-- Nix for NixOS config
-		lsp.nixd.setup {
-			capabilities = capabilities,
-			on_attach = function(_, bufnr)
-				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>", opts)
-			end
-		}
+		lsp.nixd.setup {}
 
 		-- Latex
 		lsp.texlab.setup {
-			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
@@ -94,13 +66,8 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		-- C++
 		lsp.clangd.setup {
 			cmd = { "clangd", "--background-index", "--clang-tidy", "--query-driver=" .. vim.env.HOME .. "/.local/bin/xpack-arm-none-eabi-gcc-14.2.1-1.1/bin/arm-none-eabi-gcc" },
-			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
@@ -112,29 +79,15 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 
 		-- Python
 		lsp.pylsp.setup {
-			capabilities = capabilities,
 			on_attach = function(_, bufnr)
-				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
 				vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', "<cmd>%!black --line-length 999 -q -<cr>", opts)
 			end
 		}
 
 		-- Zig
 		lsp.zls.setup {
-			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
-
-				vim.g.zig_fmt_parse_errors = 0
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
@@ -152,19 +105,14 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 
 		-- Rust
 		lsp.rust_analyzer.setup {
-			capabilities = capabilities,
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
-				on_attach(_, bufnr, opts)
 
 				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "cargo $*"
 					vim.cmd("make!")
 				end, opts)
-
-				opts.desc = "Format document"
-				vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, opts)
 			end
 		}
 	end)
