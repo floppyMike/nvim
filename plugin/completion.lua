@@ -100,6 +100,13 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			end
 		})
 
+		vim.lsp.config("nixd", {
+			on_attach = function(_, bufnr)
+				vim.keymap.set('n', '<a-i>', "<cmd>%!alejandra -qq<cr>",
+					{ silent = true, buffer = bufnr, desc = "Format document" })
+			end
+		})
+
 		vim.lsp.enable("nixd")
 
 		require "pluginmanager".ensure("mason-org", "mason.nvim", {}, function()
