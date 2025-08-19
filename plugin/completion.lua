@@ -18,10 +18,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 	-- LSP
 	--
 	require "pluginmanager".ensure("neovim", "nvim-lspconfig", {}, function()
-		local lsp = require "lspconfig"
-
-		-- Lua for neovim
-		lsp.lua_ls.setup { -- Neovim complemetion
+		vim.lsp.config("lua_ls", {
 			on_init = function(client)
 				if client.workspace_folders then
 					local path = client.workspace_folders[1].name
@@ -31,7 +28,11 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				end
 				client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
 					runtime = {
-						version = 'LuaJIT'
+						version = 'LuaJIT',
+						path = {
+							'lua/?.lua',
+							'lua/?/init.lua',
+						},
 					},
 					-- Make the server aware of Neovim runtime files
 					workspace = {
@@ -45,26 +46,18 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			settings = {
 				Lua = {}
 			}
-		}
+		})
 
-		-- Nix for NixOS config
-		lsp.nixd.setup {}
-
-		-- Latex
-		lsp.texlab.setup {
+		vim.lsp.config("texlab", {
 			on_attach = function(_, bufnr)
-				local opts = { silent = true, buffer = bufnr }
-
-				opts.desc = "Build project"
 				vim.keymap.set('n', '<F7>', function()
 					vim.o.makeprg = "latexmk -pdf -output-directory=build %"
 					vim.cmd("make!")
-				end, opts)
+				end, { silent = true, buffer = bufnr, desc = "Build project" })
 			end,
-		}
+		})
 
-		-- C++
-		lsp.clangd.setup {
+		vim.lsp.config("clangd", {
 			cmd = { "clangd", "--background-index", "--clang-tidy", "--query-driver=" .. vim.env.HOME .. "/.local/bin/xpack-arm-none-eabi-gcc-14.2.1-1.1/bin/arm-none-eabi-gcc" },
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
@@ -75,17 +68,9 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 					vim.cmd("make!")
 				end, opts)
 			end,
-		}
+		})
 
-		-- Python
-		lsp.pylsp.setup {
-			on_attach = function(_, bufnr)
-				vim.keymap.set('n', '<F9>', '<cmd>!python %<CR>', { buffer = bufnr, desc = "Run python file" })
-			end
-		}
-
-		-- Zig
-		lsp.zls.setup {
+		vim.lsp.config("zls", {
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
 
@@ -101,10 +86,9 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 					vim.cmd("make!")
 				end, opts)
 			end
-		}
+		})
 
-		-- Rust
-		lsp.rust_analyzer.setup {
+		vim.lsp.config("rust_analyzer", {
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
 
@@ -114,6 +98,16 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 					vim.cmd("make!")
 				end, opts)
 			end
-		}
+		})
+
+		vim.lsp.enable("nixd")
+
+		require "pluginmanager".ensure("mason-org", "mason.nvim", {}, function()
+			require "mason".setup()
+
+			require "pluginmanager".ensure("mason-org", "mason-lspconfig.nvim", {}, function()
+				require "mason-lspconfig".setup()
+			end)
+		end)
 	end)
 end)
