@@ -170,7 +170,11 @@ usercmd("Find", function(opts)
 end, {
 	nargs = 1,
 	complete = function(arg_lead, cmd_line, cursor_pos)
-		local fd_cmd = 'fd -H -t f -E .git ' .. vim.fn.shellescape(arg_lead)
-		return vim.split(vim.fn.system(fd_cmd), '\n', { trimempty = true })
+		local fd_cmd = 'fd -g -H -t f -E .git ' .. vim.fn.shellescape(arg_lead)
+		local results = vim.fn.systemlist(fd_cmd)
+		for i, v in ipairs(results) do
+			results[i] = vim.fn.fnameescape(v)
+		end
+		return results
 	end
 })
