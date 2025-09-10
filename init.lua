@@ -127,7 +127,7 @@ vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -
 
 vim.keymap.set("n", "<leader>f", ":Find ", { desc = "Find a file using fd" })
 vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
-vim.keymap.set("n", "<leader>g", ":lgrep ", { desc = "Find a string" })
+vim.keymap.set("n", "<leader>g", ":grep ", { desc = "Find a string" })
 
 vim.keymap.set('n', 'grd', vim.lsp.buf.definition, { desc = "Goto definition" })
 vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { desc = "Format document" })
