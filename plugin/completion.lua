@@ -61,7 +61,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		})
 
 		vim.lsp.config("clangd", {
-			cmd = { "clangd", "--query-driver=/home/michaellu/Distrobox/develop/.local/bin/xpack-arm-none-eabi-gcc-14.2.1-1.1/bin/arm-none-eabi-gcc" },
+			cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose", "--query-driver=/home/michaellu/Distrobox/develop/.local/bin/xpack-arm-none-eabi-gcc-14.2.1-1.1/bin/arm-none-eabi-gcc" },
 			on_attach = function(_, bufnr)
 				local opts = { silent = true, buffer = bufnr }
 
