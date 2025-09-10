@@ -11,6 +11,9 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 		},
 		signature = {
 			enabled = true
+		},
+		completion = {
+			documentation = { auto_show = true },
 		}
 	}
 
