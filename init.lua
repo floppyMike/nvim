@@ -112,9 +112,9 @@ vim.keymap.set("n", "zd", function()
 end, { desc = "Set spellcheck to german" })
 vim.keymap.set("n", "<leader>z", "z=", { desc = "Spelling suggestions" })
 
-vim.keymap.set("n", "<leader>d", function() vim.system({ "st", "-e", "bash" }, { stdout = false, detach = true }) end,
+vim.keymap.set("n", "<leader>d", function() vim.system({ vim.env.ST }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
-vim.keymap.set("n", "<leader>h", function() vim.system({ "st", "-e", "lazygit" }, { stdout = false, detach = true }) end,
+vim.keymap.set("n", "<leader>h", function() vim.system({ vim.env.ST, "-e", "lazygit" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
 vim.api.nvim_create_user_command("Open",
 	function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
