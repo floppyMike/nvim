@@ -123,7 +123,32 @@ vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1
 vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -1, float = true } end,
 	{ desc = "Previous Diagnostic" })
 
-vim.keymap.set("n", "<leader>f", ":Find ", { desc = "Find a file using fd" })
+vim.keymap.set('n', "<leader>f", function()
+	local bufnr = vim.api.nvim_create_buf(false, true)
+
+	local winnr = vim.api.nvim_open_win(bufnr, true, {
+		relative = "editor",
+		row = vim.o.lines - 1,
+		col = 0,
+		width = vim.o.columns,
+		height = math.min(20, vim.o.lines - 1),
+		border = "bold",
+		title = "File Search",
+	})
+
+	local tmp = vim.fn.tempname()
+
+	vim.fn.jobstart("fzf > " .. tmp, {
+		term = true,
+		on_exit = function()
+			vim.api.nvim_win_close(winnr, true)
+			local search = vim.fn.readfile(tmp)
+			if #search > 0 then vim.cmd("e " .. search[1]) end
+			vim.fn.delete(tmp)
+		end
+	})
+	vim.cmd("startinsert")
+end, { desc = "Find a file using fd" })
 vim.keymap.set("n", "<leader>b", ":b ", { desc = "Find a buffer" })
 vim.keymap.set("n", "<leader>g", ":grep ", { desc = "Find a string" })
 
@@ -160,22 +185,4 @@ autocmd("QuickFixCmdPost", {
 	callback = function()
 		vim.cmd("lopen")
 	end,
-})
-
---
--- Custom find using fd
---
-
-usercmd("Find", function(opts)
-	vim.cmd("edit " .. opts.args)
-end, {
-	nargs = 1,
-	complete = function(arg_lead, cmd_line, cursor_pos)
-		local fd_cmd = 'fd -g -H -t f -E .git ' .. vim.fn.shellescape(arg_lead)
-		local results = vim.fn.systemlist(fd_cmd)
-		for i, v in ipairs(results) do
-			results[i] = vim.fn.fnameescape(v)
-		end
-		return results
-	end
 })
