@@ -28,6 +28,21 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	vim.keymap.set("n", "<leader>v", MiniDiff.toggle_overlay)
 
 	--
+	-- Pickers
+	--
+
+	require "mini.extra".setup()
+	require "mini.pick".setup {
+		options = { content_from_bottom = true },
+		source = { choose_marked = function (items) MiniPick.default_choose_marked(items, { "location" }) end }
+	}
+	vim.keymap.set("n", "<leader>f", MiniPick.builtin.files)
+	vim.keymap.set("n", "<leader>g", MiniPick.builtin.grep)
+	vim.keymap.set("n", "<leader>b", MiniPick.builtin.buffers)
+	vim.keymap.set("n", "<leader>z", MiniExtra.pickers.spellsuggest)
+	vim.keymap.set("n", "gO", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end)
+
+	--
 	-- Filesystem
 	--
 
