@@ -41,7 +41,7 @@ vim.opt.grepformat = "%f:%l:%c:%m"
 
 vim.g.mapleader = " "
 
-vim.g.zig_fmt_parse_errors = 0                                         -- Don't open quickfix on save
+vim.g.zig_fmt_parse_errors = 0 -- Don't open quickfix on save
 
 
 --
@@ -69,8 +69,8 @@ vim.keymap.set("n", "<a-W>", "<cmd>lprevious<cr>", { desc = "Move to previous lo
 vim.keymap.set({ "n", "v" }, "<a-P>", "{", { desc = "Move to previous paragraph" })
 vim.keymap.set({ "n", "v" }, "<a-p>", "}", { desc = "Move to next paragraph" })
 
-vim.keymap.set("n", "<F10>", 
-	function ()
+vim.keymap.set("n", "<F10>",
+	function()
 		for _, win in ipairs(vim.fn.getwininfo()) do
 			if win.loclist == 1 then
 				vim.cmd("lclose")
@@ -114,11 +114,9 @@ vim.keymap.set("n", "<leader>z", "z=", { desc = "Spelling suggestions" })
 
 vim.keymap.set("n", "<leader>d", function() vim.system({ vim.env.ST }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
-vim.keymap.set("n", "<leader>h", function() vim.system({ vim.env.ST, "-e", "lazygit" }, { stdout = false, detach = true }) end,
+vim.keymap.set("n", "<leader>h",
+	function() vim.system({ vim.env.ST, "-e", "lazygit" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
-vim.api.nvim_create_user_command("Open",
-	function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
-	{ nargs = 1, complete = "file_in_path", desc = "Open file using xdg-open" })
 
 vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1, float = true } end,
 	{ desc = "Next Diagnostic" })
@@ -139,6 +137,9 @@ vim.keymap.set('n', '<a-i>', vim.lsp.buf.format, { desc = "Format document" })
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local usercmd = vim.api.nvim_create_user_command
+
+usercmd("Open", function(opts) vim.system({ "xdg-open", opts.args }, { stdout = false, detach = true }) end,
+	{ nargs = 1, complete = "file_in_path", desc = "Open file using xdg-open" })
 
 autocmd("TextYankPost", {
 	desc = "Highlight yanked text",
