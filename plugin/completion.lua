@@ -110,8 +110,6 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 			end
 		})
 
-		vim.lsp.enable("nixd")
-
 		require "pluginmanager".ensure("mason-org", "mason.nvim", {}, function()
 			require "mason".setup()
 
