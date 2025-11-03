@@ -53,10 +53,10 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 
 		vim.lsp.config("texlab", {
 			on_attach = function(_, bufnr)
-				vim.keymap.set('n', '<F7>', function()
-					vim.o.makeprg = "latexmk -pdf -output-directory=build %"
-					vim.cmd("make!")
-				end, { silent = true, buffer = bufnr, desc = "Build project" })
+				local opts = { silent = true, buffer = bufnr }
+
+				opts.desc = "Build project"
+				vim.keymap.set('n', '<F7>', '<cmd>make<cr>', opts)
 			end,
 		})
 
