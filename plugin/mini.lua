@@ -60,8 +60,6 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 		}
 	}
 
-	require "mini.pairs".setup()
-
 	require "pluginmanager".ensure("nvim-treesitter", "nvim-treesitter-textobjects", {}, function()
 		local ai = require "mini.ai"
 		ai.setup {
