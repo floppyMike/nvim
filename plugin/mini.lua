@@ -16,6 +16,8 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 			signs = { add = '+', change = '~', delete = '-' }
 		},
 		mappings = {
+			apply = '<leader>ha';
+			reset = '<leader>hr';
 			goto_first = '',
 			goto_prev = '<a-H>',
 			goto_next = '<a-h>',
