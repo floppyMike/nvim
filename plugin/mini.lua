@@ -27,7 +27,12 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 			wrap_goto = true,
 		},
 	}
-	vim.keymap.set("n", "<leader>v", MiniDiff.toggle_overlay)
+
+	vim.keymap.set("n", "<leader>hh", MiniDiff.toggle_overlay)
+	vim.keymap.set("n", "<leader>hk", MiniGit.show_at_cursor)
+	vim.keymap.set("n", "<leader>hs", "<cmd>Git status<cr>")
+	vim.keymap.set("n", "<leader>hd", "<cmd>Git diff<cr>")
+	vim.keymap.set("n", "<leader>hl", "<cmd>Git log --stat --find-renames -10<cr>")
 
 	--
 	-- Pickers

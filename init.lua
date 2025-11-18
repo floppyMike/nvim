@@ -114,7 +114,7 @@ vim.keymap.set("n", "<leader>z", "z=", { desc = "Spelling suggestions" })
 
 vim.keymap.set("n", "<leader>d", function() vim.system({ vim.env.ST }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
-vim.keymap.set("n", "<leader>h",
+vim.keymap.set("n", "<leader>hj",
 	function() vim.system({ vim.env.ST, "-e", "lazygit" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
 
