@@ -4,6 +4,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	--
 
 	require "mini.icons".setup()
+	require "mini.statusline".setup()
 
 	--
 	-- Git tools
@@ -96,10 +97,4 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 			update_n_lines = 'mn',
 		},
 	}
-
-	--
-	-- Looks
-	--
-
-	require "mini.statusline".setup()
 end)
