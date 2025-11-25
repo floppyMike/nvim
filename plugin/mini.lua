@@ -59,6 +59,25 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	vim.keymap.set("n", "<leader>s", MiniFiles.open)
 
 	--
+	-- Jump
+	--
+
+	local Jump2d = require("mini.jump2d")
+
+	vim.keymap.set("n", "s", function ()
+		local builtin = Jump2d.builtin_opts.word_start
+		builtin.view = { n_steps_ahead = 10 }
+		Jump2d.start(builtin)
+	end, { desc = "Start jumping", silent = true })
+
+	vim.keymap.set({ "x", "o" }, "s", function ()
+		local builtin = Jump2d.builtin_opts.single_character
+		Jump2d.start(builtin)
+	end, { desc = "Start jumping", silent = true })
+
+	Jump2d.setup({ mappings = { start_jumping = "" } }) -- no mappings
+
+	--
 	-- Editor
 	--
 
