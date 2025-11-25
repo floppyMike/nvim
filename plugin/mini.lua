@@ -98,4 +98,6 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 			update_n_lines = 'mn',
 		},
 	}
+
+	require "mini.pairs".setup()
 end)
