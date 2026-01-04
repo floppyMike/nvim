@@ -96,7 +96,7 @@ require "pluginmanager".ensure("Saghen", "blink.cmp", {}, function()
 				local opts = { silent = true, buffer = bufnr }
 
 				opts.desc = "Build project"
-				vim.keymap.set('n', '<F7>', "<cmd>make build<cr>", opts)
+				vim.keymap.set('n', '<F7>', "<cmd>make! build<cr>", opts)
 			end
 		})
 
