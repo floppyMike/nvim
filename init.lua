@@ -39,6 +39,10 @@ vim.opt.path:append("**")                                              -- :find 
 vim.opt.grepprg = "rg --vimgrep"                                       -- Replace grep with ripgrep (faster)
 vim.opt.grepformat = "%f:%l:%c:%m"
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevelstart = 99
+
 vim.g.mapleader = " "
 
 vim.g.zig_fmt_parse_errors = 0 -- Don't open quickfix on save
