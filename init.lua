@@ -52,184 +52,28 @@ vim.g.zig_fmt_parse_errors = 0 -- Don't open quickfix on save
 --
 
 local colors = {
-	-- bg = '#f2eede',
-	-- lbg = '#f7f3e3',
-	-- black = '#000000',
-	-- blue = '#1e6fcc',
-	-- green = '#216609',
-	-- lgreen = '#dfeacc',
-	-- red = '#cc3e28',
-	-- grey = '#777777',
-	-- dgrey = '#555555',
-	-- lgrey1 = '#d8d5c7',
-	-- lgrey2 = '#bfbcaf',
-	-- lgrey3 = '#aaaaaa',
-	-- yellow = '#b58900',
-	-- lyellow = '#f2de91',
-	-- orange = '#a55000',
-	-- purple = '#5c21a5',
-	-- white = '#ffffff',
-	-- cyan = '#158c86',
-
-	lack = "#708090",
-	luster = "#deeeed",
-	orange = "#ffaa88",
-	yellow = "#abab77",
-	green = "#789978",
-	blue = "#7788AA",
-	red = "#D70000",
-
-	black = "#000000",
-	gray1 = "#080808",
-	gray2 = "#191919",
-	gray3 = "#2a2a2a",
-	gray4 = "#444444",
-	gray5 = "#555555",
-	gray6 = "#7a7a7a",
-	gray7 = "#aaaaaa",
-	gray8 = "#cccccc",
-	gray9 = "#DDDDDD",
-
 	main_background = "#000000",
-	menu_background = "#191919",
-	popup_background = "#1A1A1A",
-	statusline = "#343434",
-	comment = "#3A3A3A",
-	exception = "#505050",
-	keyword = "#666666",
-	param = "#8E8E8E",
-	whitespace = "#202020",
 }
 
+-- (see :source $VIMRUNTIME/syntax/hitest.vim)
 local highlights = {
 	-- Text
-	Normal = { fg = colors.gray8, bg = colors.main_background },
-	Title = { fg = colors.gray5 },
-	Whitespace = { fg = colors.whitespace },
-
-	-- Non Text (see :source $VIMRUNTIME/syntax/hitest.vim)
-	NonText = { fg = colors.gray5 },
+	Normal = { bg = colors.main_background },
 
 	-- Cursor
-	SignColumn = { fg = colors.gray4, bg = colors.main_background },
-	CursorLine = { bg = colors.gray2 },
-	CursorLineNr = { fg = colors.gray7 },
-	LineNr = { fg = colors.gray4 },
-	ColorColumn = { bg = colors.gray1 },
-
-	-- Search
-	Search = { fg = colors.black, bg = colors.lack },
-	CurSearch = { fg = colors.black, bg = colors.gray8 },
-	IncSearch = { fg = colors.black, bg = colors.gray8 },
-	Substitute = { fg = colors.black, bg = colors.lack },
-
-	-- Visual
-	VISUAL = { fg = colors.black, bg = colors.gray8 },
-	VISUALNOS = { fg = colors.black, bg = colors.gray8 },
-
-	-- Fold
-	Folded = { fg = colors.gray4 },
-	FoldColumn = { fg = colors.gray4 },
-
-	-- Status Line
-	StatusLine = { fg = colors.gray7, bg = colors.statusline },
-	StatusLineNC = { fg = colors.gray4, bg = colors.gray1 },
+	SignColumn = { bg = colors.main_background },
 
 	-- Tabline
-	Tabline = { fg = colors.gray4, bg = colors.gray2 },
-	TablineSel = { fg = colors.gray1, bg = colors.gray8 },
-	TablineFill = { fg = colors.gray9, bg = colors.statusline },
+	TablineSel = { fg = "#303030", bg = "#c6c6c6" },
 
 	-- Float
-	NormalFloat = { fg = colors.gray8, bg = colors.main_background },
-	FloatBorder = { fg = colors.gray8, bg = colors.main_background },
-	FloatTitle = { fg = colors.gray8 },
+	NormalFloat = { bg = colors.main_background },
+	FloatBorder = { bg = colors.main_background },
 
 	-- Menu
-	Pmenu = { fg = colors.gray7, bg = colors.menu_background },
-	PmenuSbar = { fg = colors.gray3, bg = colors.gray3 },
-	PmenuThumb = { fg = colors.gray5, bg = colors.gray5 },
-	PmenuSel = { fg = colors.black, bg = colors.gray8 },
+	Pmenu = { bg = colors.main_background },
 
-	-- Message
-	Error = { fg = colors.red },
-	ErrorMsg = { fg = colors.red },
-	ModeMsg = { fg = colors.luster },
-	MoreMsg = { fg = colors.luster },
-	MsgArea = { fg = colors.luster },
-	WarningMsg = { fg = colors.orange },
-	NvimInternalError = { fg = colors.red },
-	healthError = { fg = colors.red },
-	healthSuccess = { fg = colors.green },
-	healthWarning = { fg = colors.orange },
-
-	-- Other
-	WinSeparator = { fg = colors.gray4 },
-	QuickFixLine = { fg = colors.green },
-
-	-- Syntax
-	Identifier = { fg = colors.gray7 },
-	Function = { fg = colors.gray7 },
-	Type = { fg = colors.gray9 },
-	Variable = { fg = colors.gray6 },
-	Special = { fg = colors.lack },
-	Statement = { fg = colors.gray9 },
-	Keyword = { fg = colors.gray9, bold = true },
-	Conditial = { fg = colors.gray9 },
-	Repeat = { fg = colors.gray9 },
-	Label = { fg = colors.gray9 },
-	Exception = { fg = colors.gray9 },
-	PreProc = { fg = colors.gray9 },
-
-	-- Consts
-	String = { fg = colors.lack },
-	Character = { fg = colors.lack },
-	Constant = { fg = colors.gray7 },
-	Number = { fg = colors.gray7 },
-	Boolean = { fg = colors.gray7 },
-	Float = { fg = colors.gray7 },
-
-	-- Punctuation
-	Quote = { fg = colors.lack },
-	Operator = { fg = colors.gray6 },
-	Delimiter = { fg = colors.gray6 },
-	MatchParen = { fg = colors.gray8, bg = colors.lack },
-
-	-- Comment
-	Todo = { fg = colors.luster },
-	Question = { fg = colors.luster },
-	Comment = { fg = colors.gray9, italic = true },
-	SpecialComment = { fg = colors.gray9, italic = true },
-
-	-- Diagnostic
-	DiagnosticOk = { fg = colors.gray4 },
-	DiagnosticHint = { fg = colors.gray4 },
-	DiagnosticInfo = { fg = colors.gray4 },
-	DiagnosticWarn = { fg = colors.gray4 },
-	DiagnosticError = { fg = colors.red },
-	DiagnosticDeprecated = { fg = colors.gray4 },
-	DiagnosticUnnecessary = { fg = colors.gray4 },
-	DiagnosticVirtualTextOk = { fg = colors.gray4 },
-	DiagnosticVirtualTextHint = { fg = colors.gray4 },
-	DiagnosticVirtualTextInfo = { fg = colors.gray4 },
-	DiagnosticVirtualTextWarn = { fg = colors.gray4 },
-	DiagnosticVirtualTextErr = { fg = colors.red },
-	DiagnosticSignOk = { fg = colors.green },
-	DiagnosticSignInfo = { fg = colors.gray6 },
-	DiagnosticSignHint = { fg = colors.gray6 },
-	DiagnosticSignWarn = { fg = colors.orange },
-	DiagnosticSignError = { fg = colors.red },
-	DiagnosticSignDeprecated = { fg = colors.orange },
-	DiagnosticUnderlineWarn = { fg = colors.orange, undercurl = true },
-	DiagnosticUnderlineInfo = { fg = colors.gray6, undercurl = true },
-	DiagnosticUnderlineHint = { fg = colors.gray6, undercurl = true },
-	DiagnosticUnderlineError = { fg = colors.red, undercurl = true },
-
-	-- File Types
-	Directory = { fg = colors.gray8, bold = true },
-
-	-- Plugins
-	MiniPickPrompt = { fg = colors.gray8 },
+	-- Tab
 }
 
 for group, opts in pairs(highlights) do
