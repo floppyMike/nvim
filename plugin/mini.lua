@@ -43,7 +43,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	require "mini.extra".setup()
 	require "mini.pick".setup {
 		options = { content_from_bottom = true },
-		source = { choose_marked = function (items) MiniPick.default_choose_marked(items, { "location" }) end }
+		source = { choose_marked = function (items) MiniPick.default_choose_marked(items, { list_type = "location" }) end }
 	}
 	vim.keymap.set("n", "<leader>f", MiniPick.builtin.files)
 	vim.keymap.set("n", "<leader>g", MiniPick.builtin.grep)
