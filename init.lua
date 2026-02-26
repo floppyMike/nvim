@@ -44,41 +44,9 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevelstart = 99
 
 vim.g.mapleader = " "
-
 vim.g.zig_fmt_parse_errors = 0 -- Don't open quickfix on save
 
---
--- Colors
---
-
-local colors = {
-	main_background = "#000000",
-}
-
--- (see :source $VIMRUNTIME/syntax/hitest.vim)
-local highlights = {
-	-- Text
-	Normal = { bg = colors.main_background },
-
-	-- Cursor
-	SignColumn = { bg = colors.main_background },
-
-	-- Tabline
-	TablineSel = { fg = "#303030", bg = "#c6c6c6" },
-
-	-- Float
-	NormalFloat = { bg = colors.main_background },
-	FloatBorder = { bg = colors.main_background },
-
-	-- Menu
-	Pmenu = { bg = colors.main_background },
-
-	-- Tab
-}
-
-for group, opts in pairs(highlights) do
-	vim.api.nvim_set_hl(0, group, opts)
-end
+vim.cmd.colorscheme "baba"
 
 --
 -- Keybindings
