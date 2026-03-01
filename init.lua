@@ -116,6 +116,12 @@ vim.keymap.set("n", "zd", function()
 end, { desc = "Set spellcheck to german" })
 vim.keymap.set("n", "<leader>z", "z=", { desc = "Spelling suggestions" })
 
+vim.keymap.set("n", "<leader>d", function() vim.system({ "st" }, { stdout = false, detach = true }) end,
+	{ desc = "Open new terminal in same directory.", silent = true })
+vim.keymap.set("n", "<leader>hj",
+	function() vim.system({ "st", "-e", "lazygit" }, { stdout = false, detach = true }) end,
+	{ desc = "Open new terminal in same directory.", silent = true })
+
 vim.keymap.set({ "n", "x" }, "<a-d>", function() vim.diagnostic.jump { count = 1, float = true } end,
 	{ desc = "Next Diagnostic" })
 vim.keymap.set({ "n", "x" }, "<a-D>", function() vim.diagnostic.jump { count = -1, float = true } end,
