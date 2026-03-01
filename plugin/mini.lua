@@ -5,6 +5,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 
 	require "mini.icons".setup()
 	require "mini.statusline".setup()
+	require "mini.tabline".setup()
 
 	--
 	-- Git tools
