@@ -18,8 +18,8 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 			signs = { add = '+', change = '~', delete = '-' }
 		},
 		mappings = {
-			apply = '<leader>ha';
-			reset = '<leader>hr';
+			apply = '<leader>ha',
+			reset = '<leader>hr',
 			goto_first = '',
 			goto_prev = '<a-H>',
 			goto_next = '<a-h>',
@@ -32,7 +32,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 
 	vim.keymap.set("n", "<leader>hh", MiniDiff.toggle_overlay)
 	vim.keymap.set("n", "<leader>hk", MiniGit.show_at_cursor)
-	vim.keymap.set("n", "<leader>hd", function ()
+	vim.keymap.set("n", "<leader>hd", function()
 		local c1 = vim.fn.input("From Commit: ")
 		vim.cmd("Git diff " .. c1 .. "..HEAD")
 	end)
@@ -44,7 +44,7 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 	require "mini.extra".setup()
 	require "mini.pick".setup {
 		options = { content_from_bottom = true },
-		source = { choose_marked = function (items) MiniPick.default_choose_marked(items, { list_type = "location" }) end }
+		source = { choose_marked = function(items) MiniPick.default_choose_marked(items, { list_type = "location" }) end }
 	}
 	vim.keymap.set("n", "<leader>f", MiniPick.builtin.files)
 	vim.keymap.set("n", "<leader>g", MiniPick.builtin.grep)
@@ -65,13 +65,13 @@ require "pluginmanager".ensure("echasnovski", "mini.nvim", {}, function()
 
 	local Jump2d = require("mini.jump2d")
 
-	vim.keymap.set("n", "s", function ()
+	vim.keymap.set("n", "s", function()
 		local builtin = Jump2d.builtin_opts.word_start
 		builtin.view = { n_steps_ahead = 10 }
 		Jump2d.start(builtin)
 	end, { desc = "Start jumping", silent = true })
 
-	vim.keymap.set({ "x", "o" }, "s", function ()
+	vim.keymap.set({ "x", "o" }, "s", function()
 		local builtin = Jump2d.builtin_opts.single_character
 		Jump2d.start(builtin)
 	end, { desc = "Start jumping", silent = true })
