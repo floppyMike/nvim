@@ -14,6 +14,8 @@ local c = {
 	bg = '#000000',
 	fg = '#dddddd',
 
+	cursor = '#cccccc',
+
 	tag = '#dddddd',
 	func = '#65d1ff', -- functions
 	entity = '#59C2FF', -- Types

@@ -8,7 +8,7 @@ function M.set_hl(c)
 		FloatBorder = { fg = c.comment },
 		FloatTitle = { fg = c.fg },
 		ColorColumn = { bg = c.line },
-		Cursor = { fg = c.bg, bg = c.fg },
+		Cursor = { bg = c.cursor },
 		CursorColumn = { bg = c.line },
 		CursorLine = { bg = c.line },
 		CursorLineNr = { fg = c.keyword, bg = c.line, bold = true },
@@ -297,6 +297,8 @@ function M.set_hl(c)
 	for group, parameters in pairs(groups) do
 		vim.api.nvim_set_hl(0, group, parameters)
 	end
+
+	vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:-Cursor"
 end
 
 return M
