@@ -46,7 +46,7 @@ vim.opt.foldlevelstart = 99
 vim.g.mapleader = " "
 vim.g.zig_fmt_parse_errors = 0 -- Don't open quickfix on save
 
-vim.cmd.colorscheme "baba"
+vim.cmd.colorscheme "ice"
 
 --
 -- Keybindings
