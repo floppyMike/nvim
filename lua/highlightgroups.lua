@@ -46,6 +46,7 @@ function M.set_hl(c)
 		Title = { fg = c.keyword },
 		Visual = { bg = c.selection_inactive },
 		WarningMsg = { fg = c.warning },
+		QuickFixLine = { fg = c.accent },
 
 		Comment = { fg = c.comment, italic = true },
 		Constant = { fg = c.constant },
