@@ -1,5 +1,0 @@
-require "pluginmanager".ensure("tamton-aquib", "duck.nvim", {}, function()
-	vim.keymap.set('n', '<leader>wd', function() require("duck").hatch("ඞ") end, {})
-	vim.keymap.set('n', '<leader>wk', function() require("duck").cook() end, {})
-	vim.keymap.set('n', '<leader>wa', function() require("duck").cook_all() end, {})
-end)

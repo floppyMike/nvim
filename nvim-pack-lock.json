@@ -1,0 +1,40 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "b650e976a927be6b46487a0a610b75af111376c5",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
+    "duck.nvim": {
+      "rev": "d8a6b08af440e5a0e2b3b357e2f78bb1883272cd",
+      "src": "https://github.com/tamton-aquib/duck.nvim"
+    },
+    "indent-o-matic": {
+      "rev": "764da1f30b5bb4a49035c3abc9a586322296b812",
+      "src": "https://github.com/Darazaki/indent-o-matic"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "a324581a3c83fdacdb9804b79de1cbe00ce18550",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.nvim": {
+      "rev": "0098de999048af0539183d625c52d733318a441b",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-dap": {
+      "rev": "b516f20b487b0ac6a281e376dfac1d16b5040041",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
+    "nvim-lspconfig": {
+      "rev": "ead0f5f342d8d323441e7d4b88f0fc436a81ad5f",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "6bc51d020a5e06b7e20ea82dbc47196d3d3027c7",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    }
+  }
+}
