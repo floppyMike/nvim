@@ -35,7 +35,7 @@ local c = {
 	panel_shadow = '#05070A',
 	panel_border = '#000000',
 	gutter_normal = '#454B55',
-	selection_inactive = '#122132',
+	selection_inactive = '#333333',
 	guide_normal = '#555555',
 
 	vcs_added = '#7FD962',
