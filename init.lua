@@ -244,7 +244,7 @@ vim.pack.add({
 	"https://github.com/Darazaki/indent-o-matic",
 	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/mason-org/mason-lspconfig.nvim",
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mfussenegger/nvim-dap",
@@ -526,15 +526,17 @@ end)
 
 vim.g.no_plugin_maps = true
 
-require "nvim-treesitter.config".setup {
-	auto_install = false,
-	highlight = {
-		enable = true,
-	},
-}
+require "nvim-treesitter".setup()
 
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+autocmd("FileType", {
+	pattern = { "c", "cpp", "zig", "rust", "lua", "java" },
+	callback = function()
+		vim.treesitter.start()
+		vim.wo[0][0].foldmethod = 'expr'
+		vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
 
 --
 -- Pairs
