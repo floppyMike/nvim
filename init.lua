@@ -166,7 +166,6 @@ local keymap = {
 	LSPHover = "K",
 	LSPCodeAction = "ga",
 	LSPSymbolPick = "gs",
-	LSPLineProblems = "P",
 	LSPFormat = "<a-i>",
 
 	-- Text Movement
@@ -397,9 +396,6 @@ vim.keymap.set("n", keymap.LSPDeclaration, vim.lsp.buf.declaration, { desc = "Go
 vim.keymap.set("n", keymap.LSPHover, vim.lsp.buf.hover, { desc = "Show LSP into for word under cursor", nowait = true })
 vim.keymap.set("n", keymap.LSPImplementation, vim.lsp.buf.implementation, { desc = "Goto implementation", nowait = true })
 vim.keymap.set("n", keymap.LSPRename, vim.lsp.buf.rename, { desc = "Rename a LSP symbol", nowait = true })
-
-vim.keymap.set("n", keymap.LSPLineProblems, vim.diagnostic.open_float,
-	{ desc = "Show diagnostics for the line", nowait = true })
 
 vim.keymap.set("n", keymap.LSPReferences, function() MiniExtra.pickers.lsp({ scope = "references" }) end,
 	{ desc = "Show all references of a LSP symbol", nowait = true })
