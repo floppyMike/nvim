@@ -544,7 +544,7 @@ vim.g.no_plugin_maps = true
 require "nvim-treesitter".setup()
 
 autocmd("FileType", {
-	pattern = { "c", "cpp", "zig", "rust", "lua", "java" },
+	pattern = { "c", "cpp", "zig", "rust", "lua", "java", "python" },
 	callback = function()
 		vim.treesitter.start()
 		vim.wo[0][0].foldmethod = 'expr'
