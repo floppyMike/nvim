@@ -59,6 +59,7 @@ keymap = {
 	ResizeDownWindow = "<c-Down>",
 	ResizeLeftWindow = "<c-Left>",
 	ResizeRightWindow = "<c-Right>",
+	ExitWindow = "<leader>q",
 
 	-- Alt Walking
 	NextBuffer = "<a-b>",

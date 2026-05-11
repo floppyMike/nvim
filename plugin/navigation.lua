@@ -35,3 +35,5 @@ vim.keymap.set({ "x", "o" }, keymap.JumpChar, function()
 	local builtin = Jump2d.builtin_opts.single_character
 	Jump2d.start(builtin)
 end, { desc = "Start jumping", silent = true })
+
+vim.keymap.set("n", keymap.ExitWindow, ":q<cr>", { desc = "Quit window" })
