@@ -143,6 +143,7 @@ keymap = {
 	GitReset = "<leader>gr",
 	GitStatus = "<leader>gs",
 	GitCommit = "<leader>gc",
+	GitCommitAmend = "<leader>gC",
 	Lazygit = "<leader>v",
 	NextChange = "<a-g>",
 	PrevChange = "<a-G>",

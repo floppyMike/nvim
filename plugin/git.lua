@@ -114,6 +114,7 @@ vim.keymap.set("n", keymap.GitTrackLine, MiniGit.show_at_cursor)
 vim.keymap.set("n", keymap.GitApplyAll, ":Git add %<cr>")
 vim.keymap.set("n", keymap.GitStatus, ":Git status<cr>")
 vim.keymap.set("n", keymap.GitCommit, ":Git commit<cr>")
+vim.keymap.set("n", keymap.GitCommitAmend, ":Git commit --amend --no-edit<cr>")
 
 vim.keymap.set("n", keymap.GitBranchDiff, function()
 	local c1 = vim.fn.input("From Commit: ")
