@@ -118,5 +118,5 @@ vim.keymap.set("n", keymap.GitCommitAmend, ":Git commit --amend --no-edit<cr>")
 
 vim.keymap.set("n", keymap.GitBranchDiff, function()
 	local c1 = vim.fn.input("From Commit: ")
-	vim.cmd("Git diff " .. c1 .. "..HEAD")
+	vim.cmd("Git diff -p --stat " .. c1 .. "..HEAD")
 end)
