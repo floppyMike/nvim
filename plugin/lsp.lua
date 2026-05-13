@@ -1,6 +1,3 @@
-require "mason".setup()
-require "mason-lspconfig".setup()
-
 vim.lsp.config("lua_ls", {
 	on_init = function(client)
 		if client.workspace_folders then
@@ -79,6 +76,8 @@ vim.lsp.config("rust_analyzer", {
 		vim.keymap.set('n', keymap.BuildProj, "<cmd>make! build<cr>", opts)
 	end
 })
+
+vim.lsp.enable "clangd"
 
 vim.keymap.set('n', keymap.LSPDefinition, vim.lsp.buf.definition, { desc = "Goto definition", nowait = true })
 vim.keymap.set('n', keymap.LSPFormat, vim.lsp.buf.format, { desc = "Format document", nowait = true })
