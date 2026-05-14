@@ -109,7 +109,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 vim.keymap.set("n", keymap.GitToggleOverlay, MiniDiff.toggle_overlay)
-vim.keymap.set("n", keymap.GitTrackLine, MiniGit.show_at_cursor)
+vim.keymap.set({"n", "v"}, keymap.GitTrackLine, MiniGit.show_at_cursor)
 
 vim.keymap.set("n", keymap.GitApplyAll, ":Git add %<cr>")
 vim.keymap.set("n", keymap.GitStatus, ":Git status<cr>")
