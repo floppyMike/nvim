@@ -28,54 +28,16 @@ vim.lsp.config("lua_ls", {
 	}
 })
 
-vim.lsp.config("texlab", {
-	on_attach = function(_, bufnr)
-		local opts = { silent = true, buffer = bufnr }
-
-		opts.desc = "Build project"
-		vim.keymap.set('n', keymap.BuildProj, '<cmd>make<cr>', opts)
-	end,
-})
-
 vim.lsp.config("clangd", {
 	cmd = { "clangd", "--background-index", "--clang-tidy", "--query-driver=**/*" },
-	on_attach = function(_, bufnr)
-		local opts = { silent = true, buffer = bufnr }
-
-		opts.desc = "Build project"
-		vim.keymap.set('n', keymap.BuildProj, function()
-			vim.o.makeprg = "cmake --build build/ --parallel"
-			vim.cmd("make!")
-		end, opts)
-	end,
 })
 
-vim.lsp.config("zls", {
-	on_attach = function(_, bufnr)
-		local opts = { silent = true, buffer = bufnr }
-
-		opts.desc = "Build project"
-		vim.keymap.set('n', keymap.BuildProj, function()
-			vim.o.makeprg = "zig build $*"
-			vim.cmd("make!")
-		end, opts)
-
-		opts.desc = "Test project"
-		vim.keymap.set('n', keymap.TestProj, function()
-			vim.o.makeprg = "zig build test $*"
-			vim.cmd("make!")
-		end, opts)
-	end
-})
-
-vim.lsp.config("rust_analyzer", {
-	on_attach = function(_, bufnr)
-		local opts = { silent = true, buffer = bufnr }
-
-		opts.desc = "Build project"
-		vim.keymap.set('n', keymap.BuildProj, "<cmd>make! build<cr>", opts)
-	end
-})
+vim.lsp.enable "gopls"
+vim.lsp.enable "lua_ls"
+vim.lsp.enable "texlab"
+vim.lsp.enable "clangd"
+vim.lsp.enable "zls"
+vim.lsp.enable "rust_analyzer"
 
 vim.keymap.set('n', keymap.LSPDefinition, vim.lsp.buf.definition, { desc = "Goto definition", nowait = true })
 vim.keymap.set('n', keymap.LSPFormat, vim.lsp.buf.format, { desc = "Format document", nowait = true })
