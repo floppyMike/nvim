@@ -3,14 +3,7 @@ require "mini.pick".setup {
 	source = { choose_marked = function(items) MiniPick.default_choose_marked(items, { list_type = "location" }) end }
 }
 
-require "mini.jump".setup {
-	mappings = {
-		repeated_jump = keymap.JumpRepeat,
-	},
-}
-
-local Jump2d = require("mini.jump2d")
-Jump2d.setup({ mappings = { start_jumping = "" } })
+require "mini.jump".setup()
 
 vim.keymap.set("n", keymap.NextBuffer, "<cmd>bn<cr>", { desc = "Move to right buffer or loop" })
 vim.keymap.set("n", keymap.PrevBuffer, "<cmd>bp<cr>", { desc = "Move to left buffer or loop" })
@@ -31,15 +24,7 @@ for i = 1, 9 do
 	vim.keymap.set("n", "<a-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
 end
 
-vim.keymap.set("n", keymap.JumpWord, function()
-	local builtin = Jump2d.builtin_opts.word_start
-	builtin.view = { n_steps_ahead = 10 }
-	Jump2d.start(builtin)
-end, { desc = "Start jumping", silent = true })
-
-vim.keymap.set({ "x", "o" }, keymap.JumpChar, function()
-	local builtin = Jump2d.builtin_opts.single_character
-	Jump2d.start(builtin)
-end, { desc = "Start jumping", silent = true })
+vim.keymap.set({ 'n', 'x', 'o' }, keymap.JumpWord, '<Plug>(leap)')
+vim.keymap.set('n',               keymap.JumpWindow, '<Plug>(leap-from-window)')
 
 vim.keymap.set("n", keymap.ExitWindow, ":q<cr>", { desc = "Quit window" })

@@ -113,7 +113,7 @@ keymap = {
 
 	-- Jump
 	JumpWord = "s",
-	JumpChar = "s",
+	JumpWindow = "S",
 	JumpRepeat = ";",
 
 	-- Trailwhitespace
@@ -181,6 +181,7 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/tamton-aquib/duck.nvim",
+	"https://codeberg.org/andyg/leap.nvim",
 })
 
 require "mini.extra".setup() -- Extras
