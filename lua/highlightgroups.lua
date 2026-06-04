@@ -128,6 +128,15 @@ function M.set_hl(c)
 		['@lsp.type.decorator'] = { link = '@function' },
 		['@lsp.mod.constant'] = { link = '@constant' },
 
+		csvCol1 = { fg = c.accent },    -- Bright Blue
+		csvCol2 = { fg = c.regexp },    -- Minty Ice
+		csvCol3 = { fg = c.markup },    -- Pale Lavender/Blue
+		csvCol4 = { fg = c.constant },  -- Deep Ice Blue
+		csvCol5 = { fg = c.func },      -- Sky Blue
+		csvCol6 = { fg = c.string },    -- Lightest Blue
+		csvCol7 = { fg = c.vcs_added }, -- Frosted Green
+		csvCol8 = { fg = c.warning },   -- Soft Amber
+
 		-- TreesitterContext.
 		TreesitterContext = { bg = c.selection_inactive },
 
