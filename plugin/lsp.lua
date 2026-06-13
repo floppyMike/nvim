@@ -1,31 +1,24 @@
-vim.lsp.config("lua_ls", {
+vim.lsp.config('emmylua_ls', {
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
-			if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc')) then
-				return
+			if path ~= vim.fn.stdpath('config') and (vim.uv.fs_stat(path .. '/.emmyrc.json') or vim.uv.fs_stat(path .. '/.luarc.json')) then
+				client.config.settings = {}
 			end
 		end
-		client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-			runtime = {
-				version = 'LuaJIT',
-				path = {
-					'lua/?.lua',
-					'lua/?/init.lua',
-				},
-			},
-			-- Make the server aware of Neovim runtime files
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME
-				}
-			}
-		})
 	end,
 	settings = {
-		Lua = {}
-	}
+		emmylua = {
+			runtime = { version = 'LuaJIT' },
+			diagnostics = { globals = { 'vim' } },
+			workspace = {
+				library = {
+					vim.env.VIMRUNTIME,
+					vim.api.nvim_get_runtime_file('lua/lspconfig', false)[1],
+				},
+			},
+		},
+	},
 })
 
 vim.lsp.config("clangd", {
