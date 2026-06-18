@@ -21,7 +21,7 @@ vim.keymap.set("n", keymap.GrepPick, MiniPick.builtin.grep)
 vim.keymap.set("n", keymap.BufferPick, MiniPick.builtin.buffers)
 
 for i = 1, 9 do
-	vim.keymap.set({"n", "t"}, "<A-" .. i .. ">", "<cmd>" .. i .. "tabnext<cr>", { desc = "Go to tab " .. i })
+	vim.keymap.set("n", "<a-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
 end
 
 vim.keymap.set({ 'n', 'x', 'o' }, keymap.JumpWord, '<Plug>(leap)')
