@@ -1,6 +1,15 @@
 require "mini.pick".setup {
 	options = { content_from_bottom = true },
-	source = { choose_marked = function(items) MiniPick.default_choose_marked(items, { list_type = "location" }) end }
+	source = {
+		choose_marked = function(items)
+			local reversed = {}
+			for i = #items, 1, -1 do
+				table.insert(reversed, items[i])
+			end
+
+			MiniPick.default_choose_marked(reversed, { list_type = "location" })
+		end
+	}
 }
 
 require "mini.jump".setup()
