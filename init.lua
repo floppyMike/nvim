@@ -88,6 +88,7 @@ keymap = {
 	GrepPick = "<leader>G",
 	BufferPick = "<leader>b",
 	Filesytem = "<leader>s",
+	FilesytemLocal = "<leader>S",
 
 	-- Autocomplete
 	CompleteFirst = "<c-space>",
