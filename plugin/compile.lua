@@ -1,26 +1,24 @@
+local go_tab = require "tab".go_tab
+
 local compile_cmd = nil
-local compile_win = nil
 local compile_buf = nil
 
-local function compile()
-	if not compile_cmd then
+local function compile(reset)
+	if reset or not compile_cmd then
 		compile_cmd = vim.fn.input("Compile command: ")
 		if compile_cmd == "" then compile_cmd = nil; return end
 	end
 
-	local win = vim.api.nvim_get_current_win()
+	go_tab("compile")
 
-	if compile_win and vim.api.nvim_win_is_valid(compile_win) then
-		vim.api.nvim_set_current_win(compile_win)
-	else
-		vim.cmd("botright 8new")
-		compile_win = vim.api.nvim_get_current_win()
-		vim.wo[compile_win].winfixheight = true
+	if compile_buf and vim.api.nvim_buf_is_valid(compile_buf) then
+		vim.api.nvim_buf_delete(compile_buf, { force = true })
 	end
 
-	local prev_buf = compile_buf
 	vim.cmd("enew")
 	compile_buf = vim.api.nvim_get_current_buf()
+	pcall(vim.api.nvim_buf_set_name, compile_buf, "compile")
+
 	vim.fn.termopen(compile_cmd, {
 		on_exit = function()
 			if vim.api.nvim_buf_is_valid(compile_buf) then
@@ -30,32 +28,9 @@ local function compile()
 	})
 
 	vim.cmd("normal! G")
-
-	if prev_buf and vim.api.nvim_buf_is_valid(prev_buf) then
-		vim.api.nvim_buf_delete(prev_buf, { force = true })
-	end
-
-	vim.api.nvim_set_current_win(win)
+	vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { buffer = compile_buf })
+	vim.cmd("startinsert")
 end
 
-local function compile_reset()
-	compile_cmd = nil
-	compile()
-end
-
-local function compile_close()
-	if compile_win and vim.api.nvim_win_is_valid(compile_win) then
-		vim.api.nvim_win_close(compile_win, true)
-	end
-
-	if compile_buf and vim.api.nvim_buf_is_valid(compile_buf) then
-		vim.api.nvim_buf_delete(compile_buf, { force = true })
-	end
-
-	compile_win = nil
-	compile_buf = nil
-end
-
-vim.keymap.set("n", "<F6>",         compile_close, { desc = "Close compiler" })
-vim.keymap.set("n", "<F7>",         compile,       { desc = "Select and compile" })
-vim.keymap.set("n", "<leader><F7>", compile_reset, { desc = "Reset compiler" })
+vim.keymap.set("n", "<F6>", function() compile(true) end,  { desc = "Reset compiler" })
+vim.keymap.set("n", "<F7>", function() compile(false) end, { desc = "Select and compile" })

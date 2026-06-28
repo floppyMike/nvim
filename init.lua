@@ -108,9 +108,9 @@ keymap = {
 	DAPreset = "<leader>N",
 
 	-- Building
-	BuildProj = "<F7>",
-	RunProj = "<F8>",
-	TestProj = "<F9>",
+	Compile = "<F7>",
+	CompileReset = "<leader><F7>",
+	CompileClose = "<F6>",
 
 	-- Jump
 	JumpWord = "s",
