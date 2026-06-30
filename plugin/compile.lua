@@ -11,13 +11,15 @@ local function compile(reset)
 
 	go_tab("compile")
 
-	if compile_buf and vim.api.nvim_buf_is_valid(compile_buf) then
-		vim.api.nvim_buf_delete(compile_buf, { force = true })
-	end
+	local old = compile_buf
 
 	vim.cmd("enew")
 	compile_buf = vim.api.nvim_get_current_buf()
 	pcall(vim.api.nvim_buf_set_name, compile_buf, "compile")
+
+	if old and vim.api.nvim_buf_is_valid(old) then
+		vim.api.nvim_buf_delete(old, { force = true })
+	end
 
 	vim.fn.termopen(compile_cmd, {
 		on_exit = function()
