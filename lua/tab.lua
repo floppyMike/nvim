@@ -22,9 +22,18 @@ function M.go_tab(role, cmd, esc)
 
 			pcall(vim.api.nvim_buf_set_name, buf, role)
 
+			local tab = vim.api.nvim_get_current_tabpage()
+
 			vim.api.nvim_create_autocmd("TermClose", {
 				buffer = buf,
-				callback = function() vim.schedule(function() pcall(vim.api.nvim_buf_delete, buf, { force=true }) end) end
+				callback = function()
+					vim.schedule(function()
+						if vim.api.nvim_tabpage_is_valid(tab) then
+							pcall(vim.cmd, vim.api.nvim_tabpage_get_number(tab) .. "tabclose")
+						end
+						pcall(vim.api.nvim_buf_delete, buf, { force = true })
+					end)
+				end
 			})
 
 			if esc then vim.keymap.set("t", "<Esc>", "<c-\\><c-n>", { buffer = buf }) end
