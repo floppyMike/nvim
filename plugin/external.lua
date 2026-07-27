@@ -3,7 +3,3 @@ vim.api.nvim_create_user_command("Open", function(opts) vim.system({ "xdg-open",
 
 vim.keymap.set("n", keymap.Terminal, function() vim.system({ "st" }, { stdout = false, detach = true }) end,
 	{ desc = "Open new terminal in same directory.", silent = true })
-
-vim.keymap.set("n", keymap.Lazygit,
-	function() vim.system({ "st", "-e", "lazygit" }, { stdout = false, detach = true }) end,
-	{ desc = "Open new terminal in same directory.", silent = true })

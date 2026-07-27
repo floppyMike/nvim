@@ -146,7 +146,6 @@ keymap = {
 	GitCommit = "<leader>gc",
 	GitCommitAmend = "<leader>gC",
 	GitLog = "<leader>gl",
-	Lazygit = "<leader>v",
 	NextChange = "<a-g>",
 	PrevChange = "<a-G>",
 
