@@ -109,8 +109,7 @@ keymap = {
 
 	-- Building
 	Compile = "<F7>",
-	CompileReset = "<leader><F7>",
-	CompileClose = "<F6>",
+	CompileReset = "<F6>",
 
 	-- Jump
 	JumpWord = "s",

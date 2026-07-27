@@ -34,5 +34,5 @@ local function compile(reset)
 	vim.cmd("startinsert")
 end
 
-vim.keymap.set("n", "<F6>", function() compile(true) end,  { desc = "Reset compiler" })
-vim.keymap.set("n", "<F7>", function() compile(false) end, { desc = "Select and compile" })
+vim.keymap.set("n", keymap.CompileReset, function() compile(true) end,  { desc = "Reset compiler" })
+vim.keymap.set("n", keymap.Compile, function() compile(false) end, { desc = "Select and compile" })
