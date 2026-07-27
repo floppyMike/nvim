@@ -1,7 +1,3 @@
-vim.lsp.config("clangd", {
-	cmd = { "clangd", "--background-index", "--clang-tidy", "--query-driver=**/*" },
-})
-
 vim.lsp.enable "gopls"
 vim.lsp.enable "emmylua_ls"
 vim.lsp.enable "texlab"
