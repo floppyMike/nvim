@@ -15,7 +15,6 @@ vim.opt.signcolumn = "yes"                                             -- Always
 vim.opt.termguicolors = true                                           -- Enable 24-bit RGB color in the TUI
 vim.opt.wrap = true                                                    -- Wrap lines longer than the width of window
 vim.opt.list = true                                                    -- Enable seeing tabs and spaces
-vim.opt.completeopt = { "menuone", "noselect", "preview", "noinsert" } -- Options for insert mode completion
 vim.opt.pumheight = 10                                                 -- Height of the pop up menu
 vim.opt.mouse = ""                                                     -- Disable mouse support
 vim.opt.ignorecase = true                                              -- Case insensitive searching
