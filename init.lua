@@ -114,7 +114,6 @@ keymap = {
 	-- Jump
 	JumpWord = "s",
 	JumpWindow = "S",
-	JumpRepeat = ";",
 
 	-- Trailwhitespace
 	TrailRemove = "<leader>p",

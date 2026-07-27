@@ -21,7 +21,8 @@ local function compile(reset)
 		vim.api.nvim_buf_delete(old, { force = true })
 	end
 
-	vim.fn.termopen(compile_cmd, {
+	vim.fn.jobstart(compile_cmd, {
+		term = true,
 		on_exit = function()
 			if vim.api.nvim_buf_is_valid(compile_buf) then
 				vim.fn.setqflist({}, 'r', { title = compile_cmd, lines = vim.api.nvim_buf_get_lines(compile_buf, 0, -1, false) })
