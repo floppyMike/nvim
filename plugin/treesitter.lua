@@ -1,7 +1,7 @@
 require "nvim-treesitter".setup()
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c", "cpp", "zig", "rust", "lua", "java", "python", "latex", "go" },
+	pattern = { "c", "cpp", "zig", "rust", "lua", "java", "python", "tex", "plaintex", "go" },
 	callback = function()
 		vim.treesitter.start()
 		vim.wo[0][0].foldmethod = 'expr'
