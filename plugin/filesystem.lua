@@ -1,4 +1,9 @@
-require "mini.files".setup()
+require "mini.files".setup {
+	mappings = {
+		mark_goto = "ö",
+		mark_set = "m",
+	}
+}
 
 vim.keymap.set("n", keymap.Filesytem, MiniFiles.open, { desc = "Open filesystem" })
 

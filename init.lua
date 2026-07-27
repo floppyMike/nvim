@@ -86,6 +86,7 @@ keymap = {
 	FilePick = "<leader>f",
 	GrepPick = "<leader>G",
 	BufferPick = "<leader>b",
+	MarkPick = "<leader>m",
 	Filesytem = "<leader>s",
 	FilesytemLocal = "<leader>S",
 
@@ -121,12 +122,12 @@ keymap = {
 	TrailRemoveAll = "<leader>P",
 
 	-- Surrounding
-	SurroundAdd = "ma",
-	SurroundDelete = "md",
-	SurroundFindFront = "mf",
-	SurroundFindBack = "mF",
-	SurroundHighlight = "mh",
-	SurroundReplace = "mr",
+	SurroundAdd = "gza",
+	SurroundDelete = "gzd",
+	SurroundFindFront = "gzf",
+	SurroundFindBack = "gzF",
+	SurroundHighlight = "gzh",
+	SurroundReplace = "gzr",
 
 	-- Spelling
 	SpellToggle = "<leader>Z",

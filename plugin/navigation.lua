@@ -25,9 +25,13 @@ vim.keymap.set({ "n", "v" }, keymap.PrevParagraph, "{", { desc = "Move to previo
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", { desc = "Stop search with ESC" })
 
+vim.keymap.set({'n', 'v', 'o'}, 'ä', '`', { desc = 'Jump to mark (exact position)' })
+vim.keymap.set({'n', 'v', 'o'}, 'ö', "'", { desc = 'Jump to mark (line)' })
+
 vim.keymap.set("n", keymap.FilePick, MiniPick.builtin.files)
 vim.keymap.set("n", keymap.GrepPick, MiniPick.builtin.grep)
 vim.keymap.set("n", keymap.BufferPick, MiniPick.builtin.buffers)
+vim.keymap.set("n", keymap.MarkPick, function() MiniExtra.pickers.marks({ scope = "all" }) end, { desc = "Pick Marks" })
 
 for i = 1, 9 do
 	vim.keymap.set("n", "<a-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
