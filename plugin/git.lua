@@ -17,107 +17,46 @@ require "mini.diff".setup {
 	},
 }
 
-local reset_line = function(ev, l)
-	local rel = l:match("([^%s]+)%s*$")
-	vim.cmd("Git restore " .. vim.fn.fnameescape(vim.fs.joinpath(ev.data.cwd, rel)))
-	vim.notify("Reset " .. rel, vim.log.levels.INFO)
-end
-
-local stage_line = function(ev, l)
-	local rel = l:match("([^%s]+)%s*$")
-	vim.cmd("Git add " .. vim.fn.fnameescape(vim.fs.joinpath(ev.data.cwd, rel)))
-	vim.notify("Staged " .. rel, vim.log.levels.INFO)
-end
-
-local unstage_line = function(ev, l)
-	local rel = l:match("([^%s]+)%s*$")
-	vim.cmd("Git restore --staged " .. vim.fn.fnameescape(vim.fs.joinpath(ev.data.cwd, rel)))
-	vim.notify("Unstaged " .. rel, vim.log.levels.INFO)
-end
-
-vim.api.nvim_create_autocmd('User', {
-	pattern = 'MiniGitCommandSplit',
+--- Create fold expressions for mini.git buffers (and auto collapse)
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Fold unified diff output",
+	group = vim.api.nvim_create_augroup("git_diff_folds", { clear = true }),
+	pattern = { "diff", "git" },
 	callback = function(ev)
-		if ev.data.git_subcommand ~= 'status' then return end
-
-		vim.keymap.set('n', '<CR>', function()
-			local rel = vim.api.nvim_get_current_line():match("([^%s]+)%s*$")
-			vim.cmd.tabclose()
-			vim.cmd.edit(vim.fn.fnameescape(vim.fs.joinpath(ev.data.cwd, rel)))
-		end, {
-			buffer = true,
-			silent = true,
-			desc = 'Open status file and close tab',
-		})
-
-		vim.keymap.set('n', "i", function()
-			vim.cmd.tabclose()
-			vim.cmd("Git status")
-		end, {
-			buffer = true,
-			desc = 'Reload status',
-		})
-
-		vim.keymap.set('v', 'a', function()
-			for _, l in ipairs(vim.fn.getline("'<", "'>")) do
-				stage_line(ev, l)
-			end
-		end, {
-			buffer = true,
-			desc = 'Stage paths',
-		})
-
-		vim.keymap.set('n', 'a', function()
-			stage_line(ev, vim.api.nvim_get_current_line())
-		end, {
-			buffer = true,
-			desc = 'Stage path',
-		})
-
-		vim.keymap.set('v', 'D', function()
-			for _, l in ipairs(vim.fn.getline("'<", "'>")) do
-				reset_line(ev, l)
-			end
-		end, {
-			buffer = true,
-			desc = 'Reset paths',
-		})
-
-		vim.keymap.set('n', 'D', function()
-			reset_line(ev, vim.api.nvim_get_current_line())
-		end, {
-			buffer = true,
-			desc = 'Reset path',
-		})
-
-		vim.keymap.set('v', 'd', function()
-			for _, l in ipairs(vim.fn.getline("'<", "'>")) do
-				unstage_line(ev, l)
-			end
-		end, {
-			buffer = true,
-			desc = 'Unstage paths',
-		})
-
-		vim.keymap.set('n', 'd', function()
-			unstage_line(ev, vim.api.nvim_get_current_line())
-		end, {
-			buffer = true,
-			desc = 'UnStage path',
-		})
+		vim.wo[0][0].foldmethod = "expr"
+		vim.wo[0][0].foldexpr = "v:lua.MiniGit.diff_foldexpr()"
+		vim.wo[0][0].foldlevel = ev.match == "diff" and 1 or 0
 	end,
 })
 
-vim.keymap.set("n", keymap.GitToggleOverlay, MiniDiff.toggle_overlay)
-vim.keymap.set({"n", "v"}, keymap.GitTrackLine, MiniGit.show_at_cursor)
+local claim_tab = require "tab".claim_tab
 
-vim.keymap.set("n", keymap.GitApplyAll, ":Git add %<cr>")
-vim.keymap.set("n", keymap.GitStatus, ":Git status<cr>")
-vim.keymap.set("n", keymap.GitCommit, ":Git commit<cr>")
-vim.keymap.set("n", keymap.GitCommitAmend, ":Git commit --amend --no-edit<cr>")
-vim.keymap.set("n", keymap.GitLog, ":Git log --stat<cr>")
+--- Open `fn` in "git" tab and delete previously used tab
+local function in_git_tab(fn)
+	return function()
+		local before = vim.api.nvim_get_current_tabpage()
+		if not pcall(fn) then return end
+		if vim.api.nvim_get_current_tabpage() ~= before then claim_tab("git") end
+	end
+end
 
-vim.keymap.set("n", keymap.GitBranchDiff, function()
-	local c1 = vim.fn.input("From Commit: ")
-	vim.cmd("Git diff -p --stat " .. c1 .. "..HEAD")
-end)
+vim.keymap.set("n", keymap.GitToggleOverlay, MiniDiff.toggle_overlay, { desc = "Toggle diff overlay" })
+
+vim.keymap.set({ "n", "x" }, keymap.GitTrackLine, in_git_tab(MiniGit.show_at_cursor),
+	{ desc = "Show git data at cursor" })
+
+vim.keymap.set("n", keymap.GitDiffBoth, in_git_tab(function() MiniGit.show_diff_source({ target = "both" }) end),
+	{ desc = "Show diff source, before and after" })
+
+vim.keymap.set("n", keymap.GitHunkPick, MiniExtra.pickers.git_hunks, { desc = "Pick unstaged hunk" })
+vim.keymap.set("n", keymap.GitFilePick, MiniExtra.pickers.git_files, { desc = "Pick git file" })
+
+vim.keymap.set("n", keymap.GitCommitPick, function()
+	local buf_path = vim.api.nvim_buf_get_name(0)
+	MiniExtra.pickers.git_commits({ path = vim.fn.filereadable(buf_path) == 1 and buf_path or nil })
+end, { desc = "Pick commit touching current file" })
+
+vim.keymap.set("n", keymap.GitBranchDiff, in_git_tab(function()
+	local c1 = vim.fn.input("Diff against commit (empty for HEAD): ")
+	vim.cmd("Git diff " .. (c1 == "" and "HEAD" or c1))
+end), { desc = "Diff working tree against a commit" })

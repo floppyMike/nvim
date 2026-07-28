@@ -1,6 +1,9 @@
-local go_tab = require "tab".go_tab
+local tab = require "tab"
 
-vim.keymap.set({ "n", "i", "t" }, "<m-1>", function() go_tab("code") end)
-vim.keymap.set({ "n", "i", "t" }, "<m-2>", function() go_tab("compile") end)
-vim.keymap.set({ "n", "i", "t" }, "<m-3>", function() go_tab("terminal", "term", true) end)
-vim.keymap.set({ "n", "i", "t" }, "<m-4>", function() go_tab("lazygit", "lazygit") end)
+vim.t.role = "code" -- Adopt the startup tab, so <m-1> never strands itself on a fresh one
+
+vim.keymap.set({ "n", "i", "t" }, "<m-1>", function() tab.go_tab("code") end)
+vim.keymap.set({ "n", "i", "t" }, "<m-2>", function() tab.jump_tab("compile") end)
+vim.keymap.set({ "n", "i", "t" }, "<m-3>", function() tab.go_tab("terminal", "") end)
+vim.keymap.set({ "n", "i", "t" }, "<m-4>", function() tab.go_tab("lazygit", "lazygit") end)
+vim.keymap.set({ "n", "i", "t" }, "<m-5>", function() tab.jump_tab("git") end)
