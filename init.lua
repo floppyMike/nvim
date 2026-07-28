@@ -103,8 +103,8 @@ keymap = {
 	DAPstepinto = "<F4>",
 	DAPrepl = "<F5>",
 	DAPtogglebreak = "<leader>n",
-	DAPtogglescope = "<leader>m",
-	DAPtoggleframe = "<leader>M",
+	DAPtogglescope = "<leader>v",
+	DAPtoggleframe = "<leader>V",
 	DAPreset = "<leader>N",
 
 	-- Building

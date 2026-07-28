@@ -1,35 +1,33 @@
 local M = {
 	program = nil,
-	args = {},
+	args = nil,
 }
 
-function M.getProgram(default)
+--- Debuggee for this session. Uses `guess` when it points at something runnable,
+--- otherwise picks from the executables under the cwd. Remembered.
+function M.getProgram(guess)
 	if M.program == nil then
-		M.program = default or vim.fn.input('Path to executable: ', "", 'file')
+		local picked = guess and vim.fn.executable(guess) == 1 and guess
+			or require "dap.utils".pick_file { path = vim.fn.getcwd() }
+
+		if type(picked) ~= "string" then return require "dap".ABORT end
+		M.program = picked
 	end
 
 	return M.program
 end
 
+--- Arguments for this session with possible quotes.
 function M.getArgs()
-	if #M.args == 0 then
-		local i = 1
-		while true do
-			local input = vim.fn.input("Arg " .. i .. ": ")
-			if input == "" then
-				break
-			end
-			table.insert(M.args, input)
-			i = i + 1
-		end
+	if M.args == nil then
+		M.args = require "dap.utils".splitstr(vim.fn.input("Args: "))
 	end
 
 	return M.args
 end
 
 function M.reset()
-	M.program = nil
-	M.args = {}
+	M.program, M.args = nil, nil
 end
 
 return M
