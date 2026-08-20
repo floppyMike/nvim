@@ -169,6 +169,9 @@ keymap = {
 
 	-- External
 	Terminal = "<leader>t",
+
+	-- AI
+	AIRewrite = "<leader>a",
 }
 
 vim.pack.add({

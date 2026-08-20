@@ -7,11 +7,11 @@ vim.o.background = "light"
 
 local c = {
 	white = '#FFFFFF',
-	black = '#000000',
 
 	lsp_inlay_hint = '#969696',
 
 	accent = '#045993',
+	indicator = '#000000',
 	bg = '#dddddd',
 	fg = '#222222',
 
@@ -45,6 +45,7 @@ local c = {
 	vcs_added_bg = '#1D2214',
 	vcs_removed_bg = '#2D2220',
 
+	ok = '#118011',
 	error = '#D95757',
 	warning = '#FF8F40',
 

@@ -8,19 +8,18 @@ function M.set_hl(c)
 		FloatBorder = { fg = c.comment },
 		FloatTitle = { fg = c.fg },
 		ColorColumn = { bg = c.line },
-		Cursor = { bg = c.cursor },
+		Cursor = { fg = c.bg, bg = c.cursor },
 		CursorColumn = { bg = c.line },
 		CursorLine = { bg = c.line },
-		CursorLineNr = { fg = c.keyword, bg = c.line, bold = true },
-		LineNr = { fg = c.guide_normal },
+		CursorLineNr = { fg = c.indicator, bg = c.line, bold = true },
+		LineNr = { fg = c.line_nr, bg = c.gutter_bg },
 
 		Directory = { fg = c.func },
 		ErrorMsg = { fg = c.error },
-		WinSeparator = { fg = c.panel_border, bg = c.bg },
-		VertSplit = { link = 'WinSeparator' },
+		OkMsg = { fg = c.ok },
+		WinSeparator = { fg = c.gutter_normal, bg = c.bg },
 		Folded = { fg = c.fg_idle, bg = c.panel_bg },
-		FoldColumn = { bg = c.bg },
-		SignColumn = { bg = c.bg },
+		SignColumn = { bg = c.gutter_bg },
 
 		MatchParen = { sp = c.func, underline = true },
 		ModeMsg = { fg = c.string },
@@ -28,18 +27,32 @@ function M.set_hl(c)
 		NonText = { fg = c.guide_normal },
 		Pmenu = { fg = c.fg, bg = c.selection_inactive },
 		PmenuSel = { fg = c.fg, bg = c.selection_inactive, reverse = true },
+		PmenuSbar = { bg = c.line },
+		PmenuThumb = { bg = c.guide_normal },
+		PmenuKind = { fg = c.entity, bg = c.selection_inactive },
+		PmenuExtra = { fg = c.lsp_inlay_hint, bg = c.selection_inactive },
+		PmenuMatch = { fg = c.accent, bg = c.selection_inactive, bold = true },
+		PmenuMatchSel = { fg = c.accent, bg = c.selection_inactive, reverse = true, bold = true },
+		ComplMatchIns = { fg = c.fg_idle },
 		Question = { fg = c.string },
-		Search = { fg = c.bg, bg = c.constant },
-		CurSearch = { fg = c.bg, bg = c.special },
-		IncSearch = { fg = c.keyword, bg = c.selection_inactive },
-		SpecialKey = { fg = c.selection_inactive },
+		Search = { fg = c.bg, bg = c.func },
+		CurSearch = { fg = c.bg, bg = c.warning, bold = true },
+		Substitute = { link = 'CurSearch' },
+		YankFlash = { fg = c.bg, bg = c.accent },
+		SpecialKey = { fg = c.gutter_normal },
+		Whitespace = { fg = c.selection_inactive },
 		SpellCap = { sp = c.tag, undercurl = true },
 		SpellLocal = { sp = c.keyword, undercurl = true },
 		SpellBad = { sp = c.error, undercurl = true },
 		SpellRare = { sp = c.regexp, undercurl = true },
 		StatusLine = { fg = c.fg, bg = c.panel_bg },
 		StatusLineNC = { fg = c.fg_idle, bg = c.panel_bg },
-		WildMenu = { fg = c.fg, bg = c.markup },
+		TermCursor = { fg = c.bg, bg = c.accent },
+		WildMenu = { fg = c.bg, bg = c.accent, bold = true },
+		MsgArea = { fg = c.fg },
+		MsgSeparator = { fg = c.gutter_normal, bg = c.panel_bg },
+		WinBar = { fg = c.fg, bg = c.panel_bg, bold = true },
+		WinBarNC = { fg = c.fg_idle, bg = c.panel_bg },
 		TabLine = { fg = c.comment, bg = c.panel_shadow },
 		TabLineFill = { fg = c.fg, bg = c.panel_border },
 		TabLineSel = { fg = c.fg, bg = c.bg },
@@ -82,14 +95,29 @@ function M.set_hl(c)
 
 		-- LSP.
 		DiagnosticError = { fg = c.error },
-		DiagnosticWarn = { fg = c.keyword },
-		DiagnosticInfo = { fg = c.tag },
+		DiagnosticWarn = { fg = c.warning },
+		DiagnosticInfo = { fg = c.accent },
 		DiagnosticHint = { fg = c.regexp },
+		DiagnosticOk = { fg = c.ok },
 
 		DiagnosticUnderlineError = { sp = c.error, undercurl = true },
-		DiagnosticUnderlineWarn = { sp = c.keyword, undercurl = true },
-		DiagnosticUnderlineInfo = { sp = c.tag, undercurl = true },
+		DiagnosticUnderlineWarn = { sp = c.warning, undercurl = true },
+		DiagnosticUnderlineInfo = { sp = c.accent, undercurl = true },
 		DiagnosticUnderlineHint = { sp = c.regexp, undercurl = true },
+		DiagnosticUnderlineOk = { sp = c.ok, undercurl = true },
+
+		DiagnosticUnnecessary = { fg = c.fg_idle },
+		DiagnosticDeprecated = { sp = c.fg_idle, strikethrough = true },
+
+		LspInlayHint = { fg = c.lsp_inlay_hint },
+		LspSignatureActiveParameter = { italic = true },
+		LspReferenceWrite = { bg = c.selection_inactive, underline = true },
+		LspCodeLens = { fg = c.comment, italic = true },
+		LspCodeLensSeparator = { fg = c.guide_normal },
+
+		-- Dap sign column. plugin/debugging.lua points its signs at the Diagnostic groups.
+		debugPC = { bg = c.line },
+		debugBreakpoint = { fg = c.error },
 
 		-- Markdown.
 		markdownCode = { fg = c.special },
@@ -103,51 +131,27 @@ function M.set_hl(c)
 		['@variable'] = { fg = c.fg },
 		['@variable.builtin'] = { fg = c.func },
 		['@variable.member'] = { fg = c.tag },
-		['@variable.parameter'] = { fg = c.fg },
+		['@variable.parameter'] = { fg = c.lsp_parameter },
 		['@module'] = { fg = c.entity },
-		['@markup.heading'] = { fg = c.keyword },
 		['@keyword.storage'] = { fg = c.keyword },
-		['@function.builtin'] = { link = "Statement" },
+		['@function.builtin'] = { link = 'Statement' },
 
-		['@lsp.type.namespace'] = { link = '@module' },
-		['@lsp.type.type'] = { link = '@type' },
-		['@lsp.type.class'] = { link = '@type' },
-		['@lsp.type.enum'] = { link = '@type' },
-		['@lsp.type.interface'] = { link = '@type' },
-		['@lsp.type.struct'] = { link = '@type' },
+		-- Only the semantic tokens that differ from their default link.
 		['@lsp.type.parameter'] = { fg = c.lsp_parameter },
 		['@lsp.type.field'] = { link = '@variable.member' },
-		['@lsp.type.variable'] = { link = '@variable' },
-		['@lsp.type.property'] = { link = '@property' },
-		['@lsp.type.enumMember'] = { link = '@constant' },
-		['@lsp.type.function'] = { link = '@function' },
-		['@lsp.typemod.function.constant'] = { link = '@function' },
-		['@lsp.typemod.method.constant'] = { link = '@function' },
-		['@lsp.type.method'] = { link = '@function.method' },
 		['@lsp.type.macro'] = { link = '@function.macro' },
 		['@lsp.type.decorator'] = { link = '@function' },
 		['@lsp.mod.constant'] = { link = '@constant' },
-
-		csvCol1 = { fg = c.accent },    -- Bright Blue
-		csvCol2 = { fg = c.regexp },    -- Minty Ice
-		csvCol3 = { fg = c.markup },    -- Pale Lavender/Blue
-		csvCol4 = { fg = c.constant },  -- Deep Ice Blue
-		csvCol5 = { fg = c.func },      -- Sky Blue
-		csvCol6 = { fg = c.string },    -- Lightest Blue
-		csvCol7 = { fg = c.vcs_added }, -- Frosted Green
-		csvCol8 = { fg = c.warning },   -- Soft Amber
+		['@lsp.typemod.function.constant'] = { link = '@function' },
+		['@lsp.typemod.method.constant'] = { link = '@function' },
 
 		-- TreesitterContext.
 		TreesitterContext = { bg = c.selection_inactive },
 
 		-- Word under cursor.
 		CursorWord = { bg = c.selection_inactive },
-		CursorWord0 = { bg = c.selection_inactive },
-		CursorWord1 = { bg = c.selection_inactive },
-
-		-- LSP
-		LspInlayHint = { fg = c.lsp_inlay_hint },
-		LspSignatureActiveParameter = { italic = true },
+		CursorWord0 = { link = 'CursorWord' },
+		CursorWord1 = { link = 'CursorWord' },
 
 		-- Dap.
 		NvimDapVirtualText = { fg = c.regexp },
@@ -160,7 +164,7 @@ function M.set_hl(c)
 		DapUIStoppedThread = { fg = c.special },
 		DapUISource = { fg = c.regexp },
 		DapUILineNumber = { fg = c.constant },
-		DapUIFloatBorder = { fg = c.panel_border },
+		DapUIFloatBorder = { link = 'FloatBorder' },
 		DapUIWatchesEmpty = { fg = c.warning },
 		DapUIWatchesValue = { fg = c.string },
 		DapUIWatchesError = { fg = c.error },
@@ -169,20 +173,54 @@ function M.set_hl(c)
 		DapUIBreakpointsCurrentLine = { fg = c.constant, bold = true },
 
 		-- Mini.
-		MiniFilesTitleFocused = { fg = c.fg, bold = true },
+		MiniCompletionInfoBorderOutdated = { fg = c.warning },
+
+		MiniDiffSignAdd = { fg = c.vcs_added },
+		MiniDiffSignChange = { fg = c.vcs_modified },
+		MiniDiffSignDelete = { fg = c.vcs_removed },
+
+		MiniFilesNormal = { link = 'NormalFloat' },
+		MiniFilesBorder = { link = 'FloatBorder' },
+		MiniFilesBorderModified = { fg = c.warning },
+		MiniFilesCursorLine = { bg = c.selection_inactive },
+		MiniFilesDirectory = { fg = c.func },
+		MiniFilesFile = { fg = c.fg },
+		MiniFilesTitle = { fg = c.comment },
+		MiniFilesTitleFocused = { fg = c.accent, bold = true },
+
+		MiniNotifyNormal = { link = 'NormalFloat' },
+		MiniNotifyBorder = { link = 'FloatBorder' },
+		MiniNotifyTitle = { fg = c.accent, bold = true },
+		MiniNotifyLspProgress = { fg = c.comment },
+
+		MiniPickNormal = { link = 'NormalFloat' },
+		MiniPickBorder = { link = 'FloatBorder' },
+		MiniPickBorderBusy = { fg = c.warning },
+		MiniPickBorderText = { fg = c.accent },
+		MiniPickHeader = { fg = c.regexp },
+		MiniPickIconDirectory = { fg = c.func },
+		MiniPickIconFile = { fg = c.comment },
+		MiniPickMatchCurrent = { bg = c.line },
+		MiniPickMatchMarked = { bg = c.selection_inactive },
+		MiniPickMatchRanges = { fg = c.accent, bold = true },
+		MiniPickPreviewLine = { bg = c.line },
+		MiniPickPreviewRegion = { bg = c.selection_inactive },
+		MiniPickPrompt = { fg = c.keyword, bold = true },
+		MiniPickPromptCaret = { fg = c.cursor },
+		MiniPickPromptPrefix = { fg = c.accent },
 		MiniHipatternsFixme = { fg = c.bg, bg = c.error, bold = true },
-		MiniHipatternsHack = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniHipatternsTodo = { fg = c.bg, bg = c.tag, bold = true },
+		MiniHipatternsHack = { fg = c.bg, bg = c.warning, bold = true },
+		MiniHipatternsTodo = { fg = c.bg, bg = c.accent, bold = true },
 		MiniHipatternsNote = { fg = c.bg, bg = c.regexp, bold = true },
-		MiniIconsAzure = { fg = c.tag },
-		MiniIconsBlue = { fg = c.entity },
-		MiniIconsCyan = { fg = c.regexp },
-		MiniIconsGreen = { fg = c.string },
-		MiniIconsGrey = { fg = c.fg },
-		MiniIconsOrange = { fg = c.keyword },
-		MiniIconsPurple = { fg = c.lsp_parameter },
+		MiniIconsAzure = { fg = c.vcs_modified },
+		MiniIconsBlue = { fg = c.accent },
+		MiniIconsCyan = { fg = c.func },
+		MiniIconsGreen = { fg = c.ok },
+		MiniIconsGrey = { fg = c.comment },
+		MiniIconsOrange = { fg = c.warning },
+		MiniIconsPurple = { fg = c.markup },
 		MiniIconsRed = { fg = c.error },
-		MiniIconsYellow = { fg = c.special },
+		MiniIconsYellow = { fg = c.regexp },
 		MiniIndentscopeSymbol = { fg = c.comment },
 		MiniIndentscopeSymbolOff = { fg = c.keyword },
 		MiniJump = { sp = c.keyword, undercurl = true },
@@ -197,44 +235,21 @@ function M.set_hl(c)
 		MiniStatuslineFileinfo = { fg = c.fg, bg = c.panel_border },
 		MiniStatuslineFilename = { fg = c.fg_idle, bg = c.panel_border },
 		MiniStatuslineInactive = { fg = c.fg_idle, bg = c.panel_border },
-		MiniStatuslineModeCommand = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniStatuslineModeInsert = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniStatuslineModeNormal = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniStatuslineModeOther = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniStatuslineModeReplace = { fg = c.bg, bg = c.keyword, bold = true },
-		MiniStatuslineModeVisual = { fg = c.bg, bg = c.keyword, bold = true },
 		MiniTablineCurrent = { fg = c.fg, bg = c.bg, bold = true },
 		MiniTablineFill = { fg = c.fg, bg = c.panel_border },
 		MiniTablineHidden = { fg = c.comment, bg = c.panel_shadow },
-		MiniTablineModifiedCurrent = { fg = c.bg, bg = c.fg, bold = true },
-		MiniTablineModifiedHidden = { fg = c.panel_shadow, bg = c.comment },
-		MiniTablineModifiedVisible = { fg = c.bg, bg = c.fg },
+		MiniTablineModifiedCurrent = { fg = c.accent, bg = c.bg, bold = true },
+		MiniTablineModifiedHidden = { fg = c.accent, bg = c.bg },
+		MiniTablineModifiedVisible = { fg = c.accent, bg = c.bg },
 		MiniTablineVisible = { fg = c.fg, bg = c.bg },
+		MiniTablineTabpagesection = { fg = c.bg, bg = c.indicator, bold = true },
 		MiniTestFail = { fg = c.error, bold = true },
-		MiniTestPass = { fg = c.string, bold = true },
+		MiniTestPass = { fg = c.ok, bold = true },
 		MiniTrailspace = { bg = c.vcs_removed },
 
 		-- Render Markdown.
-		RenderMarkdownH1 = { fg = c.vcs_added },
-		RenderMarkdownH2 = { fg = c.string },
-		RenderMarkdownH3 = { fg = c.accent },
-		RenderMarkdownH4 = { fg = c.keyword },
-		RenderMarkdownH5 = { fg = c.markup },
-		RenderMarkdownH6 = { fg = c.constant },
-		RenderMarkdownH1Bg = { bg = c.line, fg = c.vcs_added },
-		RenderMarkdownH2Bg = { bg = c.line, fg = c.string },
-		RenderMarkdownH3Bg = { bg = c.line, fg = c.accent },
-		RenderMarkdownH4Bg = { bg = c.line, fg = c.keyword },
-		RenderMarkdownH5Bg = { bg = c.line, fg = c.markup },
-		RenderMarkdownH6Bg = { bg = c.line, fg = c.constant },
 		RenderMarkdownQuote = { fg = c.accent },
-		RenderMarkdownQuote1 = { fg = c.accent },
-		RenderMarkdownQuote2 = { fg = c.keyword },
-		RenderMarkdownQuote3 = { fg = c.markup },
-		RenderMarkdownQuote4 = { fg = c.constant },
-		RenderMarkdownQuote5 = { fg = c.constant },
-		RenderMarkdownQuote6 = { fg = c.constant },
-		RenderMarkdownBullet = { fg = c.vcs_added },
+		RenderMarkdownBullet = { fg = c.accent },
 		RenderMarkdownDash = { fg = c.accent },
 		RenderMarkdownSign = { fg = c.accent },
 		RenderMarkdownMath = { fg = c.accent },
@@ -243,29 +258,49 @@ function M.set_hl(c)
 		RenderMarkdownLink = { fg = c.tag },
 		RenderMarkdownWikiLink = { fg = c.tag },
 		RenderMarkdownUnchecked = { fg = c.markup },
-		RenderMarkdownChecked = { fg = c.vcs_added },
-		RenderMarkdownTodo = { fg = c.vcs_added },
+		RenderMarkdownChecked = { fg = c.ok },
+		RenderMarkdownTodo = { fg = c.ok },
 		RenderMarkdownTableHead = { fg = c.comment },
 		RenderMarkdownTableRow = { fg = c.comment },
 		RenderMarkdownTableFill = { fg = c.comment },
 
-		-- HTML
+		-- HTML.
 		htmlTag = { fg = c.entity },
 		htmlEndTag = { link = 'htmlTag' },
-		htmlTagName = { fg = c.entity },
+		htmlTagName = { link = 'htmlTag' },
 		htmlArg = { fg = c.func },
 		htmlTitle = { bold = true, fg = c.fg },
-		htmlH1 = { link = 'htmlTitle' },
-		htmlH2 = { link = 'htmlTitle' },
-		htmlH3 = { link = 'htmlTitle' },
-		htmlH4 = { link = 'htmlTitle' },
-		htmlH5 = { link = 'htmlTitle' },
-		htmlH6 = { link = 'htmlTitle' },
 	}
+
+	-- Families whose members differ only by index. Reorder a list to retheme the whole run.
+	local heading = { c.vcs_added, c.string, c.accent, c.keyword, c.markup, c.constant }
+	local quote = { c.accent, c.keyword, c.markup, c.constant, c.constant, c.constant }
+	local csv = { c.accent, c.regexp, c.markup, c.constant, c.func, c.string, c.vcs_added, c.warning }
+
+	for i, fg in ipairs(heading) do
+		groups['RenderMarkdownH' .. i] = { fg = fg }
+		groups['RenderMarkdownH' .. i .. 'Bg'] = { fg = fg, bg = c.line }
+		groups['RenderMarkdownQuote' .. i] = { fg = quote[i] }
+		groups['htmlH' .. i] = { link = 'htmlTitle' }
+	end
+
+	for i, fg in ipairs(csv) do groups['csvCol' .. i] = { fg = fg } end
+
+	for _, mode in ipairs { 'Command', 'Insert', 'Normal', 'Other', 'Replace', 'Visual' } do
+		groups['MiniStatuslineMode' .. mode] = { fg = c.bg, bg = c.indicator, bold = true }
+	end
 
 	for group, parameters in pairs(groups) do
 		vim.api.nvim_set_hl(0, group, parameters)
 	end
+
+	-- ANSI palette for :terminal, so shell output sits in the same range as the editor.
+	local ansi = {
+		c.bg, c.error, c.ok, c.warning, c.accent, c.markup, c.regexp, c.fg,
+		c.comment, c.vcs_removed, c.vcs_added, c.warning, c.func, c.markup, c.string, c.special,
+	}
+
+	for i, colour in ipairs(ansi) do vim.g['terminal_color_' .. (i - 1)] = colour end
 
 	vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:-Cursor"
 end
