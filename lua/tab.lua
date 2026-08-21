@@ -32,9 +32,6 @@ local function spawn(role, cmd)
 			end)
 		end
 	})
-
-	-- Only a bare shell gives up <Esc>, TUI apps like lazygit need it themselves.
-	if cmd == "" then vim.keymap.set("t", "<Esc>", "<c-\\><c-n>", { buffer = buf }) end
 end
 
 --- Tag the current tab with `role`, closing any other tab already holding it

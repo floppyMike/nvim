@@ -170,6 +170,13 @@ keymap = {
 	-- External
 	Terminal = "<leader>t",
 
+	-- Terminal Mode
+	TermNormal = "<a-n>",
+	TermJumpUpWindow = "<a-k>",
+	TermJumpDownWindow = "<a-j>",
+	TermJumpLeftWindow = "<a-h>",
+	TermJumpRightWindow = "<a-l>",
+
 	-- AI
 	AIRewrite = "<leader>a",
 }
