@@ -7,4 +7,4 @@ vim.keymap.set({ "n", "i", "t" }, "<m-2>", function() tab.jump_tab("compile") en
 vim.keymap.set({ "n", "i", "t" }, "<m-3>", function() tab.go_tab("terminal", "") end)
 vim.keymap.set({ "n", "i", "t" }, "<m-4>", function() tab.go_tab("lazygit", "lazygit") end)
 vim.keymap.set({ "n", "i", "t" }, "<m-5>", function() tab.jump_tab("git") end)
-vim.keymap.set({ "n", "i", "t" }, "<m-6>", function() tab.go_tab("pi", "pi") end)
+vim.keymap.set({ "n", "i", "t" }, "<m-6>", function() tab.go_tab("claude", "claude") end)
