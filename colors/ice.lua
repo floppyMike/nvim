@@ -34,9 +34,11 @@ local c = {
 	panel_bg = '#000000',           -- Statusline, winbar, fold background
 	panel_shadow = '#000000',       -- Tabline background
 	panel_border = '#000000',       -- Statusline and tabline section background
+	gutter_bg = '#0a0a0a',          -- Number and sign column background
+	line_nr = '#6d757f',            -- The digits themselves
 	gutter_normal = '#454B55',      -- Window separators, tab and space marks
 	selection_inactive = '#333333', -- Visual, pmenu, word under cursor
-	guide_normal = '#555555',       -- Line numbers and non-text marks
+	guide_normal = '#555555',       -- Non-text marks and the pmenu thumb
 
 	vcs_added = '#7FD962',          -- Git added
 	vcs_modified = '#73B8FF',       -- Git changed

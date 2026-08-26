@@ -6,50 +6,53 @@ vim.g.colors_name = "paper"
 vim.o.background = "light"
 
 local c = {
-	white = '#FFFFFF',
+	white = '#FFFFFF',              -- Text on the Error badge, nothing else
 
-	lsp_inlay_hint = '#969696',
+	lsp_inlay_hint = '#7d7769',     -- Inlay hints and the pmenu extra column
 
-	accent = '#045993',
-	indicator = '#000000',
-	bg = '#dddddd',
-	fg = '#222222',
+	accent = '#1a5b8f',             -- Eye-catcher: info, match ranges, float titles
+	indicator = '#3a4a5a',          -- Filled chips: mode, cursor position, tab counter
+	bg = '#f2efe8',                 -- Editor background, and text on every filled chip
+	fg = '#2c2a26',                 -- Default text
 
-	cursor = '#777777',
+	cursor = '#d9a441',             -- The caret block. st draws the glyph under it in its own
+	                                -- hardcoded background (black), so this must stay light.
 
-	tag = '#222222',
-	func = '#db6000', -- functions
-	entity = '#045993', -- Types
-	string = '#75499c',
-	regexp = '#75499c',
-	markup = '#d1e3ff',
-	keyword = '#000000',
-	special = '#222222',
-	comment = '#636A72',
-	constant = '#118011',
-	operator = '#000000',
-	lsp_parameter = '#222222',
+	tag = '#7a4a3f',                -- Fields, properties, links
+	func = '#a85f00',               -- Functions and directories
+	entity = '#1a5b8f',             -- Types, modules, tag names
+	string = '#6a4a94',             -- Strings and prompts
+	regexp = '#0f6f78',             -- Hints, notes, regex
+	markup = '#9c4a86',             -- Markup, exceptions, TODO
+	keyword = '#8a3a52',            -- Keywords, statements, titles
+	special = '#4a4640',            -- Delimiters and structure
+	comment = '#77726a',            -- Comments and dimmed labels
+	constant = '#2f6b4f',           -- Constants and literals
+	operator = '#5a5650',           -- Operators
+	lsp_parameter = '#2c2a26',      -- LSP parameter tokens
 
-	line = '#cccccc',
-	panel_bg = '#000000',
-	panel_shadow = '#111111',
-	panel_border = '#aaaaaa',
-	gutter_normal = '#454B55',
-	selection_inactive = '#bbbbbb',
-	guide_normal = '#999999',
+	line = '#e6e0d1',               -- Cursorline and column band
+	panel_bg = '#eae6dd',           -- Statusline, winbar, fold background
+	panel_shadow = '#e0dbd0',       -- Tabline background
+	panel_border = '#e6e2d9',       -- Statusline and tabline section background
+	gutter_bg = '#e9e4d8',          -- Number and sign column background
+	line_nr = '#6b6459',            -- The digits themselves
+	gutter_normal = '#a69e8c',      -- Window separators, tab and space marks
+	selection_inactive = '#d8d0be', -- Visual, pmenu, word under cursor
+	guide_normal = '#aaa398',       -- Non-text marks and the pmenu thumb
 
-	vcs_added = '#7FD962',
-	vcs_modified = '#73B8FF',
-	vcs_removed = '#F26D78',
+	vcs_added = '#3d7a33',          -- Git added
+	vcs_modified = '#1a5b8f',       -- Git changed
+	vcs_removed = '#b23a3a',        -- Git removed, trailing whitespace
 
-	vcs_added_bg = '#1D2214',
-	vcs_removed_bg = '#2D2220',
+	vcs_added_bg = '#e2ebdd',       -- Diff added line background
+	vcs_removed_bg = '#f2e0dd',     -- Diff removed line background
 
-	ok = '#118011',
-	error = '#D95757',
-	warning = '#FF8F40',
+	ok = '#3d7a33',                 -- Success: passing tests, checked items
+	error = '#a52a2a',              -- Errors and breakpoints
+	warning = '#9a6400',            -- Warnings and the current search match
 
-	fg_idle = '#565B66',
+	fg_idle = '#847e73',            -- Inactive windows, unused and deprecated code
 }
 
 require "highlightgroups".set_hl(c)
