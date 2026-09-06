@@ -5,6 +5,7 @@ vim.lsp.enable "clangd"
 vim.lsp.enable "zls"
 vim.lsp.enable "rust_analyzer"
 vim.lsp.enable "arduino_language_server"
+vim.lsp.enable "zuban"
 
 vim.keymap.set('n', keymap.LSPDefinition, vim.lsp.buf.definition, { desc = "Goto definition", nowait = true })
 vim.keymap.set('n', keymap.LSPFormat, vim.lsp.buf.format, { desc = "Format document", nowait = true })
