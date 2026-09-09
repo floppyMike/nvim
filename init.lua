@@ -120,12 +120,12 @@ keymap = {
 	TrailRemoveAll = "<leader>P",
 
 	-- Surrounding
-	SurroundAdd = "gza",
-	SurroundDelete = "gzd",
-	SurroundFindFront = "gzf",
-	SurroundFindBack = "gzF",
-	SurroundHighlight = "gzh",
-	SurroundReplace = "gzr",
+	SurroundAdd = ",a",
+	SurroundDelete = ",d",
+	SurroundFindFront = ",f",
+	SurroundFindBack = ",F",
+	SurroundHighlight = ",h",
+	SurroundReplace = ",r",
 
 	-- Spelling
 	SpellToggle = "<leader>Z",

@@ -10,7 +10,11 @@ require "mini.surround".setup { -- Add surround text with functionality
 		find_left = keymap.SurroundFindBack,
 		highlight = keymap.SurroundHighlight,
 		replace = keymap.SurroundReplace,
+		update_n_lines = "",
+		suffix_last = "",
+		suffix_next = "",
 	},
+	search_method = "cover_or_next",
 }
 
 local ai = require "mini.ai"
