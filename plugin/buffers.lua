@@ -1,4 +1,5 @@
 require "mini.tabline".setup()
+require "mini.misc".setup()
 
 vim.api.nvim_create_autocmd("FileType", { -- Quicklist buffers don't appear in bufferlist
 	desc = "Unlist quickfist buffers",
@@ -17,6 +18,7 @@ vim.keymap.set("n", keymap.ResizeUpWindow, "<cmd>resize +2<CR>", { desc = "Resiz
 vim.keymap.set("n", keymap.ResizeDownWindow, "<cmd>resize -2<CR>", { desc = "Resize split down" })
 vim.keymap.set("n", keymap.ResizeLeftWindow, "<cmd>vertical resize +2<CR>", { desc = "Resize split left" })
 vim.keymap.set("n", keymap.ResizeRightWindow, "<cmd>vertical resize -2<CR>", { desc = "Resize split right" })
+vim.keymap.set("n", keymap.ZoomWindow, MiniMisc.zoom, { desc = "Toggle fullscreen of split" })
 
 vim.keymap.set("n", keymap.LocationToggle,
 	function()

@@ -48,6 +48,8 @@ keymap = {
 	-- Splitting
 	VerticalSplit = "|",
 	HorizontalSplit = "\\",
+	ShellVerticalSplit = "<a-lt>",
+	ShellHorizontalSplit = "<a-ß>",
 
 	-- Window Management
 	JumpUpWindow = "<c-k>",
@@ -59,6 +61,7 @@ keymap = {
 	ResizeLeftWindow = "<c-Left>",
 	ResizeRightWindow = "<c-Right>",
 	ExitWindow = "<leader>q",
+	ZoomWindow = "<a-z>",
 
 	-- Alt Walking
 	NextBuffer = "<a-b>",
@@ -87,6 +90,7 @@ keymap = {
 	GrepPick = "<leader>G",
 	BufferPick = "<leader>b",
 	MarkPick = "<leader>m",
+	SpecialPick = "<leader>o",
 	Filesytem = "<leader>s",
 	FilesytemLocal = "<leader>S",
 

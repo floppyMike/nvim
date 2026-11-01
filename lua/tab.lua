@@ -17,19 +17,13 @@ end
 local function spawn(role, cmd)
 	vim.cmd("terminal " .. cmd)
 
-	local buf, tab = vim.api.nvim_get_current_buf(), vim.api.nvim_get_current_tabpage()
+	local buf = vim.api.nvim_get_current_buf()
 	pcall(vim.api.nvim_buf_set_name, buf, role)
 
 	vim.api.nvim_create_autocmd("TermClose", {
 		buffer = buf,
 		callback = function()
-			vim.schedule(function()
-				if vim.api.nvim_tabpage_is_valid(tab) then
-					pcall(vim.cmd, vim.api.nvim_tabpage_get_number(tab) .. "tabclose")
-				end
-
-				pcall(vim.api.nvim_buf_delete, buf, { force = true })
-			end)
+			vim.schedule(function() pcall(vim.api.nvim_buf_delete, buf, { force = true }) end) -- Also closes its tab
 		end
 	})
 end

@@ -33,10 +33,6 @@ vim.keymap.set("n", keymap.GrepPick, MiniPick.builtin.grep)
 vim.keymap.set("n", keymap.BufferPick, MiniPick.builtin.buffers)
 vim.keymap.set("n", keymap.MarkPick, function() MiniExtra.pickers.marks({ scope = "all" }) end, { desc = "Pick Marks" })
 
-for i = 1, 9 do
-	vim.keymap.set("n", "<a-" .. i .. ">", i .. "gt", { desc = "Go to tab " .. i })
-end
-
 vim.keymap.set({ 'n', 'x', 'o' }, keymap.JumpWord, '<Plug>(leap)')
 vim.keymap.set('n',               keymap.JumpWindow, '<Plug>(leap-from-window)')
 
