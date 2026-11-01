@@ -1,3 +1,11 @@
+vim.lsp.config("rust_analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			references = { excludeTests = true },
+		},
+	},
+})
+
 vim.lsp.enable "gopls"
 vim.lsp.enable "emmylua_ls"
 vim.lsp.enable "texlab"
