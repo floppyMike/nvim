@@ -42,6 +42,7 @@ vim.g.no_plugin_maps = true
 keymap = {
 	-- Duck
 	DuckCreate = "<leader>dd",
+	DuckFollow = "<leader>df",
 	DuckDestroy = "<leader>dk",
 	DuckDestroyAll = "<leader>da",
 
@@ -191,7 +192,6 @@ vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mfussenegger/nvim-dap",
-	"https://github.com/tamton-aquib/duck.nvim",
 	"https://codeberg.org/andyg/leap.nvim",
 })
 
