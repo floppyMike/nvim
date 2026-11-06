@@ -50,12 +50,12 @@ local function find_buf(role)
 end
 
 --- Run claude in the current window, vacating its windows when it exits
-local function spawn_claude()
-	vim.cmd("terminal claude")
+local function spawn_vacated(name)
+	vim.cmd("terminal " .. name)
 
 	local buf = vim.api.nvim_get_current_buf()
-	vim.b[buf].role = "claude"
-	pcall(vim.cmd, "keepalt file claude")
+	vim.b[buf].role = name
+	pcall(vim.cmd, "keepalt file " .. name)
 
 	vim.api.nvim_create_autocmd("TermClose", {
 		buffer = buf,
@@ -75,9 +75,10 @@ local function show(role, make)
 end
 
 local specials = {
-	claude = function() show("claude", spawn_claude) end,
+	claude = function() show("claude", spawn_vacated("claude")) end,
 	compile = function() show("compile", function() vim.notify("No compile output", vim.log.levels.WARN) end) end,
 	shell = function() vim.cmd("terminal") end,
+	pi = function() show("pi", spawn_vacated("pi")) end,
 }
 
 vim.keymap.set("n", keymap.SpecialPick, function()
