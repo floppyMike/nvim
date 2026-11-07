@@ -2,7 +2,7 @@ if vim.g.colors_name then
 	vim.cmd("hi clear")
 end
 
-vim.g.colors_name = "ice"
+vim.g.colors_name = "dark"
 vim.o.background = "dark"
 
 local c = {
